@@ -181,13 +181,9 @@ object DefaultInstallerLogic {
         component: ComponentName,
         userId: Int,
     ) {
-        // Replace just this filter, not every default owned by the package. Clearing
-        // package-wide here would erase the installer when restoring the uninstaller.
-        val method = iPackageManager.javaClass.getMethod(
-            "replacePreferredActivity", IntentFilter::class.java, Int::class.javaPrimitiveType,
-            Array<ComponentName>::class.java, ComponentName::class.java, Int::class.javaPrimitiveType,
+        MimePreferredActivity.register(
+            iPackageManager, Build.VERSION.SDK_INT, filter, match, names, component, userId,
         )
-        method.invoke(iPackageManager, filter, match, names, component, userId)
     }
 
     private fun addPersistentPreferredActivity(

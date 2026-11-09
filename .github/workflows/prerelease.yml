@@ -68,7 +68,7 @@ jobs:
         run: |
           cat > "$RUNNER_TEMP/notes.md" <<EOF
           ### 📱 Phone (App)
-          Shizuku cold-start readiness, default-handler recovery, battery optimization settings, dialog lifecycle and pending-install persistence fixes.
+          Hotfix: restore MIME-compatible default-installer registration through Shizuku. The previous pre-release used replacePreferredActivity, which Android rejects for APK MIME filters. Includes the earlier cold-start and lifecycle fixes.
 
           Tests, debug builds and R8 release build must pass before this release is published. RedMagicOS device behavior has not been verified on hardware. This is an experimental pre-release, not a production certification.
 
