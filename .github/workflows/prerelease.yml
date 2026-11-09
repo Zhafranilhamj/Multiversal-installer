@@ -31,13 +31,14 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           set -euo pipefail
+          umask 077
           : "${KEYSTORE_BASE64:?Configure KEYSTORE_BASE64}"
           : "${STORE_PASSWORD:?Configure STORE_PASSWORD or KEYSTORE_PASSWORD}"
           : "${KEY_ALIAS:?Configure KEY_ALIAS}"
           : "${KEY_PASSWORD:?Configure KEY_PASSWORD}"
           printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
           echo 'SIGNING_NOTE=Signed using the configured repository release key. Older disposable-key builds must be uninstalled first after backing up settings.' >> "$GITHUB_ENV"
-          printf 'storeFile=%s\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' "$RUNNER_TEMP/release.jks" "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > key.properties
+          java .github/scripts/PrepareSigning.java
       - name: Unit tests
         run: |
           set -o pipefail
