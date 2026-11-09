@@ -54,21 +54,21 @@ jobs:
       - name: Publish redacted build diagnostic on failure
         if: failure()
         uses: actions/github-script@v7
-        env:
-          SIGNING_SECRETS: ${{ toJSON(secrets) }}
         with:
           script: |
             const fs = require('fs');
             const path = process.env.RUNNER_TEMP + '/gradle-diagnostic.log';
             if (!fs.existsSync(path)) return;
-            let log = fs.readFileSync(path, 'utf8');
-            for (const value of Object.values(JSON.parse(process.env.SIGNING_SECRETS || '{}'))) {
-              if (value) log = log.split(String(value)).join('[REDACTED]');
-            }
+            // Only task/test identifiers, not raw logs, exception messages or credentials.
+            const log = fs.readFileSync(path, 'utf8').split('\n').filter(line =>
+              /^> Task :[a-zA-Z0-9:]+ FAILED$/.test(line) ||
+              /^Execution failed for task ':[a-zA-Z0-9:]+'\.$/.test(line) ||
+              /^[a-zA-Z0-9_.]+ > [a-zA-Z0-9_()]+ FAILED$/.test(line.trim())
+            ).join('\n') || 'See the workflow log for details.';
             await github.rest.checks.create({
               ...context.repo, name: 'Gradle failure diagnostic', head_sha: context.sha,
               status: 'completed', conclusion: 'failure',
-              output: { title: 'Redacted Gradle failure', summary: log.slice(-55000) }
+              output: { title: 'Failed Gradle tasks and tests', summary: log.slice(-55000) }
             });
       - name: Verify signature and prepare download
         run: |
