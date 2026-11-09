@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  checks: write
 
 concurrency:
   group: reliability-prerelease-${{ github.ref }}
@@ -37,10 +38,38 @@ jobs:
           printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
           echo 'SIGNING_NOTE=Signed using the configured repository release key. Older disposable-key builds must be uninstalled first after backing up settings.' >> "$GITHUB_ENV"
           printf 'storeFile=%s\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' "$RUNNER_TEMP/release.jks" "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > key.properties
-      - name: Unit tests, debug builds and optimized release
+      - name: Unit tests
         run: |
+          set -o pipefail
           chmod +x gradlew
-          ./gradlew :app:testOpensourceDebugUnitTest assembleDebug :app:assembleOpensourceRelease --stacktrace
+          ./gradlew :app:testOpensourceDebugUnitTest --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-diagnostic.log"
+      - name: Debug builds
+        run: |
+          set -o pipefail
+          ./gradlew assembleDebug --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-diagnostic.log"
+      - name: Optimized signed release
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleOpensourceRelease --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle-diagnostic.log"
+      - name: Publish redacted build diagnostic on failure
+        if: failure()
+        uses: actions/github-script@v7
+        env:
+          SIGNING_SECRETS: ${{ toJSON(secrets) }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = process.env.RUNNER_TEMP + '/gradle-diagnostic.log';
+            if (!fs.existsSync(path)) return;
+            let log = fs.readFileSync(path, 'utf8');
+            for (const value of Object.values(JSON.parse(process.env.SIGNING_SECRETS || '{}'))) {
+              if (value) log = log.split(String(value)).join('[REDACTED]');
+            }
+            await github.rest.checks.create({
+              ...context.repo, name: 'Gradle failure diagnostic', head_sha: context.sha,
+              status: 'completed', conclusion: 'failure',
+              output: { title: 'Redacted Gradle failure', summary: log.slice(-55000) }
+            });
       - name: Verify signature and prepare download
         run: |
           mkdir -p release-artifacts
