@@ -294,7 +294,8 @@ class DialogInstallActivity : FragmentActivity() {
 
             var pendingFallbackBackend by remember { mutableStateOf<String?>(null) }
 
-            val proceedInstall = {
+            val proceedInstall: () -> Unit = {
+                lifecycleScope.launch {
                 val apkSize = uiState.pendingApkInfo?.fileSizeBytes ?: 0L
                 if (!StorageUtil.hasSufficientStorage(apkSize)) {
                     viewModel.showStorageWarning(apkSize)
@@ -313,6 +314,8 @@ class DialogInstallActivity : FragmentActivity() {
                         }
                     }
                 }
+            }
+
             }
 
             LaunchedEffect(uiState.pendingApkInfo, uiState.dialogStage) {

@@ -29,30 +29,40 @@ class PrivilegedRootService : RootService() {
     }
     
     private class ServiceBinder : IPrivilegedService.Stub() {
+        private inline fun asSystem(block: () -> Unit) {
+            val uid = android.system.Os.geteuid()
+            try {
+                if (uid == 0) android.system.Os.seteuid(1000)
+                block()
+            } finally {
+                if (uid == 0) android.system.Os.seteuid(uid)
+            }
+        }
+
         override fun setDefaultInstaller(component: ComponentName, lock: Boolean) {
             // ServiceManager.getService runs in this root process so the returned binder is
             // not wrapped — direct calls land at PackageManagerService with caller UID = 0.
             val pmBinder = ServiceManager.getService("package")
                 ?: error("system_service 'package' returned null in root process")
             val iPm = IPackageManager.Stub.asInterface(pmBinder)
-            DefaultInstallerLogic.setDefaultInstaller(
+            asSystem { DefaultInstallerLogic.setDefaultInstaller(
                 iPackageManager = iPm,
                 component = component,
                 lock = lock,
                 hasSystemLevelPermission = true,
-            )
+            ) }
         }
 
         override fun setDefaultUninstaller(component: ComponentName, lock: Boolean) {
             val pmBinder = ServiceManager.getService("package")
                 ?: error("system_service 'package' returned null in root process")
             val iPm = IPackageManager.Stub.asInterface(pmBinder)
-            app.pwhs.universalinstaller.util.DefaultUninstallerLogic.setDefaultUninstaller(
+            asSystem { app.pwhs.universalinstaller.util.DefaultUninstallerLogic.setDefaultUninstaller(
                 iPackageManager = iPm,
                 component = component,
                 lock = lock,
                 hasSystemLevelPermission = true,
-            )
+            ) }
         }
     }
 }

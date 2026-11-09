@@ -1,6 +1,7 @@
 package app.pwhs.universalinstaller.data.repository
 
-import androidx.lifecycle.SavedStateHandle
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import app.pwhs.universalinstaller.domain.model.SessionData
 import app.pwhs.universalinstaller.domain.model.SessionProgress
 import app.pwhs.universalinstaller.domain.repository.SessionDataRepository
@@ -8,31 +9,18 @@ import ru.solrudev.ackpine.resources.ResolvableString
 import ru.solrudev.ackpine.session.Progress
 import java.util.UUID
 
-private const val SESSIONS_KEY = "SESSIONS"
-private const val SESSIONS_PROGRESS_KEY = "SESSIONS_PROGRESS"
-
-class SessionDataRepositoryImpl(private val savedStateHandle: SavedStateHandle) :
-    SessionDataRepository {
-
+/** Process-scoped session UI state; Ackpine owns durable installation sessions. */
+class SessionDataRepositoryImpl : SessionDataRepository {
+    private val sessionState = MutableStateFlow<List<SessionData>>(emptyList())
+    private val progressState = MutableStateFlow<List<SessionProgress>>(emptyList())
+    override val sessions = sessionState.asStateFlow()
+    override val sessionsProgress = progressState.asStateFlow()
     private var _sessions: List<SessionData>
-        get() = savedStateHandle[SESSIONS_KEY] ?: emptyList()
-        set(value) {
-            savedStateHandle[SESSIONS_KEY] = value
-        }
-
+        get() = sessionState.value
+        set(value) { sessionState.value = value }
     private var _sessionsProgress: List<SessionProgress>
-        get() = savedStateHandle[SESSIONS_PROGRESS_KEY] ?: emptyList()
-        set(value) {
-            savedStateHandle[SESSIONS_PROGRESS_KEY] = value
-        }
-
-    override val sessions = savedStateHandle.getStateFlow<List<SessionData>>(
-        SESSIONS_KEY, emptyList()
-    )
-
-    override val sessionsProgress = savedStateHandle.getStateFlow<List<SessionProgress>>(
-        SESSIONS_PROGRESS_KEY, emptyList()
-    )
+        get() = progressState.value
+        set(value) { progressState.value = value }
 
     override fun addSessionData(sessionData: SessionData) {
         _sessions = listOf(sessionData) + _sessions

@@ -76,6 +76,8 @@
         </intent>
     </queries>
 
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -126,14 +128,11 @@
              translucent theme lets the calling app remain visible behind the scrim. -->
         <activity
             android:name=".presentation.install.DialogInstallActivity"
-            android:autoRemoveFromRecents="true"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="@string/installer_dialog_label"
             android:launchMode="singleInstance"
-            android:noHistory="true"
-            android:taskAffinity=""
             android:theme="@style/Theme.UniversalInstaller.Dialog">
 
             <!-- Package files opened with explicit package MIME types -->
@@ -301,14 +300,11 @@
         </activity>
         <activity
             android:name=".presentation.manage.uninstall.DialogUninstallActivity"
-            android:autoRemoveFromRecents="true"
             android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout"
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="@string/uninstaller_dialog_label"
             android:launchMode="singleInstance"
-            android:noHistory="true"
-            android:taskAffinity=""
             android:theme="@style/Theme.UniversalInstaller.Dialog">
 
             <!-- Concise intent filter for uninstallation requests:

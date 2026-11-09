@@ -53,6 +53,10 @@ object InstallSessionManager {
         val profiles = ProfileManager.parseProfiles(prefs?.get(PreferencesKeys.INSTALLER_PROFILES))
         val profile = profiles.find { it.id == profileId }
 
+        if (prefs?.get(PreferencesKeys.USE_SHIZUKU) == true ||
+            profile?.preferredBackend?.startsWith("Shizuku") == true) {
+            app.pwhs.universalinstaller.util.ShizukuReadiness.await(context)
+        }
         val preferredBackend = profile?.preferredBackend
         if (preferredBackend != null) {
             when (preferredBackend) {

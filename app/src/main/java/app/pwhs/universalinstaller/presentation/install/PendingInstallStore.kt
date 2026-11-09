@@ -17,10 +17,8 @@ import java.util.concurrent.atomic.AtomicInteger
  * (`extractApkInfoAndCacheUris`), and those copies need no grant, so what we keep here is the
  * finished parse: cached split URIs plus the metadata the install and its notification need.
  *
- * A process-scoped object rather than a DI singleton, matching [IntentHandoff]. Entries are
- * dropped when consumed or cancelled; nothing is persisted across process death, and a
- * notification that outlives the process is stale by definition — [get] returning null is the
- * signal to cancel it.
+ * A process-scoped object rather than a DI singleton, matching [IntentHandoff]. Entries are stored atomically in private cache for up to one hour and removed on consumption.
+ * Cache eviction can still invalidate a notification.
  */
 object PendingInstallStore {
 
@@ -54,7 +52,11 @@ object PendingInstallStore {
     )
 
     private val entries = ConcurrentHashMap<String, Entry>()
-    private val nextId = AtomicInteger(1)
+    private var records: PendingRecordFiles? = null
+
+    fun initialize(context: android.content.Context) {
+        records = PendingRecordFiles(java.io.File(context.cacheDir, "pending_installs"))
+    }
 
     /** @return the stored entry, whose [Entry.id] keys both the notification and its actions. */
     fun put(
@@ -70,7 +72,7 @@ object PendingInstallStore {
         apkInfo: ApkInfo? = null,
     ): Entry {
         val entry = Entry(
-            id = "pending-${nextId.getAndIncrement()}",
+            id = java.util.UUID.randomUUID().toString(),
             apkUris = apkUris,
             originalUri = originalUri,
             fileName = fileName,
@@ -82,19 +84,26 @@ object PendingInstallStore {
             isDowngrade = isDowngrade,
             apkInfo = apkInfo,
         )
+        return put(entry)
+    }
+
+    @Synchronized fun put(entry: Entry): Entry {
+        records?.write(entry.id, PendingInstallCodec.encode(entry))
         entries[entry.id] = entry
         return entry
     }
 
-    fun put(entry: Entry): Entry {
-        entries[entry.id] = entry
-        return entry
-    }
-
-    fun get(id: String): Entry? = entries[id]
+    @Synchronized fun get(id: String): Entry? = entries[id] ?: runCatching {
+        records?.read(id)?.let(PendingInstallCodec::decode)?.takeIf { it.id == id }
+    }.getOrNull()
 
     /** Takes the entry out — the install is starting, or the user said no. */
-    fun consume(id: String): Entry? = entries.remove(id)
+    @Synchronized fun consume(id: String): Entry? {
+        val entry = get(id)
+        entries.remove(id)
+        runCatching { records?.remove(id) }
+        return entry
+    }
 
     /**
      * Stable per-entry request code so each pending install owns its own PendingIntents and a

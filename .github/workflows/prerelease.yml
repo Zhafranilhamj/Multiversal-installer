@@ -1,0 +1,84 @@
+name: Installer reliability pre-release
+
+on:
+  push:
+    branches: ['arena/47a9e606-universal-installer']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reliability-prerelease-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Configure signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
+            echo 'SIGNING_NOTE=Signed using configured repository release key.' >> "$GITHUB_ENV"
+          else
+            STORE_PASSWORD=$(openssl rand -hex 32)
+            KEY_PASSWORD="$STORE_PASSWORD"
+            KEY_ALIAS=prerelease
+            echo "::add-mask::$STORE_PASSWORD"
+            keytool -genkeypair -keystore "$RUNNER_TEMP/release.jks" -storepass "$STORE_PASSWORD" -keypass "$KEY_PASSWORD" -alias "$KEY_ALIAS" -keyalg RSA -keysize 3072 -validity 3650 -dname 'CN=Universal Installer experimental fork' -noprompt
+            echo 'SIGNING_NOTE=Signed with a disposable per-run experimental key. Cannot update upstream or another run in place. Back up settings before uninstalling an existing copy. Configure a stable repository signing key for production updates.' >> "$GITHUB_ENV"
+          fi
+          printf 'storeFile=%s\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' "$RUNNER_TEMP/release.jks" "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > key.properties
+      - name: Unit tests, debug builds and optimized release
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:testOpensourceDebugUnitTest assembleDebug :app:assembleOpensourceRelease --stacktrace
+      - name: Verify signature and prepare download
+        run: |
+          mkdir -p release-artifacts
+          cp app/build/outputs/apk/opensource/release/*.apk release-artifacts/universal-installer-reliability.apk
+          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
+          "$APKSIGNER" verify --verbose --print-certs release-artifacts/universal-installer-reliability.apk > release-artifacts/signature.txt
+          (cd release-artifacts && sha256sum *.apk > SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: app/build/reports/tests/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: signed-release-apk
+          path: release-artifacts/
+      - name: Publish pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat > "$RUNNER_TEMP/notes.md" <<EOF
+          ### 📱 Phone (App)
+          Shizuku cold-start readiness, default-handler recovery, battery optimization settings, dialog lifecycle and pending-install persistence fixes.
+
+          Tests, debug builds and R8 release build must pass before this release is published. RedMagicOS device behavior has not been verified on hardware. This is an experimental pre-release, not a production certification.
+
+          $SIGNING_NOTE
+
+          Enable Shizuku, toggle Set as default installer on, and allow Ignore battery optimizations in Settings. Keep OEM background/autostart permissions enabled. A true system force-stop still requires reopening the app.
+
+          Commit: $GITHUB_SHA
+          EOF
+          gh release create "reliability-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" release-artifacts/* --target "$GITHUB_SHA" --prerelease --title 'Installer reliability pre-release' --notes-file "$RUNNER_TEMP/notes.md"
+      - name: Remove signing material
+        if: always()
+        run: rm -f key.properties "$RUNNER_TEMP/release.jks"

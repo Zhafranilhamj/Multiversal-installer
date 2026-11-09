@@ -102,6 +102,7 @@ class App : Application(), SingletonImageLoader.Factory {
 
     override fun onCreate() {
         super.onCreate()
+        app.pwhs.universalinstaller.presentation.install.PendingInstallStore.initialize(this)
         // Before CrashHandler.install: that one chains to whatever handler is already default,
         // which on `play` is Crashlytics'. Binding the sink first also means a crash during the
         // rest of onCreate is still reported.
@@ -120,6 +121,7 @@ class App : Application(), SingletonImageLoader.Factory {
             androidContext(this@App)
             modules(appModule, flavorModule)
         }
+        app.pwhs.universalinstaller.util.InstallerRecovery.register(this, CoroutineScope(SupervisorJob() + Dispatchers.IO))
         billingManager.startConnection()
         // Once connected, a running Porter serves the Shizuku API, so the self-heal below and every
         // Shizuku backend see it as their Shizuku server.

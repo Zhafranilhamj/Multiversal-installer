@@ -286,6 +286,7 @@ private fun SettingUi(
             // calling stringResource. `matchesQuery` returns true on a blank query, so the
             // full list renders when search is empty.
             val installLabels = listOf(
+                stringResource(R.string.setting_ignore_battery_title), "battery", "background",
                 stringResource(R.string.setting_use_dhizuku_title), "dhizuku",
                 stringResource(R.string.setting_install_mode_title), "shizuku", "root", "default",
                 stringResource(R.string.setting_section_install_options),
