@@ -90,7 +90,7 @@ fun VirusTotalDetailSheet(
 
     val totalEngines = vt.malicious + vt.suspicious + vt.harmless + vt.undetected
     val threatCount = vt.malicious + vt.suspicious
-    val isClean = vt.status == VtStatus.CLEAN || (vt.malicious == 0 && vt.suspicious == 0)
+    val isClean = vt.status == VtStatus.CLEAN
     var showFpDialog by remember { mutableStateOf(false) }
 
     val sortedEngines = remember(vt.engineResults) {
@@ -139,7 +139,7 @@ fun VirusTotalDetailSheet(
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Bảo mật & Quét mã độc (VirusDetec)",
+                        text = stringResource(R.string.scan_provider_result, vt.provider ?: "Security"),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -388,7 +388,7 @@ fun VirusTotalDetailSheet(
             }
 
             // ── False Positive Dispute Button ──
-            if (apkInfo.sha256.isNotBlank() && (!isClean || vt.report?.verdict == Verdict.RISKWARE)) {
+            if (vt.report != null && apkInfo.sha256.isNotBlank() && (!isClean || vt.report?.verdict == Verdict.RISKWARE)) {
                 OutlinedButton(
                     onClick = { showFpDialog = true },
                     modifier = Modifier.fillMaxWidth(),
@@ -400,7 +400,7 @@ fun VirusTotalDetailSheet(
                     )
                     Spacer(Modifier.width(6.dp))
                     Text(
-                        text = "Báo cáo nhận diện nhầm (False Positive)",
+                        text = stringResource(R.string.scan_fp_button),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )

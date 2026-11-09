@@ -105,7 +105,7 @@ internal fun androidx.compose.foundation.lazy.LazyListScope.securityTab(
         }
         val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
         MenuCard(
-            title = stringResource(R.string.dialog_menu_virustotal),
+            title = stringResource(R.string.scan_title),
             description = vtDesc,
             descriptionColor = vtColor,
             icon = {

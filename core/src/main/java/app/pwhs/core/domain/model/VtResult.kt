@@ -41,4 +41,5 @@ data class VtResult(
     val analysisId: String = "",
     val engineResults: List<VtEngineResult> = emptyList(),
     val report: ScanReport? = null,
+    val provider: String? = null,
 )

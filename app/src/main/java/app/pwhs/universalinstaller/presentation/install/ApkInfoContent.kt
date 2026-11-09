@@ -236,6 +236,8 @@ internal fun ApkInfoContent(
                     fileSizeBytes = apkInfo.fileSizeBytes,
                     sha256 = apkInfo.sha256,
                     onCheck = onCheckVirusTotal,
+                    onOpenSettings = { context.startActivity(Intent(context,
+                        app.pwhs.universalinstaller.presentation.setting.SettingActivity::class.java)) },
                     onOpenLink = {
                         if (apkInfo.vtResult?.status in setOf(VtStatus.CLEAN, VtStatus.MALICIOUS, VtStatus.SUSPICIOUS)) {
                             showVtDetailSheet = true

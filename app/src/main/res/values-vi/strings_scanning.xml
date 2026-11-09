@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scan_safe">An toàn</string>
+    <string name="scan_riskware">Rủi ro nhẹ (Bản Mod)</string>
+    <string name="scan_suspicious">Đáng ngờ</string>
+    <string name="scan_malicious">Mã độc nguy hiểm</string>
+    <string name="scan_safe_detail">Không phát hiện dấu hiệu can thiệp hay hành vi độc hại nào.</string>
+    <string name="scan_risk_detail">Ứng dụng có thể là bản sửa đổi (Mod), cert không khớp Play Store nhưng không có mã độc.</string>
+    <string name="scan_suspicious_detail">Phát hiện một số hành vi bất thường, hãy kiểm tra kỹ trước khi cài đặt.</string>
+    <string name="scan_malicious_detail">Cảnh báo cao! Phát hiện kỹ thuật phá hoại hoặc giả mạo nghiêm trọng.</string>
+    <string name="scan_critical">NGHIÊM TRỌNG</string>
+    <string name="scan_high">CAO</string>
+    <string name="scan_medium">TRUNG BÌNH</string>
+    <string name="scan_low">THẤP</string>
+    <string name="scan_info">THÔNG TIN</string>
+    <string name="scan_evidence">Bằng chứng kỹ thuật (Evidence):</string>
+    <string name="scan_copy_evidence">Copy evidence</string>
+    <string name="scan_findings">Phát hiện kỹ thuật (%1$d)</string>
+    <string name="scan_not_found">Chưa có kết quả phân tích trong cơ sở dữ liệu.</string>
+    <string name="scan_rate_limit">Tần suất yêu cầu quá nhanh, vui lòng chờ giây lát.</string>
+    <string name="scan_error">Không thể kết nối đến dịch vụ bảo mật</string>
+    <string name="scan_checking">Đang phân tích chữ ký và manifest...</string>
+    <string name="scan_uploading">Đang tải tệp lên để phân tích (%1$d%%)...</string>
+    <string name="scan_queued">Đang chờ hàng đợi phân tích...</string>
+    <string name="scan_analyzing">Đang chạy quét DEX, BadPack &amp; Call Graph...</string>
+    <string name="scan_details">Xem chi tiết phát hiện</string>
+    <string name="scan_upload">Tải lên &amp; Quét bảo mật</string>
+    <string name="scan_action">Quét bảo mật</string>
+    <string name="scan_fp_title">Báo cáo nhận diện nhầm</string>
+    <string name="scan_fp_summary">Gửi báo cáo khiếu nại nếu bạn tin rằng ứng dụng này an toàn và việc gắn cờ mã độc là do nhầm lẫn (False Positive).</string>
+    <string name="scan_fp_reason">Lý do khiếu nại *</string>
+    <string name="scan_fp_hint">Mô tả lý do APK này an toàn (tối thiểu 5 ký tự)...</string>
+    <string name="scan_fp_minimum">Cần tối thiểu 5 ký tự (hiện có %1$d)</string>
+    <string name="scan_fp_email">Email liên hệ (Tùy chọn)</string>
+    <string name="scan_fp_email_hint">Để nhận thông báo khi Quản trị viên duyệt</string>
+    <string name="scan_fp_sent">Đã gửi báo cáo thẩm định tới Quản trị viên!</string>
+    <string name="scan_fp_failed">Gửi báo cáo thất bại, vui lòng thử lại.</string>
+    <string name="scan_fp_send">Gửi khiếu nại</string>
+    <string name="scan_fp_button">Báo cáo nhận diện nhầm (False Positive)</string>
+</resources>

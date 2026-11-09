@@ -78,7 +78,7 @@ class VirusDetecService(
         }
     }
 
-    suspend fun lookup(request: LookupRequest, language: String = "vi"): Result<LookupResponse> = withContext(Dispatchers.IO) {
+    suspend fun lookup(request: LookupRequest, language: String = "en"): Result<LookupResponse> = withContext(Dispatchers.IO) {
         runCatching {
             val payload = JSONObject().apply {
                 put("sha256", request.sha256)
@@ -111,7 +111,7 @@ class VirusDetecService(
         }
     }
 
-    suspend fun createUploadTicket(sha256: String, fileSize: Long, language: String = "vi"): Result<UploadTicketResponse> = withContext(Dispatchers.IO) {
+    suspend fun createUploadTicket(sha256: String, fileSize: Long, language: String = "en"): Result<UploadTicketResponse> = withContext(Dispatchers.IO) {
         runCatching {
             val payload = JSONObject().apply {
                 put("sha256", sha256)
@@ -164,7 +164,7 @@ class VirusDetecService(
         }
     }
 
-    suspend fun startScan(jobId: String, language: String = "vi"): Result<String> = withContext(Dispatchers.IO) {
+    suspend fun startScan(jobId: String, language: String = "en"): Result<String> = withContext(Dispatchers.IO) {
         runCatching {
             val payload = JSONObject().apply { put("job_id", jobId) }
             val response = executeWithFallback { url ->
@@ -182,7 +182,7 @@ class VirusDetecService(
         }
     }
 
-    fun watchScanStream(jobId: String, language: String = "vi"): Flow<ScanStepUpdate> = flow {
+    fun watchScanStream(jobId: String, language: String = "en"): Flow<ScanStepUpdate> = flow {
         val streamUrl = "$baseUrl/api/v1/scan/jobs/$jobId/stream?lang=$language"
         val response: HttpResponse = client.get(streamUrl) {
             header("X-API-Key", apiKey)
@@ -212,7 +212,7 @@ class VirusDetecService(
 
     suspend fun submitFalsePositive(
         request: FalsePositiveRequest,
-        language: String = "vi",
+        language: String = "en",
     ): Result<FalsePositiveResponse> = withContext(Dispatchers.IO) {
         runCatching {
             val payload = JSONObject().apply {

@@ -79,10 +79,7 @@ internal object PendingInstallCodec {
             JSONObject().put("id", it.id).put("name", it.name).put("categories", JSONArray(it.categories))
                 .put("website", it.website)
         }))
-        put("vt", info.vtResult?.let {
-            JSONObject().put("status", it.status.name).put("malicious", it.malicious)
-                .put("suspicious", it.suspicious).put("harmless", it.harmless).put("undetected", it.undetected)
-        })
+        put("vt", info.vtResult?.let(ScanResultCodec::encode))
     }
     private fun decodeInfo(json: JSONObject): ApkInfo = ApkInfo(
             appName = json.getString("appName"),
@@ -117,12 +114,6 @@ internal object PendingInstallCodec {
                 TrackerInfo(it.getInt("id"), it.getString("name"), it.getJSONArray("categories").strings(),
                     if (it.isNull("website")) null else it.getString("website"))
             },
-            vtResult = json.optJSONObject("vt")?.let {
-                VtResult(status = VtStatus.valueOf(it.getString("status")).let { status ->
-                    if (status in setOf(VtStatus.SCANNING, VtStatus.UPLOADING, VtStatus.QUEUED, VtStatus.ANALYZING))
-                        VtStatus.ERROR else status
-                }, malicious = it.getInt("malicious"),
-                    suspicious = it.getInt("suspicious"), harmless = it.getInt("harmless"), undetected = it.getInt("undetected"))
-            },
+            vtResult = json.optJSONObject("vt")?.let(ScanResultCodec::decode),
         )
 }

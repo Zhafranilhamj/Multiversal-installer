@@ -308,8 +308,8 @@ internal fun SecurityLevelSelector(
         Spacer(Modifier.height(8.dp))
         Text(
             text = when (current) {
-                SecurityLevel.Normal -> stringResource(R.string.setting_security_normal_sub)
-                SecurityLevel.Strict -> stringResource(R.string.setting_security_strict_sub)
+                SecurityLevel.Normal -> stringResource(R.string.scan_normal_summary)
+                SecurityLevel.Strict -> stringResource(R.string.scan_strict_summary)
             },
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,

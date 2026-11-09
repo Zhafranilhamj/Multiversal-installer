@@ -25,22 +25,17 @@ jobs:
       - name: Configure signing
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-          STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD || secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           set -euo pipefail
-          if [ -n "$KEYSTORE_BASE64" ]; then
-            printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
-            echo 'SIGNING_NOTE=Signed using configured repository release key.' >> "$GITHUB_ENV"
-          else
-            STORE_PASSWORD=$(openssl rand -hex 32)
-            KEY_PASSWORD="$STORE_PASSWORD"
-            KEY_ALIAS=prerelease
-            echo "::add-mask::$STORE_PASSWORD"
-            keytool -genkeypair -keystore "$RUNNER_TEMP/release.jks" -storepass "$STORE_PASSWORD" -keypass "$KEY_PASSWORD" -alias "$KEY_ALIAS" -keyalg RSA -keysize 3072 -validity 3650 -dname 'CN=Universal Installer experimental fork' -noprompt
-            echo 'SIGNING_NOTE=Signed with a disposable per-run experimental key. Cannot update upstream or another run in place. Back up settings before uninstalling an existing copy. Configure a stable repository signing key for production updates.' >> "$GITHUB_ENV"
-          fi
+          : "${KEYSTORE_BASE64:?Configure KEYSTORE_BASE64}"
+          : "${STORE_PASSWORD:?Configure STORE_PASSWORD or KEYSTORE_PASSWORD}"
+          : "${KEY_ALIAS:?Configure KEY_ALIAS}"
+          : "${KEY_PASSWORD:?Configure KEY_PASSWORD}"
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
+          echo 'SIGNING_NOTE=Signed using the configured repository release key. Older disposable-key builds must be uninstalled first after backing up settings.' >> "$GITHUB_ENV"
           printf 'storeFile=%s\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' "$RUNNER_TEMP/release.jks" "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > key.properties
       - name: Unit tests, debug builds and optimized release
         run: |
@@ -68,7 +63,7 @@ jobs:
         run: |
           cat > "$RUNNER_TEMP/notes.md" <<EOF
           ### 📱 Phone (App)
-          Hotfix: restore MIME-compatible default-installer registration through Shizuku. The previous pre-release used replacePreferredActivity, which Android rejects for APK MIME filters. Includes the earlier cold-start and lifecycle fixes.
+          Restore Normal/Strict scan modes; choose direct VirusTotal (personal key) or VirusDetec with clear privacy information; fix scan localization and preserve full reports across process death. Includes the Shizuku default-installer hotfix.
 
           Tests, debug builds and R8 release build must pass before this release is published. RedMagicOS device behavior has not been verified on hardware. This is an experimental pre-release, not a production certification.
 

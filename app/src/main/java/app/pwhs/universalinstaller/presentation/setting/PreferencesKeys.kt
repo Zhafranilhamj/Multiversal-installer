@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 
 object PreferencesKeys {
+    val SCAN_PROVIDER = stringPreferencesKey("scan_provider")
     val AUTO_BACKGROUND_EXEMPTION = booleanPreferencesKey("auto_background_exemption")
     val PREFERRED_DEFAULT_INSTALLER = booleanPreferencesKey("preferred_default_installer")
     val PREFERRED_DEFAULT_UNINSTALLER = booleanPreferencesKey("preferred_default_uninstaller")

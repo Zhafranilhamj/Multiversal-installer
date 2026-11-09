@@ -1,5 +1,7 @@
 package app.pwhs.universalinstaller.presentation.install.dialog
 
+import app.pwhs.universalinstaller.R
+import androidx.compose.ui.res.stringResource
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -66,7 +68,7 @@ fun ReportFalsePositiveDialog(
         },
         title = {
             Text(
-                text = "Báo cáo nhận diện nhầm",
+                text = stringResource(R.string.scan_fp_title),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
             )
@@ -77,7 +79,7 @@ fun ReportFalsePositiveDialog(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Text(
-                    text = "Gửi báo cáo khiếu nại nếu bạn tin rằng ứng dụng này an toàn và việc gắn cờ mã độc là do nhầm lẫn (False Positive).",
+                    text = stringResource(R.string.scan_fp_summary),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -109,12 +111,12 @@ fun ReportFalsePositiveDialog(
                         reason = it
                         errorMessage = null
                     },
-                    label = { Text("Lý do khiếu nại *") },
-                    placeholder = { Text("Mô tả lý do APK này an toàn (tối thiểu 5 ký tự)...") },
+                    label = { Text(stringResource(R.string.scan_fp_reason)) },
+                    placeholder = { Text(stringResource(R.string.scan_fp_hint)) },
                     isError = reason.isNotBlank() && !isReasonValid,
                     supportingText = {
                         if (reason.isNotBlank() && !isReasonValid) {
-                            Text("Cần tối thiểu 5 ký tự (hiện có ${reason.trim().length})")
+                            Text(stringResource(R.string.scan_fp_minimum, reason.trim().length))
                         }
                     },
                     modifier = Modifier.fillMaxWidth(),
@@ -126,8 +128,8 @@ fun ReportFalsePositiveDialog(
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
-                    label = { Text("Email liên hệ (Tùy chọn)") },
-                    placeholder = { Text("Để nhận thông báo khi Quản trị viên duyệt") },
+                    label = { Text(stringResource(R.string.scan_fp_email)) },
+                    placeholder = { Text(stringResource(R.string.scan_fp_email_hint)) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !isSubmitting,
@@ -156,19 +158,20 @@ fun ReportFalsePositiveDialog(
                             reason = reason.trim(),
                             contactEmail = email.trim(),
                         )
-                        virusDetecService.submitFalsePositive(req)
+                        virusDetecService.submitFalsePositive(req, app.pwhs.universalinstaller.domain.scanner.ScanProvider.language(
+                            androidx.core.os.ConfigurationCompat.getLocales(context.resources.configuration)[0]?.toLanguageTag().orEmpty()))
                             .onSuccess { res ->
                                 isSubmitting = false
                                 Toast.makeText(
                                     context,
-                                    res.message.ifBlank { "Đã gửi báo cáo thẩm định tới Quản trị viên!" },
+                                    res.message.ifBlank { context.getString(R.string.scan_fp_sent) },
                                     Toast.LENGTH_LONG
                                 ).show()
                                 onDismiss()
                             }
                             .onFailure { err ->
                                 isSubmitting = false
-                                errorMessage = err.message ?: "Gửi báo cáo thất bại, vui lòng thử lại."
+                                errorMessage = err.message ?: context.getString(R.string.scan_fp_failed)
                             }
                     }
                 },
@@ -185,7 +188,7 @@ fun ReportFalsePositiveDialog(
                     Icon(imageVector = Icons.AutoMirrored.Rounded.Send, contentDescription = null, modifier = Modifier.size(16.dp))
                     Spacer(Modifier.width(6.dp))
                 }
-                Text("Gửi khiếu nại")
+                Text(stringResource(R.string.scan_fp_send))
             }
         },
         dismissButton = {

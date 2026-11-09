@@ -314,7 +314,7 @@ private fun SettingUi(
             )
             val syncLabels = listOf("sync", "port", "pin")
             val backupLabels = listOf(stringResource(R.string.setting_section_backup), "backup", "restore", "export", "import")
-            val advancedLabels = listOf("advanced", "security", "bảo mật", "virusdetec")
+            val advancedLabels = listOf("advanced", "security", "scan", "normal", "strict", "api key", "virustotal", "virusdetec", stringResource(R.string.scan_title))
             val proLabels = listOf("pro", "premium", "upgrade", "subscription", "lifetime", "virustotal")
             val privacyLabels = listOf(
                 stringResource(R.string.setting_analytics_title),
