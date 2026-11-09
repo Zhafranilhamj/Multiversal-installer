@@ -75,6 +75,7 @@ class SettingDefaultRoleDelegate(
             result
                 .onSuccess {
                     dataStore.edit { it[PreferencesKeys.PREFERRED_DEFAULT_INSTALLER] = enabled }
+                    if (enabled) app.pwhs.universalinstaller.util.BatteryOptimizationHelper.allowBackground(application, useRoot && rootReady)
                     reportDefaultInstaller(method, enabled, TelemetryEvents.RESULT_SUCCESS)
                     updateDefaultInstallerStatus()
                     emitEvent(
@@ -162,6 +163,7 @@ class SettingDefaultRoleDelegate(
             result
                 .onSuccess {
                     dataStore.edit { it[PreferencesKeys.PREFERRED_DEFAULT_UNINSTALLER] = enabled }
+                    if (enabled) app.pwhs.universalinstaller.util.BatteryOptimizationHelper.allowBackground(application, useRoot && rootReady)
                     updateDefaultUninstallerStatus()
                     emitEvent(
                         if (enabled) R.string.setting_default_uninstaller_enabled

@@ -68,7 +68,7 @@ object DefaultInstallerLogic {
         )
 
         // Ours is the one that has to go: with lock=false it is the entire operation.
-        clearPackagePreferredActivities(iPackageManager, component.packageName, userId, hasSystemLevelPermission)
+        if (!lock) clearPackagePreferredActivities(iPackageManager, component.packageName, userId, hasSystemLevelPermission)
 
         if (!lock) return
 
@@ -181,25 +181,13 @@ object DefaultInstallerLogic {
         component: ComponentName,
         userId: Int,
     ) {
-        run {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val m = iPackageManager.javaClass.getMethod(
-                    "addPreferredActivity",
-                    IntentFilter::class.java, Int::class.javaPrimitiveType,
-                    Array<ComponentName>::class.java, ComponentName::class.java,
-                    Int::class.javaPrimitiveType, Boolean::class.javaPrimitiveType,
-                )
-                m.invoke(iPackageManager, filter, match, names, component, userId, true)
-            } else {
-                val m = iPackageManager.javaClass.getMethod(
-                    "addPreferredActivity",
-                    IntentFilter::class.java, Int::class.javaPrimitiveType,
-                    Array<ComponentName>::class.java, ComponentName::class.java,
-                    Int::class.javaPrimitiveType,
-                )
-                m.invoke(iPackageManager, filter, match, names, component, userId)
-            }
-        }
+        // Replace just this filter, not every default owned by the package. Clearing
+        // package-wide here would erase the installer when restoring the uninstaller.
+        val method = iPackageManager.javaClass.getMethod(
+            "replacePreferredActivity", IntentFilter::class.java, Int::class.javaPrimitiveType,
+            Array<ComponentName>::class.java, ComponentName::class.java, Int::class.javaPrimitiveType,
+        )
+        method.invoke(iPackageManager, filter, match, names, component, userId)
     }
 
     private fun addPersistentPreferredActivity(

@@ -4,7 +4,6 @@ import android.net.Uri
 import app.pwhs.universalinstaller.IntentHandoff
 import app.pwhs.universalinstaller.domain.model.ApkInfo
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Installs that have been parsed but not yet confirmed, held at process scope while a

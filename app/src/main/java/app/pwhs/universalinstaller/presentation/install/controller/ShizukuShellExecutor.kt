@@ -115,6 +115,9 @@ object ShizukuShellExecutor {
     suspend fun launchApp(packageName: String): Result<String> =
         runShell(packageName, "monkey -p $packageName -c android.intent.category.LAUNCHER 1", successToken = null)
 
+    suspend fun whitelistBackground(packageName: String): Result<String> =
+        runShell(packageName, "cmd deviceidle whitelist +$packageName", successToken = null)
+
     /** Sets appops mode (e.g. REQUEST_INSTALL_PACKAGES ignore) for a package via Shizuku shell. */
     suspend fun setAppOp(packageName: String, op: String, mode: String): Result<String> =
         runShell(packageName, "appops set $packageName $op $mode", successToken = null)

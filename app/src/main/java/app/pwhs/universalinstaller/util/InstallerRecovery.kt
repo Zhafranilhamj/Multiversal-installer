@@ -31,6 +31,10 @@ object InstallerRecovery {
         try {
             if (!ShizukuReadiness.await(context)) return@withLock
             val prefs = context.dataStore.data.first()
+            if (prefs[PreferencesKeys.PREFERRED_DEFAULT_INSTALLER] == true ||
+                prefs[PreferencesKeys.PREFERRED_DEFAULT_UNINSTALLER] == true) {
+                BatteryOptimizationHelper.allowBackground(context)
+            }
             if (prefs[PreferencesKeys.PREFERRED_DEFAULT_INSTALLER] == true) {
                 ShizukuDefaultInstaller.setDefaultInstaller(ComponentName(context,
                     "app.pwhs.universalinstaller.presentation.install.DialogInstallActivity"), true)
