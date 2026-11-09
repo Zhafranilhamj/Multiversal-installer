@@ -196,7 +196,7 @@ fun ReportFalsePositiveDialog(
                 onClick = onDismiss,
                 enabled = !isSubmitting,
             ) {
-                Text("Hủy")
+                Text(stringResource(R.string.cancel))
             }
         },
     )

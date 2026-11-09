@@ -128,7 +128,7 @@ fun ScanReport.toVtResult(): VtResult {
     return VtResult(
         malicious = criticalOrHigh,
         suspicious = medium,
-        harmless = if (findings.isEmpty()) 70 else (70 - findings.size).coerceAtLeast(0),
+        harmless = 0, // VirusDetec findings are not a count of antivirus engines.
         undetected = 0,
         status = status,
         errorMessage = "",
@@ -136,6 +136,7 @@ fun ScanReport.toVtResult(): VtResult {
         analysisId = sha256,
         engineResults = engineResults,
         report = this,
+        provider = "VirusDetec",
     )
 }
 

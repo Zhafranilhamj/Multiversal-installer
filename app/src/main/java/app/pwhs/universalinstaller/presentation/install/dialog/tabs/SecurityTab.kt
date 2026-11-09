@@ -68,16 +68,8 @@ internal fun androidx.compose.foundation.lazy.LazyListScope.securityTab(
             VtStatus.UPLOADING -> stringResource(R.string.apk_info_vt_uploading, vtResult.uploadProgress)
             VtStatus.QUEUED -> stringResource(R.string.apk_info_vt_queued)
             VtStatus.ANALYZING -> stringResource(R.string.apk_info_vt_analyzing)
-            VtStatus.NO_API_KEY,
-            VtStatus.INVALID_API_KEY -> {
-                if (isPro && !hasCustomKey) {
-                    stringResource(R.string.vt_cloud_keys_temporary_unavailable)
-                } else if (vtResult?.status == VtStatus.INVALID_API_KEY) {
-                    stringResource(R.string.apk_info_vt_invalid_key)
-                } else {
-                    stringResource(R.string.apk_info_vt_no_api_key)
-                }
-            }
+            VtStatus.NO_API_KEY -> stringResource(R.string.scan_missing_key)
+            VtStatus.INVALID_API_KEY -> stringResource(R.string.scan_invalid_key)
             VtStatus.RATE_LIMITED -> vtErrorMsg?.takeIf { it.isNotBlank() }
                 ?.let { stringResource(R.string.apk_info_vt_rate_limited_retry, it) }
                 ?: stringResource(R.string.apk_info_vt_rate_limited)
@@ -105,7 +97,7 @@ internal fun androidx.compose.foundation.lazy.LazyListScope.securityTab(
         }
         val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
         MenuCard(
-            title = stringResource(R.string.scan_title),
+            title = vtResult?.provider?.let { stringResource(R.string.scan_provider_result, it) } ?: stringResource(R.string.scan_title),
             description = vtDesc,
             descriptionColor = vtColor,
             icon = {
@@ -122,6 +114,9 @@ internal fun androidx.compose.foundation.lazy.LazyListScope.securityTab(
                     vtResult?.status in listOf(VtStatus.CLEAN, VtStatus.MALICIOUS, VtStatus.SUSPICIOUS) -> {
                         onOpenDetail?.invoke()
                     }
+                    vtResult?.status in listOf(VtStatus.NO_API_KEY, VtStatus.INVALID_API_KEY) ->
+                        context.startActivity(android.content.Intent(context,
+                            app.pwhs.universalinstaller.presentation.setting.SettingActivity::class.java))
                     else -> onCheckVirusTotal()
                 }
             },

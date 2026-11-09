@@ -123,8 +123,16 @@ object InstallVirusTotalHelper {
         onUpdateSha256: (String) -> Unit,
         onProgress: (VtResult) -> Unit,
     ) {
-        if (isDisabled(context)) return
         val provider = ScanProvider.from(context.dataStore.data.first()[PreferencesKeys.SCAN_PROVIDER])
+        if (provider == null) {
+            withContext(Dispatchers.Main) {
+                context.startActivity(android.content.Intent(context,
+                    app.pwhs.universalinstaller.presentation.setting.SettingActivity::class.java)
+                    .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))
+            }
+            return
+        }
+        if (isDisabled(context)) return
         if (provider == ScanProvider.VIRUSTOTAL) {
             try {
                 onProgress(VtResult(status = VtStatus.SCANNING, provider = "VirusTotal"))
