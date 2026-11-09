@@ -107,7 +107,7 @@ internal object PendingInstallCodec {
             isBlocked = json.getBoolean("isBlocked"),
             isAndroidAutoSupported = json.getBoolean("isAndroidAutoSupported"),
             isWearOsSupported = json.getBoolean("isWearOsSupported"),
-            isScanningTrackers = json.getBoolean("isScanningTrackers"),
+            isScanningTrackers = false, // No scanner job survives process death.
             icon = null,
             splitEntries = json.getJSONArray("splits").objects().map {
                 SplitEntry(it.getString("name"), SplitType.valueOf(it.getString("type")),
@@ -118,7 +118,10 @@ internal object PendingInstallCodec {
                     if (it.isNull("website")) null else it.getString("website"))
             },
             vtResult = json.optJSONObject("vt")?.let {
-                VtResult(status = VtStatus.valueOf(it.getString("status")), malicious = it.getInt("malicious"),
+                VtResult(status = VtStatus.valueOf(it.getString("status")).let { status ->
+                    if (status in setOf(VtStatus.SCANNING, VtStatus.UPLOADING, VtStatus.QUEUED, VtStatus.ANALYZING))
+                        VtStatus.ERROR else status
+                }, malicious = it.getInt("malicious"),
                     suspicious = it.getInt("suspicious"), harmless = it.getInt("harmless"), undetected = it.getInt("undetected"))
             },
         )

@@ -22,11 +22,13 @@ class SessionDataRepositoryImpl : SessionDataRepository {
         get() = progressState.value
         set(value) { progressState.value = value }
 
+    @Synchronized
     override fun addSessionData(sessionData: SessionData) {
         _sessions = listOf(sessionData) + _sessions
         _sessionsProgress = listOf(SessionProgress(sessionData.id, Progress())) + _sessionsProgress
     }
 
+    @Synchronized
     override fun removeSessionData(id: UUID) {
         val sessions = _sessions.toMutableList()
         sessions.removeAll { it.id == id }
@@ -36,6 +38,7 @@ class SessionDataRepositoryImpl : SessionDataRepository {
         _sessionsProgress = sessionsProgress
     }
 
+    @Synchronized
     override fun updateSessionProgress(id: UUID, progress: Progress) {
         val sessionsProgress = _sessionsProgress.toMutableList()
         val sessionProgressIndex = sessionsProgress.indexOfFirst { it.id == id }
@@ -45,6 +48,7 @@ class SessionDataRepositoryImpl : SessionDataRepository {
         _sessionsProgress = sessionsProgress
     }
 
+    @Synchronized
     override fun updateSessionIsCancellable(id: UUID, isCancellable: Boolean) {
         val sessionDataIndex = _sessions.indexOfFirst { it.id == id }
         if (sessionDataIndex == -1) {
@@ -59,6 +63,7 @@ class SessionDataRepositoryImpl : SessionDataRepository {
         _sessions = sessions
     }
 
+    @Synchronized
     override fun setError(id: UUID, error: ResolvableString) {
         val sessions = _sessions.toMutableList()
         val sessionDataIndex = sessions.indexOfFirst { it.id == id }

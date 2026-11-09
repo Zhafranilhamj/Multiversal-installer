@@ -111,7 +111,7 @@ object DefaultInstallerLogic {
 
             addPreferredActivity(iPackageManager, filter, match, names.toTypedArray(), component, userId)
 
-            // Best effort, and only available as UID 0. When it does land it is what makes the
+            // Best effort, and only available as system UID 1000. When it does land it is what makes the
             // registration stick regardless of the candidate set above.
             if (hasSystemLevelPermission) {
                 runCatching { addPersistentPreferredActivity(iPackageManager, filter, component, userId) }
@@ -131,7 +131,7 @@ object DefaultInstallerLogic {
         )
         m.invoke(iPackageManager, packageName)
 
-        // Only reachable as UID 0, and the non-persistent clear above is the one that matters.
+        // Only reachable as system UID 1000, and the non-persistent clear above is the one that matters.
         if (hasSystemLevelPermission) {
             runCatching {
                 val m = iPackageManager.javaClass.getMethod(

@@ -52,12 +52,20 @@ object PendingInstallStager {
             appName = apkInfo.appName,
             iconPath = cachedIconPath,
             originalUri = pendingOriginalUri,
-            apkUris = stagedUris,
+            apkUris = if (stagedInfo.splitEntries.isEmpty()) stagedUris
+                else stagedInfo.splitEntries.filter { it.selected }.map { it.uri },
             obbEntries = pendingObbEntries,
             attachedObbs = attachedObbFiles,
             isDowngrade = isDowngrade(apkInfo),
         )
-        return PendingInstallStore.put(entry)
+        return withContext(Dispatchers.IO) {
+            try {
+                PendingInstallStore.put(entry)
+            } catch (e: Exception) {
+                Timber.w(e, "Cannot persist pending install; keep the dialog open")
+                null
+            }
+        }
     }
 
     private suspend fun copyForLaterInstall(context: Context, uris: List<Uri>): List<Uri>? = withContext(Dispatchers.IO) {
