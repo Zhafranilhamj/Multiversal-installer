@@ -66,7 +66,6 @@ import java.io.FileNotFoundException
 import java.io.IOException
 
 class DialogInstallActivity : FragmentActivity() {
-
     private val viewModel: InstallViewModel by viewModel()
     private val installNotifier: InstallProgressNotifier by inject()
     private val promptNotifier: InstallPromptNotifier by inject()
@@ -77,11 +76,9 @@ class DialogInstallActivity : FragmentActivity() {
         private const val SESSION_ID_TIMEOUT_MS = 10_000L
         private const val LOG = "NotifInstall"
     }
-
     private val notificationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { }
-
     private fun maybeRequestNotificationPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
         val granted = ContextCompat.checkSelfPermission(
@@ -91,15 +88,12 @@ class DialogInstallActivity : FragmentActivity() {
             notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
-
     private fun reportParseProblem(cause: Throwable) =
         DialogInstallActivityHelper.reportParseProblem(cause, viewModel)
-
     private fun canInstallPackages(
         prefs: Preferences?,
         profileId: String? = null,
     ): Boolean = DialogInstallActivityHelper.canInstallPackages(this, prefs, profileId)
-
     private fun openInstallPermissionSettings() =
         DialogInstallActivityHelper.openInstallPermissionSettings(this)
 
@@ -154,7 +148,7 @@ class DialogInstallActivity : FragmentActivity() {
             promptNotifier.cancel(pendingId)
             Timber.i("$LOG: resuming $pendingId, found=${entry != null}")
             if (entry == null) {
-                Timber.w("Install prompt $pendingId is stale — parse no longer in memory")
+                Timber.w("Install prompt $pendingId is stale — pending record missing or expired")
                 finish()
                 return
             }
@@ -293,28 +287,33 @@ class DialogInstallActivity : FragmentActivity() {
             }
 
             var pendingFallbackBackend by remember { mutableStateOf<String?>(null) }
+            var checkingBackend by remember { mutableStateOf(false) }
 
-            val proceedInstall = {
-                val apkSize = uiState.pendingApkInfo?.fileSizeBytes ?: 0L
-                if (!StorageUtil.hasSufficientStorage(apkSize)) {
-                    viewModel.showStorageWarning(apkSize)
-                } else {
-                    val (configuredBackend, isBackendReady) = DialogInstallActivityHelper.resolveBackendAndReadiness(
-                        context = context,
-                        prefs = prefs,
-                        selectedProfileId = uiState.selectedProfileId,
-                    )
-                    if (configuredBackend != "Default" && !isBackendReady) {
-                        pendingFallbackBackend = configuredBackend
+            val proceedInstall: () -> Unit = {
+                if (!checkingBackend) lifecycleScope.launch {
+                    checkingBackend = true
+                    try {
+                    val apkSize = uiState.pendingApkInfo?.fileSizeBytes ?: 0L
+                    if (!StorageUtil.hasSufficientStorage(apkSize)) {
+                        viewModel.showStorageWarning(apkSize)
                     } else {
-                        securityGate.authenticate {
-                            viewModel.dialogStartInstalling()
-                            viewModel.confirmInstall(trackDialogTarget = true, keepApk = keepApk)
+                        val (configuredBackend, isBackendReady) = DialogInstallActivityHelper.resolveBackendAndReadiness(
+                            context = context,
+                            prefs = prefs,
+                            selectedProfileId = uiState.selectedProfileId,
+                        )
+                        if (configuredBackend != "Default" && !isBackendReady) {
+                            pendingFallbackBackend = configuredBackend
+                        } else {
+                            securityGate.authenticate {
+                                viewModel.dialogStartInstalling()
+                                viewModel.confirmInstall(trackDialogTarget = true, keepApk = keepApk)
+                            }
                         }
                     }
+                    } finally { checkingBackend = false }
                 }
             }
-
             LaunchedEffect(uiState.pendingApkInfo, uiState.dialogStage) {
                 if (uiState.pendingApkInfo != null && uiState.dialogStage == DialogStage.Loading) {
                     viewModel.dialogShowPrepare()

@@ -1,6 +1,7 @@
 package app.pwhs.universalinstaller.data.repository
 
-import androidx.lifecycle.SavedStateHandle
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import app.pwhs.universalinstaller.domain.model.SessionData
 import app.pwhs.universalinstaller.domain.model.SessionProgress
 import app.pwhs.universalinstaller.domain.repository.SessionDataRepository
@@ -8,37 +9,26 @@ import ru.solrudev.ackpine.resources.ResolvableString
 import ru.solrudev.ackpine.session.Progress
 import java.util.UUID
 
-private const val SESSIONS_KEY = "SESSIONS"
-private const val SESSIONS_PROGRESS_KEY = "SESSIONS_PROGRESS"
-
-class SessionDataRepositoryImpl(private val savedStateHandle: SavedStateHandle) :
-    SessionDataRepository {
-
+/** Process-scoped session UI state; Ackpine owns durable installation sessions. */
+class SessionDataRepositoryImpl : SessionDataRepository {
+    private val sessionState = MutableStateFlow<List<SessionData>>(emptyList())
+    private val progressState = MutableStateFlow<List<SessionProgress>>(emptyList())
+    override val sessions = sessionState.asStateFlow()
+    override val sessionsProgress = progressState.asStateFlow()
     private var _sessions: List<SessionData>
-        get() = savedStateHandle[SESSIONS_KEY] ?: emptyList()
-        set(value) {
-            savedStateHandle[SESSIONS_KEY] = value
-        }
-
+        get() = sessionState.value
+        set(value) { sessionState.value = value }
     private var _sessionsProgress: List<SessionProgress>
-        get() = savedStateHandle[SESSIONS_PROGRESS_KEY] ?: emptyList()
-        set(value) {
-            savedStateHandle[SESSIONS_PROGRESS_KEY] = value
-        }
+        get() = progressState.value
+        set(value) { progressState.value = value }
 
-    override val sessions = savedStateHandle.getStateFlow<List<SessionData>>(
-        SESSIONS_KEY, emptyList()
-    )
-
-    override val sessionsProgress = savedStateHandle.getStateFlow<List<SessionProgress>>(
-        SESSIONS_PROGRESS_KEY, emptyList()
-    )
-
+    @Synchronized
     override fun addSessionData(sessionData: SessionData) {
         _sessions = listOf(sessionData) + _sessions
         _sessionsProgress = listOf(SessionProgress(sessionData.id, Progress())) + _sessionsProgress
     }
 
+    @Synchronized
     override fun removeSessionData(id: UUID) {
         val sessions = _sessions.toMutableList()
         sessions.removeAll { it.id == id }
@@ -48,6 +38,7 @@ class SessionDataRepositoryImpl(private val savedStateHandle: SavedStateHandle) 
         _sessionsProgress = sessionsProgress
     }
 
+    @Synchronized
     override fun updateSessionProgress(id: UUID, progress: Progress) {
         val sessionsProgress = _sessionsProgress.toMutableList()
         val sessionProgressIndex = sessionsProgress.indexOfFirst { it.id == id }
@@ -57,6 +48,7 @@ class SessionDataRepositoryImpl(private val savedStateHandle: SavedStateHandle) 
         _sessionsProgress = sessionsProgress
     }
 
+    @Synchronized
     override fun updateSessionIsCancellable(id: UUID, isCancellable: Boolean) {
         val sessionDataIndex = _sessions.indexOfFirst { it.id == id }
         if (sessionDataIndex == -1) {
@@ -71,6 +63,7 @@ class SessionDataRepositoryImpl(private val savedStateHandle: SavedStateHandle) 
         _sessions = sessions
     }
 
+    @Synchronized
     override fun setError(id: UUID, error: ResolvableString) {
         val sessions = _sessions.toMutableList()
         val sessionDataIndex = sessions.indexOfFirst { it.id == id }

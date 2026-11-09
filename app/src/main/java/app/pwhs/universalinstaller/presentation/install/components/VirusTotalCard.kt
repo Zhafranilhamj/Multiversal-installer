@@ -67,14 +67,16 @@ fun VirusTotalCard(
         VtStatus.CLEAN -> stringResource(R.string.apk_info_vt_clean)
         VtStatus.MALICIOUS -> stringResource(R.string.apk_info_vt_malicious, vt?.malicious ?: 0)
         VtStatus.SUSPICIOUS -> stringResource(R.string.apk_info_vt_suspicious, vt?.suspicious ?: 0)
-        VtStatus.NOT_FOUND -> "Chưa có kết quả phân tích trong cơ sở dữ liệu."
-        VtStatus.RATE_LIMITED -> "Tần suất yêu cầu quá nhanh, vui lòng chờ giây lát."
-        VtStatus.ERROR -> if (vt?.errorMessage.isNullOrBlank()) "Không thể kết nối đến dịch vụ bảo mật" else vt.errorMessage
+        VtStatus.NO_API_KEY -> stringResource(R.string.scan_missing_key)
+        VtStatus.INVALID_API_KEY -> stringResource(R.string.scan_invalid_key)
+        VtStatus.NOT_FOUND -> stringResource(R.string.scan_not_found)
+        VtStatus.RATE_LIMITED -> stringResource(R.string.scan_rate_limit)
+        VtStatus.ERROR -> if (vt?.errorMessage.isNullOrBlank()) stringResource(R.string.scan_error) else vt.errorMessage
         VtStatus.TOO_LARGE -> stringResource(R.string.apk_info_vt_too_large, vt?.errorMessage.orEmpty())
-        VtStatus.SCANNING -> "Đang phân tích chữ ký và manifest..."
-        VtStatus.UPLOADING -> "Đang tải tệp lên để phân tích (${vt?.uploadProgress ?: 0}%)..."
-        VtStatus.QUEUED -> "Đang chờ hàng đợi phân tích..."
-        VtStatus.ANALYZING -> "Đang chạy quét DEX, BadPack & Call Graph..."
+        VtStatus.SCANNING -> stringResource(R.string.scan_checking)
+        VtStatus.UPLOADING -> stringResource(R.string.scan_uploading, vt?.uploadProgress ?: 0)
+        VtStatus.QUEUED -> stringResource(R.string.scan_queued)
+        VtStatus.ANALYZING -> stringResource(R.string.scan_analyzing)
         else -> null
     }
     val isAlarming = status == VtStatus.MALICIOUS
@@ -106,7 +108,7 @@ fun VirusTotalCard(
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = "Bảo mật VirusDetec",
+                    text = vt?.provider?.let { stringResource(R.string.scan_provider_result, it) } ?: stringResource(R.string.scan_title),
                     style = MaterialTheme.typography.labelLarge,
                     color = vtColor,
                 )
@@ -120,12 +122,15 @@ fun VirusTotalCard(
                 }
             }
 
+            Text(stringResource(R.string.scan_upload_notice), style = MaterialTheme.typography.bodySmall)
+            TextButton(onClick = onOpenSettings) { Text(stringResource(R.string.scan_settings)) }
             if (vtDesc != null) {
                 Spacer(Modifier.height(8.dp))
                 Text(vtDesc, style = MaterialTheme.typography.bodySmall, color = vtColor)
             }
 
-            if (hasResult && vt != null) {
+            vt?.report?.let { SecurityFindingsSection(report = it) }
+            if (hasResult && vt != null && vt.report == null) {
                 val total = vt.malicious + vt.suspicious + vt.harmless + vt.undetected
                 Spacer(Modifier.height(12.dp))
                 VtBreakdownSection(
@@ -156,7 +161,7 @@ fun VirusTotalCard(
                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
                 ) {
                     Text(
-                        text = "Xem chi tiết phát hiện",
+                        text = stringResource(R.string.scan_details),
                         style = MaterialTheme.typography.labelMedium,
                     )
                     Spacer(Modifier.width(6.dp))
@@ -182,7 +187,7 @@ fun VirusTotalCard(
                     )
                     Spacer(Modifier.width(6.dp))
                     Text(
-                        text = "Tải lên & Quét bảo mật",
+                        text = stringResource(R.string.scan_upload),
                         style = MaterialTheme.typography.labelMedium,
                     )
                 }
@@ -218,7 +223,7 @@ fun VirusTotalCard(
                     )
                     Spacer(Modifier.width(6.dp))
                     Text(
-                        text = "Quét bảo mật",
+                        text = stringResource(R.string.scan_action),
                         style = MaterialTheme.typography.labelMedium,
                     )
                 }

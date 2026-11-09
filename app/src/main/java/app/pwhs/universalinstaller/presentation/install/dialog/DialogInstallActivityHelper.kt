@@ -46,7 +46,7 @@ object DialogInstallActivityHelper {
         Build.VERSION.SDK_INT < Build.VERSION_CODES.O ||
         context.packageManager.canRequestPackageInstalls()
 
-    fun resolveBackendAndReadiness(
+    suspend fun resolveBackendAndReadiness(
         context: Context,
         prefs: Preferences?,
         selectedProfileId: String?,
@@ -62,7 +62,7 @@ object DialogInstallActivityHelper {
             else -> "Default"
         }
         val isBackendReady = when (configuredBackend) {
-            "Shizuku" -> InstallSessionManager.isShizukuReadyForInstall(context)
+            "Shizuku" -> app.pwhs.universalinstaller.util.ShizukuReadiness.await(context)
             "Dhizuku" -> DhizukuCompat.isReady(context)
             "MicroG" -> MicroGCompat.isAvailable(context)
             else -> true

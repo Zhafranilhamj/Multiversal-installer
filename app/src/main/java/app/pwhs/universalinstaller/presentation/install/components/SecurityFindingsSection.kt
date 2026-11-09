@@ -65,25 +65,25 @@ fun SecurityScoreHeader(
         Verdict.SAFE -> Quadruple(
             extendedColors.success,
             extendedColors.success.copy(alpha = 0.12f),
-            "An toàn",
+            stringResource(R.string.scan_safe),
             Icons.Rounded.GppGood,
         )
         Verdict.RISKWARE -> Quadruple(
             extendedColors.warning,
             extendedColors.warningContainer.copy(alpha = 0.5f),
-            "Rủi ro nhẹ (Bản Mod)",
+            stringResource(R.string.scan_riskware),
             Icons.Rounded.Warning,
         )
         Verdict.SUSPICIOUS -> Quadruple(
             extendedColors.warning,
             extendedColors.warningContainer,
-            "Đáng ngờ",
+            stringResource(R.string.scan_suspicious),
             Icons.Rounded.Warning,
         )
         Verdict.MALICIOUS -> Quadruple(
             MaterialTheme.colorScheme.error,
             MaterialTheme.colorScheme.errorContainer,
-            "Mã độc nguy hiểm",
+            stringResource(R.string.scan_malicious),
             Icons.Rounded.Dangerous,
         )
     }
@@ -133,10 +133,10 @@ fun SecurityScoreHeader(
                 Spacer(Modifier.height(4.dp))
                 Text(
                     text = when (report.verdict) {
-                        Verdict.SAFE -> "Không phát hiện dấu hiệu can thiệp hay hành vi độc hại nào."
-                        Verdict.RISKWARE -> "Ứng dụng có thể là bản sửa đổi (Mod), cert không khớp Play Store nhưng không có mã độc."
-                        Verdict.SUSPICIOUS -> "Phát hiện một số hành vi bất thường, hãy kiểm tra kỹ trước khi cài đặt."
-                        Verdict.MALICIOUS -> "Cảnh báo cao! Phát hiện kỹ thuật phá hoại hoặc giả mạo nghiêm trọng."
+                        Verdict.SAFE -> stringResource(R.string.scan_safe_detail)
+                        Verdict.RISKWARE -> stringResource(R.string.scan_risk_detail)
+                        Verdict.SUSPICIOUS -> stringResource(R.string.scan_suspicious_detail)
+                        Verdict.MALICIOUS -> stringResource(R.string.scan_malicious_detail)
                     },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -156,11 +156,11 @@ fun SecurityFindingCard(
     var expanded by remember { mutableStateOf(false) }
 
     val (badgeColor, badgeText) = when (finding.severity) {
-        SeverityLevel.CRITICAL -> MaterialTheme.colorScheme.error to "NGHIÊM TRỌNG"
-        SeverityLevel.HIGH -> MaterialTheme.colorScheme.error to "CAO"
-        SeverityLevel.MEDIUM -> extendedColors.warning to "TRUNG BÌNH"
-        SeverityLevel.LOW -> extendedColors.warning to "THẤP"
-        SeverityLevel.INFO -> MaterialTheme.colorScheme.primary to "THÔNG TIN"
+        SeverityLevel.CRITICAL -> MaterialTheme.colorScheme.error to stringResource(R.string.scan_critical)
+        SeverityLevel.HIGH -> MaterialTheme.colorScheme.error to stringResource(R.string.scan_high)
+        SeverityLevel.MEDIUM -> extendedColors.warning to stringResource(R.string.scan_medium)
+        SeverityLevel.LOW -> extendedColors.warning to stringResource(R.string.scan_low)
+        SeverityLevel.INFO -> MaterialTheme.colorScheme.primary to stringResource(R.string.scan_info)
     }
 
     Surface(
@@ -217,7 +217,7 @@ fun SecurityFindingCard(
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "Bằng chứng kỹ thuật (Evidence):",
+                                text = stringResource(R.string.scan_evidence),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = MaterialTheme.colorScheme.primary,
                                 fontWeight = FontWeight.SemiBold,
@@ -239,7 +239,7 @@ fun SecurityFindingCard(
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.ContentCopy,
-                                contentDescription = "Copy evidence",
+                                contentDescription = stringResource(R.string.scan_copy_evidence),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.size(16.dp),
                             )
@@ -264,7 +264,7 @@ fun SecurityFindingsSection(
 
         if (report.findings.isNotEmpty()) {
             Text(
-                text = "Phát hiện kỹ thuật (${report.findings.size})",
+                text = stringResource(R.string.scan_findings, report.findings.size),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface,

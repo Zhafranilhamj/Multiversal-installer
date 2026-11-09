@@ -48,7 +48,6 @@ val appModule = module {
     }
     single { PackageInstaller.getInstance(get()) }
     single { PackageUninstaller.getInstance(get()) }
-    factory { (handle: SavedStateHandle) -> SessionDataRepositoryImpl(handle) }
     singleOf(::SessionDataRepositoryImpl) { bind<SessionDataRepository>() }
 
     // Room

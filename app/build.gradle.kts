@@ -193,6 +193,7 @@ dependencies {
     implementation(libs.androidx.appfunctions)
     ksp(libs.androidx.appfunctions.compiler)
     testImplementation(libs.junit)
+    testImplementation("io.ktor:ktor-client-mock:${libs.versions.ktor.get()}")
     testImplementation("org.json:json:20240303")
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

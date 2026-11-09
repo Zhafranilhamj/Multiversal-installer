@@ -218,11 +218,11 @@ private fun RiskCard(
         is InstallRisk.SignatureMismatch -> Icons.Rounded.Key to
             stringResource(R.string.dialog_risk_signature_mismatch)
         is InstallRisk.VtMalicious -> Icons.Rounded.Security to
-            stringResource(R.string.dialog_risk_vt_malicious, risk.engineCount)
+            stringResource(R.string.scan_risk_malicious, risk.engineCount)
         is InstallRisk.VtSuspicious -> Icons.Rounded.Warning to
-            stringResource(R.string.dialog_risk_vt_suspicious, risk.engineCount)
+            stringResource(R.string.scan_risk_suspicious, risk.engineCount)
         is InstallRisk.VtUnscanned -> Icons.Rounded.Warning to
-            stringResource(R.string.dialog_risk_vt_unscanned)
+            stringResource(R.string.scan_risk_unscanned)
         is InstallRisk.TrackersDetected -> Icons.Rounded.Shield to
             stringResource(R.string.dialog_risk_trackers_detected, risk.count)
     }

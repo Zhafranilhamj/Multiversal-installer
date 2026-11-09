@@ -10,9 +10,8 @@ import com.topjohnwu.superuser.ipc.RootService
 
 /**
  * libsu-spawned process running as UID 0. We hand back a Binder implementing
- * [IPrivilegedService]; calls into it execute with root authority, which is the only way
- * to reach hidden `IPackageManager.addPreferredActivity` & friends — those reject shell
- * UID 2000 and certainly reject the app's own UID.
+ * [IPrivilegedService]. Persistent preferred activities require system UID 1000,
+ * not root UID 0, so each role operation temporarily changes effective UID.
  */
 class PrivilegedRootService : RootService() {
 
@@ -29,30 +28,39 @@ class PrivilegedRootService : RootService() {
     }
     
     private class ServiceBinder : IPrivilegedService.Stub() {
+        private inline fun asSystem(block: () -> Unit) {
+            val uid = android.system.Os.geteuid()
+            try {
+                if (uid == 0) android.system.Os.seteuid(1000)
+                block()
+            } finally {
+                if (uid == 0) android.system.Os.seteuid(uid)
+            }
+        }
+
         override fun setDefaultInstaller(component: ComponentName, lock: Boolean) {
-            // ServiceManager.getService runs in this root process so the returned binder is
-            // not wrapped — direct calls land at PackageManagerService with caller UID = 0.
+            // Resolve in the isolated privileged process; role calls use system euid below.
             val pmBinder = ServiceManager.getService("package")
                 ?: error("system_service 'package' returned null in root process")
             val iPm = IPackageManager.Stub.asInterface(pmBinder)
-            DefaultInstallerLogic.setDefaultInstaller(
+            asSystem { DefaultInstallerLogic.setDefaultInstaller(
                 iPackageManager = iPm,
                 component = component,
                 lock = lock,
                 hasSystemLevelPermission = true,
-            )
+            ) }
         }
 
         override fun setDefaultUninstaller(component: ComponentName, lock: Boolean) {
             val pmBinder = ServiceManager.getService("package")
                 ?: error("system_service 'package' returned null in root process")
             val iPm = IPackageManager.Stub.asInterface(pmBinder)
-            app.pwhs.universalinstaller.util.DefaultUninstallerLogic.setDefaultUninstaller(
+            asSystem { app.pwhs.universalinstaller.util.DefaultUninstallerLogic.setDefaultUninstaller(
                 iPackageManager = iPm,
                 component = component,
                 lock = lock,
                 hasSystemLevelPermission = true,
-            )
+            ) }
         }
     }
 }

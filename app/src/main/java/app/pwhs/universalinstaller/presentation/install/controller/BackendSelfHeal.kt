@@ -51,6 +51,19 @@ object BackendSelfHeal {
                 state != RootState.NOT_ROOTED &&
                 state != RootState.DENIED
             reportHealth("root", healthy)
+            if (state == RootState.READY) {
+                val installer = prefs[PreferencesKeys.PREFERRED_DEFAULT_INSTALLER] == true
+                val uninstaller = prefs[PreferencesKeys.PREFERRED_DEFAULT_UNINSTALLER] == true
+                if (installer || uninstaller) {
+                    app.pwhs.universalinstaller.util.BatteryOptimizationHelper.allowBackground(application, root = true)
+                }
+                if (installer) factory.setDefaultInstallerViaRoot(application, android.content.ComponentName(
+                    application, "app.pwhs.universalinstaller.presentation.install.DialogInstallActivity"), true)
+                    .onFailure { Timber.w(it, "Could not restore Root installer default") }
+                if (uninstaller) factory.setDefaultUninstallerViaRoot(application, android.content.ComponentName(
+                    application, "app.pwhs.universalinstaller.presentation.manage.uninstall.DialogUninstallActivity"), true)
+                    .onFailure { Timber.w(it, "Could not restore Root uninstaller default") }
+            }
             if (!healthy) {
                 Timber.i("BackendSelfHeal: USE_ROOT on but root not currently ready ($state) — keeping pref, runtime will fall back if needed")
             }

@@ -68,7 +68,7 @@ object DefaultInstallerLogic {
         )
 
         // Ours is the one that has to go: with lock=false it is the entire operation.
-        clearPackagePreferredActivities(iPackageManager, component.packageName, userId, hasSystemLevelPermission)
+        if (!lock) clearPackagePreferredActivities(iPackageManager, component.packageName, userId, hasSystemLevelPermission)
 
         if (!lock) return
 
@@ -111,7 +111,7 @@ object DefaultInstallerLogic {
 
             addPreferredActivity(iPackageManager, filter, match, names.toTypedArray(), component, userId)
 
-            // Best effort, and only available as UID 0. When it does land it is what makes the
+            // Best effort, and only available as system UID 1000. When it does land it is what makes the
             // registration stick regardless of the candidate set above.
             if (hasSystemLevelPermission) {
                 runCatching { addPersistentPreferredActivity(iPackageManager, filter, component, userId) }
@@ -131,7 +131,7 @@ object DefaultInstallerLogic {
         )
         m.invoke(iPackageManager, packageName)
 
-        // Only reachable as UID 0, and the non-persistent clear above is the one that matters.
+        // Only reachable as system UID 1000, and the non-persistent clear above is the one that matters.
         if (hasSystemLevelPermission) {
             runCatching {
                 val m = iPackageManager.javaClass.getMethod(
@@ -181,25 +181,9 @@ object DefaultInstallerLogic {
         component: ComponentName,
         userId: Int,
     ) {
-        run {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val m = iPackageManager.javaClass.getMethod(
-                    "addPreferredActivity",
-                    IntentFilter::class.java, Int::class.javaPrimitiveType,
-                    Array<ComponentName>::class.java, ComponentName::class.java,
-                    Int::class.javaPrimitiveType, Boolean::class.javaPrimitiveType,
-                )
-                m.invoke(iPackageManager, filter, match, names, component, userId, true)
-            } else {
-                val m = iPackageManager.javaClass.getMethod(
-                    "addPreferredActivity",
-                    IntentFilter::class.java, Int::class.javaPrimitiveType,
-                    Array<ComponentName>::class.java, ComponentName::class.java,
-                    Int::class.javaPrimitiveType,
-                )
-                m.invoke(iPackageManager, filter, match, names, component, userId)
-            }
-        }
+        MimePreferredActivity.register(
+            iPackageManager, Build.VERSION.SDK_INT, filter, match, names, component, userId,
+        )
     }
 
     private fun addPersistentPreferredActivity(

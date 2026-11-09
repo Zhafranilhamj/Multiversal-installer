@@ -55,6 +55,9 @@ internal fun LazyListScope.InstallSection(
 ) {
     if (matchesQuery(q, installLabels)) item {
         SettingsSection(title = stringResource(R.string.setting_section_installation), icon = Icons.Rounded.SettingsApplications) {
+            SearchableItem(q, stringResource(R.string.setting_ignore_battery_title), "battery background") {
+                app.pwhs.universalinstaller.presentation.setting.components.BatteryOptimizationPreference()
+            }
             // Group headers only while unfiltered: a header whose items were all
             // searched away is a label over nothing. Same rule the divider below uses.
             if (q.isBlank()) OptionGroupHeader(stringResource(R.string.setting_group_installing))

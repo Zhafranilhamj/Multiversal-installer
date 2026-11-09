@@ -362,4 +362,6 @@
     <string name="setting_backup_export_subtitle">Export settings, tokens, tracked apps, and logs</string>
     <string name="setting_backup_restore_title">Restore Backup</string>
     <string name="setting_backup_restore_subtitle">Restore data from a backup file or Obtainium export</string>
+    <string name="setting_ignore_battery_title">Ignore battery optimizations</string>
+    <string name="setting_ignore_battery_summary">Allow background installation work. OEM background and autostart settings may also be required.</string>
 </resources>

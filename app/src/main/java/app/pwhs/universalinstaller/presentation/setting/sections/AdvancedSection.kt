@@ -32,22 +32,23 @@ internal fun LazyListScope.AdvancedSection(
         ) {
             SearchableItem(
                 q,
-                "Quét bảo mật APK (VirusDetec)",
-                "virusdetec scan malware security bao mat ma doc nguy hiem",
+                stringResource(R.string.scan_title),
+                "virustotal virusdetec scan normal strict api key malware security bao mat ma doc nguy hiem",
             ) {
+                app.pwhs.universalinstaller.presentation.setting.components.ScanPreferences()
                 ListItem(
                     headlineContent = {
                         Text(
-                            text = "Quét bảo mật APK (VirusDetec)",
+                            text = stringResource(R.string.scan_title),
                             style = MaterialTheme.typography.bodyLarge,
                         )
                     },
                     supportingContent = {
                         Text(
                             text = if (securityScanDisabled) {
-                                "Đã tắt quét tự động"
+                                stringResource(R.string.scan_disabled)
                             } else {
-                                "Tự động phân tích chữ ký, mã độc và hành vi bất thường"
+                                stringResource(R.string.scan_enabled)
                             },
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
