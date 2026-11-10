@@ -2,6 +2,8 @@
 package app.pwhs.universalinstaller.presentation.manage
 
 import android.app.Application
+import android.content.Context
+import android.os.Environment
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +18,7 @@ import app.pwhs.universalinstaller.domain.provider.PrivilegedProvider
 import app.pwhs.universalinstaller.presentation.install.controller.InstallerBackendFactory
 import app.pwhs.universalinstaller.presentation.install.controller.ShizukuShellExecutor
 import app.pwhs.universalinstaller.presentation.install.controller.SystemAppMethod
+import app.pwhs.universalinstaller.presentation.manage.util.AppScanController
 import app.pwhs.universalinstaller.presentation.manage.util.InstalledAppsLoader
 import app.pwhs.universalinstaller.presentation.manage.util.ManageExtractHelper
 import app.pwhs.universalinstaller.presentation.manage.util.ManageFilterHelper
@@ -23,6 +26,7 @@ import app.pwhs.universalinstaller.presentation.manage.util.ManagePrivilegedActi
 import app.pwhs.universalinstaller.presentation.manage.util.ManageUninstallHelper
 import app.pwhs.universalinstaller.presentation.manage.util.ManageUsageStatsHelper
 import app.pwhs.core.telemetry.AnalyticsHelper
+import app.pwhs.core.telemetry.TelemetryEvents as CoreTelemetryEvents
 import app.pwhs.universalinstaller.telemetry.Telemetry
 import app.pwhs.universalinstaller.telemetry.TelemetryEvents
 import kotlinx.coroutines.Dispatchers
@@ -64,7 +68,8 @@ class ManageViewModel(
     private val _batchExtractState = MutableStateFlow<BatchExtractState>(BatchExtractState.Idle)
     private val _privilegedReady = MutableStateFlow(false)
     private val _privilegedActionResult = MutableStateFlow<PrivilegedActionResult?>(null)
-    private val _scanResult = MutableStateFlow<ScanUiResult?>(null)
+    private val appScan = AppScanController(viewModelScope, virusDetecService)
+    val scanResult: StateFlow<ScanUiResult?> = appScan.state
 
     private var extractJob: Job? = null
 
@@ -77,7 +82,7 @@ class ManageViewModel(
             _apps, _searchQuery, _isLoading, _appFilter, _selectedPackages,
             _sortBy, _sortDirection, _usageAccess, _systemAppPrompt, _extractState,
             _privilegedReady, _privilegedActionResult, _groupBy, _batchExtractState, _isRefreshing,
-            blacklist, _scanResult
+            blacklist, appScan.state
         )
     ) { flows ->
         ManageFilterHelper.buildManageUiState(flows)
@@ -98,8 +103,7 @@ class ManageViewModel(
 
     // ── Extraction Actions ──────────────────────────────────────────────────
 
-    fun extractApp(packageName: String, appName: String) =
-        runExtraction(packageName, appName, ExtractMode.Backup, outputDir = null)
+    fun extractApp(packageName: String, appName: String) = runExtraction(packageName, appName, ExtractMode.Backup, null)
 
     fun shareApp(packageName: String, appName: String) {
         val shareDir = File(application.cacheDir, "share").apply { mkdirs() }
@@ -113,26 +117,12 @@ class ManageViewModel(
         runExtraction(packageName, appName, ExtractMode.Reinstall, outputDir = reinstallDir)
     }
 
-    fun scanVirusTotal(context: android.content.Context, app: InstalledApp) {
-        AnalyticsHelper.logAppManagementAction("scan_virustotal")
-        _scanResult.value = ScanUiResult(app.appName, app.packageName, isScanning = true)
-        viewModelScope.launch {
-            // The scan reports its own outcome — including "no verdict" and network failures — so
-            // the sheet never closes onto nothing.
-            val result = ManageExtractHelper.scanVirusTotal(context, app, virusDetecService)
-            _scanResult.value = ScanUiResult(app.appName, app.packageName, isScanning = false, result = result)
-        }
-    }
-
-    fun dismissScanResult() {
-        _scanResult.value = null
-    }
+    fun scanVirusTotal(context: Context, app: InstalledApp) = appScan.scan(context, app)
+    fun dismissScanResult() = appScan.dismiss()
 
     fun addToServer(packageName: String, appName: String) {
-        val serverDir = File(
-            android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS),
-            "UniversalInstaller"
-        ).apply { mkdirs() }
+        val downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val serverDir = File(downloads, "UniversalInstaller").apply { mkdirs() }
         runExtraction(packageName, appName, ExtractMode.Server, outputDir = serverDir)
     }
 
@@ -145,9 +135,9 @@ class ManageViewModel(
         if (_extractState.value is ExtractState.Running) return
         if (mode == ExtractMode.Backup) Telemetry.feature(TelemetryEvents.FEATURE_APK_BACKUP)
         val actionType = when (mode) {
-            ExtractMode.Backup -> app.pwhs.core.telemetry.TelemetryEvents.ACTION_BACKUP_APK
-            ExtractMode.Share -> app.pwhs.core.telemetry.TelemetryEvents.ACTION_SHARE_APK
-            ExtractMode.Reinstall -> app.pwhs.core.telemetry.TelemetryEvents.ACTION_EXTRACT_SPLITS
+            ExtractMode.Backup -> CoreTelemetryEvents.ACTION_BACKUP_APK
+            ExtractMode.Share -> CoreTelemetryEvents.ACTION_SHARE_APK
+            ExtractMode.Reinstall -> CoreTelemetryEvents.ACTION_EXTRACT_SPLITS
             else -> null
         }
         actionType?.let { AnalyticsHelper.logAppManagementAction(it) }
@@ -423,7 +413,7 @@ class ManageViewModel(
 
     fun uninstallApp(packageName: String) {
         Telemetry.feature(TelemetryEvents.FEATURE_UNINSTALL)
-        AnalyticsHelper.logAppManagementAction(app.pwhs.core.telemetry.TelemetryEvents.ACTION_UNINSTALL_APP)
+        AnalyticsHelper.logAppManagementAction(CoreTelemetryEvents.ACTION_UNINSTALL_APP)
         val app = _apps.value.firstOrNull { it.packageName == packageName }
         if (app != null && app.isSystemApp) {
             viewModelScope.launch {
