@@ -40,6 +40,8 @@ class MultipartStreamReaderTest {
         boundary = boundary,
         contentLength = contentLength,
         destDir = folder.root,
+        // The production fallback carries a timestamp; pin it so the naming test is deterministic.
+        fallbackFileName = "received.apk",
         onProgress = onProgress,
         progressIntervalMillis = 0L,
     )

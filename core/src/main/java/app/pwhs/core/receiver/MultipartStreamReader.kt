@@ -5,6 +5,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.io.PushbackInputStream
 
 /**
  * Streaming reader for the `multipart/form-data` bodies the LAN receiver accepts.
@@ -74,6 +75,10 @@ object MultipartStreamReader {
         clock: () -> Long = System::currentTimeMillis,
     ): Outcome {
         val marker = "\r\n--$boundary".toByteArray(Charsets.US_ASCII)
+        // Finding a boundary means reading further than it, so the reader has to be able to hand
+        // bytes back. Without this, one 64 KB read swallows the whole (small) body: the parts after
+        // the file are lost and the parts before it take the file part with them.
+        val stream = PushbackInputStream(input, BUFFER_SIZE + marker.size)
         var remaining = if (contentLength > 0) contentLength else Long.MAX_VALUE
 
         var fileName: String? = null
@@ -82,7 +87,7 @@ object MultipartStreamReader {
 
         // Walk forward to the part that actually carries a file.
         while (remaining > 0 && fileName == null) {
-            val headers = readPartHeaders(input, remaining)
+            val headers = readPartHeaders(stream, remaining)
             remaining -= headers.bytesConsumed
             headerBytes += headers.bytesConsumed
             when {
@@ -96,8 +101,8 @@ object MultipartStreamReader {
                         fileName = FileNameSanitizer.sanitize(name, fallbackFileName)
                     } else {
                         // A plain form field ahead of the file: discard its body.
-                        val skipped = transferToBoundary(input, marker, remaining, sink = null)
-                        remaining -= skipped.bytesRead
+                        val skipped = transferToBoundary(stream, marker, remaining, sink = null)
+                        remaining -= skipped.bytesConsumed
                         skippedParts++
                         if (!skipped.terminated) {
                             return Outcome.Malformed("Request body ended mid-field")
@@ -117,7 +122,7 @@ object MultipartStreamReader {
 
         val streamed = FileOutputStream(tempFile).use { fos ->
             transferToBoundary(
-                input = input,
+                input = stream,
                 marker = marker,
                 startRemaining = remaining,
                 sink = fos,
@@ -127,7 +132,7 @@ object MultipartStreamReader {
                 clock = clock,
             )
         }
-        remaining -= streamed.bytesRead
+        remaining -= streamed.bytesConsumed
 
         if (!streamed.terminated) {
             tempFile.delete()
@@ -140,7 +145,7 @@ object MultipartStreamReader {
 
         // Consume the rest of the body so a keep-alive connection stays byte-aligned, and count
         // what was in it — those parts are dropped, not appended to the APK.
-        val trailingParts = drainAndCount(input, remaining, marker)
+        val trailingParts = drainAndCount(stream, remaining, marker)
 
         moveTo(tempFile, destFile)
 
@@ -155,15 +160,22 @@ object MultipartStreamReader {
 
     // ── Internals ──────────────────────────────────────────────────────
 
-    private class Transfer(val bytesRead: Long, val bytesWritten: Long, val terminated: Boolean)
+    /**
+     * @param bytesConsumed bytes removed from the stream; excludes anything pushed back
+     * @param bytesWritten bytes of part content handed to the sink
+     */
+    private class Transfer(val bytesConsumed: Long, val bytesWritten: Long, val terminated: Boolean)
 
     /**
      * Copies bytes to [sink] (or discards them when null) until [marker] is found or the body runs
      * out. The last `marker.size - 1` bytes are always held back, so a marker split across two
      * socket reads is still recognised.
+     *
+     * Bytes read past the marker are pushed back onto [input], which must be a
+     * [PushbackInputStream] with room for a whole read buffer.
      */
     private fun transferToBoundary(
-        input: InputStream,
+        input: PushbackInputStream,
         marker: ByteArray,
         startRemaining: Long,
         sink: OutputStream?,
@@ -179,6 +191,7 @@ object MultipartStreamReader {
         var remaining = startRemaining
         var bytesRead = 0L
         var bytesWritten = 0L
+        var pushedBack = 0L
         var terminated = false
         var lastProgress = 0L
 
@@ -209,6 +222,12 @@ object MultipartStreamReader {
             }
             if (markerIndex >= 0) {
                 terminated = true
+                // Everything after the marker belongs to the next part.
+                val overshoot = window.size - (markerIndex + marker.size)
+                if (overshoot > 0) {
+                    input.unread(window, markerIndex + marker.size, overshoot)
+                    pushedBack += overshoot
+                }
             } else {
                 pendingLen = window.size - flushLength
                 System.arraycopy(window, flushLength, pending, 0, pendingLen)
@@ -222,14 +241,14 @@ object MultipartStreamReader {
         }
 
         sink?.flush()
-        return Transfer(bytesRead, bytesWritten, terminated)
+        return Transfer(bytesRead - pushedBack, bytesWritten, terminated)
     }
 
     /**
      * Consumes whatever follows the file part and counts the parts in it. Nothing is retained — a
      * trailing part could be another whole APK.
      */
-    private fun drainAndCount(input: InputStream, remaining: Long, marker: ByteArray): Int {
+    private fun drainAndCount(input: PushbackInputStream, remaining: Long, marker: ByteArray): Int {
         if (remaining <= 0) return 0
         val buffer = ByteArray(BUFFER_SIZE)
         var left = remaining
@@ -280,7 +299,7 @@ object MultipartStreamReader {
     )
 
     /** Reads MIME part headers, stopping at the blank line that separates them from the body. */
-    private fun readPartHeaders(input: InputStream, remaining: Long): PartHeaders {
+    private fun readPartHeaders(input: PushbackInputStream, remaining: Long): PartHeaders {
         if (remaining <= 0) return PartHeaders("", 0L, false)
         val buffer = ByteArrayOutputStream()
         var prev3 = -1

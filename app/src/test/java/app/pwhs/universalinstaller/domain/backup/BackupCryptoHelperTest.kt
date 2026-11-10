@@ -37,6 +37,41 @@ class BackupCryptoHelperTest {
         }
     }
 
+    /**
+     * The envelope is attacker-controlled data: whoever hands us a backup file also hands us its
+     * `iterations`. PasswordKdf clamps that into its accepted window, so a hostile value can neither
+     * make derivation trivially cheap nor hang the import. Both directions have to end in a plain
+     * InvalidPasswordException — the wrong key, not a crash and not a stall.
+     */
+    @Test
+    fun `a hostile iteration count is clamped instead of obeyed`() {
+        val envelope = BackupCryptoHelper.encrypt("payload", "CorrectPassword_456")
+
+        for (hostile in intArrayOf(0, 1, -1, Int.MAX_VALUE, 50_000_000)) {
+            val started = System.nanoTime()
+            assertThrows("iterations=$hostile must not decrypt", InvalidPasswordException::class.java) {
+                BackupCryptoHelper.decrypt(envelope.copy(iterations = hostile), "CorrectPassword_456")
+            }
+            val elapsedMillis = (System.nanoTime() - started) / 1_000_000
+            assertTrue(
+                "iterations=$hostile took ${elapsedMillis}ms — the clamp did not apply",
+                elapsedMillis < 20_000,
+            )
+        }
+    }
+
+    @Test
+    fun `the iteration count the envelope declares drives key derivation`() {
+        val envelope = BackupCryptoHelper.encrypt("payload", "CorrectPassword_456")
+
+        // Untouched, it round-trips; off by one, it does not. That is what makes the field above
+        // meaningful rather than decorative.
+        assertEquals("payload", BackupCryptoHelper.decrypt(envelope, "CorrectPassword_456"))
+        assertThrows(InvalidPasswordException::class.java) {
+            BackupCryptoHelper.decrypt(envelope.copy(iterations = envelope.iterations + 1), "CorrectPassword_456")
+        }
+    }
+
     @Test
     fun `tampered ciphertext fails decryption`() {
         val originalText = "unaltered content"

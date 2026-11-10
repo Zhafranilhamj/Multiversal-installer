@@ -26,7 +26,7 @@ class ProcessDrainerTest {
         val text = handle.awaitText()
 
         assertEquals(100, text.length)
-        assertEquals("j".repeat(100), text)
+        assertEquals("abcdefghij".repeat(10), text)
     }
 
     @Test
@@ -59,12 +59,13 @@ class ProcessDrainerTest {
             "head -c $payloadChars /dev/zero | tr '\\000' 'x'",
         ).redirectErrorStream(true).start()
 
-        val handle = ProcessDrainer.start(process.inputStream)
+        val handle = ProcessDrainer.start(process.inputStream, maxChars = payloadChars)
         val finished = process.waitFor(60, TimeUnit.SECONDS)
         val text = handle.awaitText(timeoutMillis = 30_000L)
 
         assertTrue("the child must exit instead of blocking on a full pipe", finished)
-        assertEquals(payloadChars, text.length)
         assertEquals(0, process.exitValue())
+        assertEquals(payloadChars, text.length)
+        assertTrue("drained bytes must be the child's output, not gaps", text.all { it == 'x' })
     }
 }
