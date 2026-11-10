@@ -31,7 +31,9 @@ internal fun ScanPreferences() {
     Column(Modifier.fillMaxWidth().padding(16.dp)) {
         Text(stringResource(R.string.scan_provider_title), style = MaterialTheme.typography.titleMedium)
         Text(stringResource(R.string.scan_privacy), style = MaterialTheme.typography.bodySmall)
-        if (provider == null) Text(stringResource(R.string.scan_choose_provider))
+        // The scan button already works without an explicit choice (it defaults to VirusDetec),
+        // so the copy says what is happening instead of implying scanning is switched off.
+        if (provider == null) Text(stringResource(R.string.scan_default_provider))
         ScanProvider.entries.forEach { choice ->
             TextButton(onClick = { scope.launch {
                 context.dataStore.edit { it[PreferencesKeys.SCAN_PROVIDER] = choice.name }

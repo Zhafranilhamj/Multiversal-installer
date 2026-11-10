@@ -1,0 +1,5 @@
+• Security Scan now works: tapping it starts a scan and shows progress, instead of doing nothing
+• Scanning an installed app in Manage now shows its result in the app, instead of opening a web page
+• Bigger files can be scanned: the limit is now 650 MB instead of 32 MB
+• Large uploads show real progress and no longer time out part-way
+• Switching the scanner off now tells you, instead of failing silently

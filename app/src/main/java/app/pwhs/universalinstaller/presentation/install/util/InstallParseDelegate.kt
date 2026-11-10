@@ -40,6 +40,13 @@ class InstallParseDelegate(
     private val _isApk = MutableStateFlow(false)
     val isApk: StateFlow<Boolean> = _isApk.asStateFlow()
 
+    private companion object {
+        /** Statuses where a tap on Scan should keep the running progress, not restart it. */
+        val IN_PROGRESS_SCAN_STATES = setOf(
+            VtStatus.SCANNING, VtStatus.UPLOADING, VtStatus.QUEUED, VtStatus.ANALYZING,
+        )
+    }
+
     private val _pendingApkInfo = MutableStateFlow<ApkInfo?>(null)
     val pendingApkInfo: StateFlow<ApkInfo?> = _pendingApkInfo.asStateFlow()
 
@@ -224,7 +231,22 @@ class InstallParseDelegate(
         val current = _pendingApkInfo.value ?: return
         scanJob?.cancel()
         scanJob = scope.launch {
-            if (InstallVirusTotalHelper.isDisabled(context)) return@launch
+            // Show that the tap registered before any work starts. Every "nothing happens" report
+            // for this button came from a silent early return below this line.
+            if (_pendingApkInfo.value?.vtResult?.status !in IN_PROGRESS_SCAN_STATES) {
+                _pendingApkInfo.value = _pendingApkInfo.value?.copy(
+                    vtResult = VtResult(status = VtStatus.SCANNING),
+                )
+            }
+            if (InstallVirusTotalHelper.isDisabled(context)) {
+                _pendingApkInfo.value = _pendingApkInfo.value?.copy(
+                    vtResult = VtResult(
+                        status = VtStatus.ERROR,
+                        errorMessage = context.getString(app.pwhs.universalinstaller.R.string.scan_disabled),
+                    ),
+                )
+                return@launch
+            }
             Telemetry.feature(TelemetryEvents.FEATURE_VIRUSTOTAL)
             app.pwhs.universalinstaller.domain.stats.UserStatsTracker.recordVirusTotalScan(context)
             InstallVirusTotalHelper.scanVirusTotal(
@@ -250,7 +272,7 @@ class InstallParseDelegate(
         hashJob?.cancel()
         hashJob = scope.launch {
             fun isStillCurrent() = pendingOriginalUri == originalUri
-            if (InstallVirusTotalHelper.isDisabled(context)) {
+            if (InstallVirusTotalHelper.autoLookupDisabled(context)) {
                 // VirusTotal is off: still populate the SHA-256 (it is shown with a copy action
                 // in the APK info) but skip every VirusTotal lookup.
                 val sha256 = InstallVirusTotalHelper.computeSha256(context, originalUri)

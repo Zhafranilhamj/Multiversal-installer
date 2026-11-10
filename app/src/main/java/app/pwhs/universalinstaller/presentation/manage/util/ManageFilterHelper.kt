@@ -10,6 +10,7 @@ import app.pwhs.universalinstaller.presentation.manage.ExtractState
 import app.pwhs.universalinstaller.presentation.manage.GroupBy
 import app.pwhs.universalinstaller.presentation.manage.ManageUiState
 import app.pwhs.universalinstaller.presentation.manage.PrivilegedActionResult
+import app.pwhs.universalinstaller.presentation.manage.ScanUiResult
 import app.pwhs.universalinstaller.presentation.manage.SortDirection
 import app.pwhs.universalinstaller.presentation.manage.SystemAppPrompt
 import app.pwhs.universalinstaller.presentation.manage.UninstallSortBy
@@ -84,6 +85,7 @@ object ManageFilterHelper {
         val refreshing = flows[14] as Boolean
         @Suppress("UNCHECKED_CAST")
         val blocked = flows[15] as Set<String>
+        val scanResult = flows[16] as ScanUiResult?
 
         val filtered = filterApps(
             apps = apps,
@@ -112,6 +114,7 @@ object ManageFilterHelper {
             batchExtractState = batchExtract,
             privilegedReady = privReady,
             privilegedActionResult = privResult,
+            scanResult = scanResult,
         )
     }
 

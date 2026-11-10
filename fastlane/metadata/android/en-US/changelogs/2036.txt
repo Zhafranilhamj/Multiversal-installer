@@ -1,0 +1,3 @@
+• Bigger files can be scanned: the limit is now 650 MB instead of 32 MB
+• A scan that could not reach the scanner now says so, instead of reporting the file as clean
+• Large uploads no longer time out part-way and show real progress

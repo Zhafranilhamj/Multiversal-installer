@@ -72,7 +72,7 @@
 - **🛡️ VirusTotal Security**:
   - Automatic SHA-256 hash lookup before install.
   - Engine detection breakdown (malicious, suspicious, clean).
-  - On-demand file upload scan for unindexed packages (up to 650 MB).
+  - On-demand file upload scan for unindexed packages, up to 650 MB (files over 32 MB use VirusTotal's pre-signed upload URL).
 
 - **🌐 Local Sharing & Send to TV**:
   - Built-in HTTP server and web dashboard for transferring APKs from PC or mobile browser.

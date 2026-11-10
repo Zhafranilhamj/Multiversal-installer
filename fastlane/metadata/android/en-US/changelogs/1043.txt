@@ -1,0 +1,2 @@
+• Updated the shared scanning code with the phone and TV builds
+• A scan that could not reach the scanner now says so, instead of reporting the file as clean

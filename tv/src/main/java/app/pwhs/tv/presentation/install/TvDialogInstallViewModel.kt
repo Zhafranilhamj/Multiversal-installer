@@ -12,6 +12,7 @@ import app.pwhs.core.data.ApkMetadataReader
 import app.pwhs.core.data.local.SharedPrefsKeys
 import app.pwhs.core.data.local.dataStore
 import app.pwhs.core.domain.model.LookupRequest
+import app.pwhs.core.domain.model.ScanLimits
 import app.pwhs.core.domain.model.toVtResult
 import app.pwhs.core.domain.model.VtResult
 import app.pwhs.core.domain.model.VtStatus
@@ -138,8 +139,12 @@ class TvDialogInstallViewModel(application: Application) : AndroidViewModel(appl
                 report.toVtResult()
             } else if (lookupRes?.needUpload == true) {
                 VtResult(status = VtStatus.NOT_FOUND, analysisId = sha256)
+            } else if (lookupRes != null) {
+                // The service answered and knows nothing about this file, which is the only case
+                // where "no result" is safe to render. A failed request must not read as clean.
+                VtResult(status = VtStatus.NOT_FOUND, analysisId = sha256)
             } else {
-                VtResult(status = VtStatus.CLEAN)
+                VtResult(status = VtStatus.ERROR)
             }
             val updatedReady = _state.value as? TvInstallState.Ready ?: return@launch
             _state.value = updatedReady.copy(vtResult = result)
@@ -154,6 +159,16 @@ class TvDialogInstallViewModel(application: Application) : AndroidViewModel(appl
 
         vtJob?.cancel()
         vtJob = viewModelScope.launch {
+            if (ScanLimits.exceedsMaximum(sizeBytes)) {
+                _state.value = current.copy(
+                    isUploadingVt = false,
+                    vtResult = VtResult(
+                        status = VtStatus.TOO_LARGE,
+                        errorMessage = ScanLimits.describeMegabytes(sizeBytes),
+                    ),
+                )
+                return@launch
+            }
             _state.value = current.copy(
                 isUploadingVt = true,
                 vtUploadProgress = 0,

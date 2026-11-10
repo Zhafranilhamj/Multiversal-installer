@@ -156,7 +156,7 @@
     <string name="apk_info_vt_uploading">Uploading file… %d%%</string>
     <string name="apk_info_vt_queued">Queued for analysis…</string>
     <string name="apk_info_vt_analyzing">Analyzing APK…</string>
-    <string name="apk_info_vt_too_large">File too large (%s)</string>
+    <string name="apk_info_vt_too_large">File too large for scanning (%s) — the provider accepts up to 650 MB</string>
     <string name="apk_info_vt_add_key">Add API key</string>
     <string name="apk_info_vt_get_key">Get a free key</string>
     <string name="apk_info_vt_tally">%1$d of %2$d rules flagged this file</string>

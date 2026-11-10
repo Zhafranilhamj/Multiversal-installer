@@ -1,5 +1,7 @@
 package app.pwhs.universalinstaller.presentation.manage
 
+import app.pwhs.core.domain.model.VtResult
+
 import android.net.Uri
 import app.pwhs.universalinstaller.domain.model.InstalledApp
 
@@ -120,4 +122,19 @@ data class ManageUiState(
     /** True when Root or Shizuku is currently ready to run shell commands. */
     val privilegedReady: Boolean = false,
     val privilegedActionResult: PrivilegedActionResult? = null,
+    /** Verdict of the last on-demand security scan, or null when nothing has been scanned. */
+    val scanResult: ScanUiResult? = null,
+)
+
+/**
+ * One on-demand security scan of an installed app, as shown in the Manage screen.
+ *
+ * [appName] and [packageName] are captured at request time so the sheet can keep naming the right
+ * app even if the user scrolls a different one into view.
+ */
+data class ScanUiResult(
+    val appName: String,
+    val packageName: String,
+    val isScanning: Boolean,
+    val result: VtResult? = null,
 )

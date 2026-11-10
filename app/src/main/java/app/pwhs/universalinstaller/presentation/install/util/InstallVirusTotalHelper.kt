@@ -1,11 +1,11 @@
 package app.pwhs.universalinstaller.presentation.install.util
 
-import app.pwhs.universalinstaller.domain.scanner.ScanProvider
-import androidx.core.os.ConfigurationCompat
 import android.content.Context
 import android.net.Uri
+import androidx.core.os.ConfigurationCompat
 import app.pwhs.core.data.local.dataStore
 import app.pwhs.core.domain.model.LookupRequest
+import app.pwhs.core.domain.model.ScanLimits
 import app.pwhs.core.domain.model.toVtResult
 import app.pwhs.core.network.VirusDetecService
 import app.pwhs.universalinstaller.R
@@ -13,6 +13,7 @@ import app.pwhs.universalinstaller.data.remote.VirusTotalNotifier
 import app.pwhs.universalinstaller.domain.model.ApkInfo
 import app.pwhs.universalinstaller.domain.model.VtResult
 import app.pwhs.universalinstaller.domain.model.VtStatus
+import app.pwhs.universalinstaller.domain.scanner.ScanProvider
 import app.pwhs.universalinstaller.presentation.setting.PreferencesKeys
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -21,21 +22,52 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
+import java.util.Locale
 
 object InstallVirusTotalHelper {
+
     private fun scanLanguage(context: Context): String = ScanProvider.language(
         ConfigurationCompat.getLocales(context.resources.configuration)[0]?.toLanguageTag().orEmpty())
 
-
+    /**
+     * True only when the user has turned scanning off — this is the switch that hides every scan
+     * surface in the UI.
+     */
     suspend fun isDisabled(context: Context): Boolean {
         return try {
-            val prefs = context.dataStore.data.first()
-            (prefs[PreferencesKeys.DISABLE_VIRUSTOTAL] ?: false) || ScanProvider.from(prefs[PreferencesKeys.SCAN_PROVIDER]) == null
+            context.dataStore.data.first()[PreferencesKeys.DISABLE_VIRUSTOTAL] ?: false
         } catch (e: CancellationException) {
             throw e
         } catch (_: Exception) {
-            true
+            false
         }
+    }
+
+    /**
+     * Gate for *automatic* hash lookups, which run on every file the user opens.
+     *
+     * Those stay off until a provider has actually been chosen, so nothing is sent anywhere just
+     * because an APK was opened. This is the documented consent rule and it is deliberately
+     * stricter than [isDisabled].
+     */
+    suspend fun autoLookupDisabled(context: Context): Boolean {
+        if (isDisabled(context)) return true
+        val stored = runCatchingContext { context.dataStore.data.first()[PreferencesKeys.SCAN_PROVIDER] }
+        return ScanProvider.from(stored) == null
+    }
+
+    /** The provider an explicit scan should use, honouring an explicit Settings choice. */
+    suspend fun provider(context: Context): ScanProvider {
+        val stored = runCatchingContext { context.dataStore.data.first()[PreferencesKeys.SCAN_PROVIDER] }
+        return ScanProvider.resolve(stored)
+    }
+
+    private inline fun <T> runCatchingContext(block: () -> T): T? = try {
+        block()
+    } catch (e: CancellationException) {
+        throw e
+    } catch (_: Exception) {
+        null
     }
 
     suspend fun computeSha256(context: Context, uri: Uri): String = withContext(Dispatchers.IO) {
@@ -49,7 +81,7 @@ object InstallVirusTotalHelper {
                     digest.update(buffer, 0, read)
                     read = input.read(buffer)
                 }
-                digest.digest().joinToString("") { "%02x".format(it) }
+                digest.digest().toHex()
             } ?: ""
         } catch (e: CancellationException) {
             throw e
@@ -65,17 +97,19 @@ object InstallVirusTotalHelper {
         apkInfo: ApkInfo? = null,
         onAutoLookupStart: () -> Unit = {},
     ): Pair<String, VtResult?> = withContext(Dispatchers.IO) {
-        if (isDisabled(context)) return@withContext "" to null
+        if (autoLookupDisabled(context)) return@withContext "" to null
         return@withContext try {
             val sha256 = computeSha256(context, originalUri)
             if (sha256.isBlank()) {
-                "" to VtResult(status = VtStatus.ERROR, errorMessage = "Could not hash file")
+                // Still return the (empty) hash so the caller can show "could not hash" rather than
+                // leaving the security row in its pre-scan state forever.
+                "" to VtResult(status = VtStatus.ERROR, provider = providerLabel(context))
             } else {
                 onAutoLookupStart()
                 val prefs = context.dataStore.data.first()
-                if (ScanProvider.from(prefs[PreferencesKeys.SCAN_PROVIDER]) == ScanProvider.VIRUSTOTAL) {
-                    return@withContext sha256 to DirectScanHelper.service.lookup(sha256,
-                        prefs[PreferencesKeys.VIRUSTOTAL_API_KEY].orEmpty())
+                if (ScanProvider.resolve(prefs[PreferencesKeys.SCAN_PROVIDER]) == ScanProvider.VIRUSTOTAL) {
+                    val key = prefs[PreferencesKeys.VIRUSTOTAL_API_KEY].orEmpty()
+                    return@withContext sha256 to DirectScanHelper.service.lookup(sha256, key)
                 }
                 val req = LookupRequest(
                     sha256 = sha256,
@@ -94,9 +128,9 @@ object InstallVirusTotalHelper {
                     val report = resp.report ?: resp.precheckReport
                     if (report != null) {
                         app.pwhs.universalinstaller.domain.stats.UserStatsTracker.recordVirusTotalScan(context)
-                        sha256 to report.toVtResult().copy(provider = "VirusDetec")
+                        sha256 to report.toVtResult().copy(provider = ScanProvider.VIRUSDETEC.label)
                     } else if (resp.needUpload) {
-                        sha256 to VtResult(status = VtStatus.NOT_FOUND, provider = "VirusDetec")
+                        sha256 to VtResult(status = VtStatus.NOT_FOUND, provider = ScanProvider.VIRUSDETEC.label)
                     } else {
                         sha256 to null
                     }
@@ -109,10 +143,16 @@ object InstallVirusTotalHelper {
             throw e
         } catch (e: Exception) {
             Timber.e(e, "VirusDetec lookup error")
-            "" to VtResult(status = VtStatus.ERROR, errorMessage = e.message.orEmpty())
+            "" to VtResult(status = VtStatus.ERROR, errorMessage = e.message.orEmpty(), provider = providerLabel(context))
         }
     }
 
+    private suspend fun providerLabel(context: Context): String = provider(context).label
+
+    /**
+     * Runs an explicit scan and reports every state through [onProgress], including the states that
+     * explain why a scan cannot run. There is no silent `return` before the first progress update.
+     */
     suspend fun scanVirusTotal(
         context: Context,
         uri: Uri,
@@ -123,33 +163,46 @@ object InstallVirusTotalHelper {
         onUpdateSha256: (String) -> Unit,
         onProgress: (VtResult) -> Unit,
     ) {
-        val provider = ScanProvider.from(context.dataStore.data.first()[PreferencesKeys.SCAN_PROVIDER])
-        if (provider == null) {
-            withContext(Dispatchers.Main) {
-                context.startActivity(android.content.Intent(context,
-                    app.pwhs.universalinstaller.presentation.setting.SettingActivity::class.java)
-                    .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))
+        if (isDisabled(context)) {
+            onProgress(VtResult(status = VtStatus.ERROR, provider = "VirusTotal"))
+            return
+        }
+
+        val provider = provider(context)
+        if (provider == ScanProvider.VIRUSTOTAL) {
+            val key = runCatchingContext {
+                context.dataStore.data.first()[PreferencesKeys.VIRUSTOTAL_API_KEY].orEmpty()
+            }.orEmpty()
+            if (key.isBlank()) {
+                // Never fail silently: the user picked VirusTotal and it needs a key of their own.
+                onProgress(VtResult(status = VtStatus.NO_API_KEY, provider = ScanProvider.VIRUSTOTAL.label))
+                return
+            }
+            onProgress(VtResult(status = VtStatus.SCANNING, provider = ScanProvider.VIRUSTOTAL.label))
+            val hash = current.sha256.ifBlank { computeSha256(context, uri) }
+            if (hash.isBlank()) {
+                onProgress(VtResult(status = VtStatus.ERROR, provider = ScanProvider.VIRUSTOTAL.label))
+                return
+            }
+            onUpdateSha256(hash)
+            try {
+                DirectScanHelper.scan(context, uri, hash, onProgress)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                onProgress(VtResult(status = VtStatus.ERROR, provider = ScanProvider.VIRUSTOTAL.label))
             }
             return
         }
-        if (isDisabled(context)) return
-        if (provider == ScanProvider.VIRUSTOTAL) {
-            try {
-                onProgress(VtResult(status = VtStatus.SCANNING, provider = "VirusTotal"))
-                val hash = computeSha256(context, uri)
-                if (hash.isBlank()) error("Cannot hash APK")
-                onUpdateSha256(hash)
-                DirectScanHelper.scan(context, uri, hash, onProgress)
-            } catch (e: CancellationException) { throw e }
-            catch (_: Exception) { onProgress(VtResult(status = VtStatus.ERROR, provider = "VirusTotal")) }
-            return
-        }
+
+        // ── VirusDetec ──────────────────────────────────────────────────────────
         val sizeBytes = current.fileSizeBytes
-        if (sizeBytes > 300L * 1024 * 1024) {
+        if (ScanLimits.exceedsMaximum(sizeBytes)) {
             onProgress(
                 VtResult(
                     status = VtStatus.TOO_LARGE,
-                    errorMessage = "${sizeBytes / (1024 * 1024)} MB",
+                    errorMessage = ScanLimits.describeMegabytes(sizeBytes),
+                    provider = ScanProvider.VIRUSDETEC.label,
                 )
             )
             return
@@ -159,11 +212,9 @@ object InstallVirusTotalHelper {
         var scanFinished = false
 
         try {
-            onProgress(VtResult(status = VtStatus.SCANNING))
+            onProgress(VtResult(status = VtStatus.SCANNING, provider = ScanProvider.VIRUSDETEC.label))
 
-            val sha256 = current.sha256.ifBlank {
-                computeSha256(context, uri)
-            }
+            val sha256 = current.sha256.ifBlank { computeSha256(context, uri) }
             if (sha256.isBlank()) {
                 scanFinished = true
                 finishScanWithError(context, virusTotalNotifier, scanNotifId, fileName, "Could not hash file", sha256, onProgress)
@@ -171,7 +222,7 @@ object InstallVirusTotalHelper {
             }
             onUpdateSha256(sha256)
 
-            // 1. Try fast precheck/cache lookup first
+            // 1. Try the fast precheck/cache lookup first — no upload needed when it hits.
             val req = LookupRequest(
                 sha256 = sha256,
                 packageName = current.packageName,
@@ -195,18 +246,8 @@ object InstallVirusTotalHelper {
                 }
             }
 
-            // 2. File needs upload -> copy to temp file and upload ticket
-            val tempFile = runCatching {
-                withContext(Dispatchers.IO) {
-                    val ext = fileName.substringAfterLast('.', "apk").ifBlank { "apk" }
-                    val f = File(context.cacheDir, "sec_${System.currentTimeMillis()}.$ext")
-                    context.contentResolver.openInputStream(uri)?.use { input ->
-                        f.outputStream().use { output -> input.copyTo(output) }
-                    } ?: return@withContext null
-                    f
-                }
-            }.getOrNull()
-
+            // 2. Unknown file: stage it and hand it to the upload-ticket flow.
+            val tempFile = copyToCache(context, uri, fileName)
             if (tempFile == null || !tempFile.exists()) {
                 scanFinished = true
                 finishScanWithError(context, virusTotalNotifier, scanNotifId, fileName, "Could not read file for upload", sha256, onProgress)
@@ -214,7 +255,7 @@ object InstallVirusTotalHelper {
             }
 
             try {
-                onProgress(VtResult(status = VtStatus.UPLOADING, uploadProgress = 0))
+                onProgress(VtResult(status = VtStatus.UPLOADING, uploadProgress = 0, provider = ScanProvider.VIRUSDETEC.label))
                 virusTotalNotifier.notifyUploading(scanNotifId, fileName, 0)
 
                 val ticketRes = virusDetecService.createUploadTicket(sha256, tempFile.length(), scanLanguage(context))
@@ -226,7 +267,7 @@ object InstallVirusTotalHelper {
                 val ticket = ticketRes.getOrThrow()
 
                 val uploadRes = virusDetecService.uploadBinary(ticket.uploadUrl, tempFile) { pct ->
-                    onProgress(VtResult(status = VtStatus.UPLOADING, uploadProgress = pct))
+                    onProgress(VtResult(status = VtStatus.UPLOADING, uploadProgress = pct, provider = ScanProvider.VIRUSDETEC.label))
                     virusTotalNotifier.notifyUploading(scanNotifId, fileName, pct)
                 }
                 if (uploadRes.isFailure) {
@@ -242,7 +283,7 @@ object InstallVirusTotalHelper {
                     return
                 }
 
-                onProgress(VtResult(status = VtStatus.ANALYZING, uploadProgress = 100))
+                onProgress(VtResult(status = VtStatus.ANALYZING, uploadProgress = 100, provider = ScanProvider.VIRUSDETEC.label))
                 virusTotalNotifier.notifyAnalyzing(scanNotifId, fileName)
 
                 virusDetecService.watchScanStream(ticket.jobId, scanLanguage(context)).collect { update ->
@@ -263,10 +304,17 @@ object InstallVirusTotalHelper {
                                     status = VtStatus.ANALYZING,
                                     uploadProgress = update.progressPercent,
                                     errorMessage = update.message,
+                                    provider = ScanProvider.VIRUSDETEC.label,
                                 )
                             )
                         }
                     }
+                }
+                // The stream can end without a terminal event (server restart, dropped connection).
+                // That must not leave the row spinning forever.
+                if (!scanFinished) {
+                    scanFinished = true
+                    finishScanWithError(context, virusTotalNotifier, scanNotifId, fileName, "Scan ended unexpectedly", sha256, onProgress)
                 }
             } finally {
                 runCatching { tempFile.delete() }
@@ -284,6 +332,23 @@ object InstallVirusTotalHelper {
         }
     }
 
+    /** Streams the APK into the cache dir; never loads it into memory, so 650 MB is fine. */
+    private suspend fun copyToCache(context: Context, uri: Uri, fileName: String): File? = withContext(Dispatchers.IO) {
+        try {
+            val ext = fileName.substringAfterLast('.', "apk").ifBlank { "apk" }
+            val file = File(context.cacheDir, "sec_${System.currentTimeMillis()}.$ext")
+            context.contentResolver.openInputStream(uri)?.use { input ->
+                file.outputStream().use { output -> input.copyTo(output) }
+            } ?: return@withContext null
+            file.takeIf { it.exists() && it.length() > 0 }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Timber.e(e, "Could not stage APK for upload")
+            null
+        }
+    }
+
     private fun finishScan(
         context: Context,
         notifier: VirusTotalNotifier,
@@ -293,7 +358,7 @@ object InstallVirusTotalHelper {
         sha256: String,
         onProgress: (VtResult) -> Unit,
     ) {
-        onProgress(result.copy(provider = "VirusDetec"))
+        onProgress(result.copy(provider = result.provider ?: ScanProvider.VIRUSDETEC.label))
         val (title, text) = resultNotifCopy(context, result)
         notifier.notifyResult(scanNotifId, fileName, title, text, sha256)
     }
@@ -312,7 +377,7 @@ object InstallVirusTotalHelper {
             notifier,
             scanNotifId,
             fileName,
-            VtResult(status = VtStatus.ERROR, errorMessage = message),
+            VtResult(status = VtStatus.ERROR, errorMessage = message, provider = ScanProvider.VIRUSDETEC.label),
             sha256,
             onProgress,
         )
@@ -333,4 +398,12 @@ object InstallVirusTotalHelper {
             else -> context.getString(R.string.vt_notif_result_done) to ""
         }
     }
+
+    /**
+     * Lower-case hex, explicitly in [Locale.ROOT].
+     *
+     * `"%02x".format(byte)` uses the default locale, so on a device set to Arabic or Hindi the
+     * SHA-256 that gets looked up is not the SHA-256 VirusTotal (or VirusDetec) knows.
+     */
+    private fun ByteArray.toHex(): String = joinToString("") { "%02x".format(Locale.ROOT, it) }
 }
