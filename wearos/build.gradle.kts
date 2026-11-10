@@ -39,7 +39,7 @@ android {
         minSdk = 30
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1042
-        versionName = "1.22.0"
+        versionName = "1.23.0"
     }
 
     // Same keystore as :app — a matching package name is not enough, the certificates must match too.

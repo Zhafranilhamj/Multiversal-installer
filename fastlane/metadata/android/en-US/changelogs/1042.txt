@@ -1,3 +1,3 @@
 • Picks up the hardened core shared with the phone and TV builds
-• Root installs build correct pm install-create commands (no --user all on Android 8 and older, where the parser rejects it)
-• Root shell output is drained while the process runs, so a verbose pm can no longer deadlock the install
+• Root installs build correct pm commands (no --user all on Android 8 and older, where the parser rejects it)
+• Root shell output is drained while the process runs, so a verbose pm can no longer deadlock

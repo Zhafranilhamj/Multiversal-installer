@@ -1,7 +1,7 @@
-• Send to TV now asks for your app-lock PIN before anyone on the network can browse or download your APKs
-• Fixed the pairing token being dropped when connecting from a scanned QR code
-• Typing a TV's IP by hand now reuses the token the TV advertises on the network
-• PINs are hashed with PBKDF2-HMAC-SHA256 (100,000 rounds) instead of a single SHA-256 pass; existing PINs upgrade themselves on the next successful unlock
-• Backup passwords are stretched with the same KDF, and a hostile iteration count inside a backup file is clamped
-• Sync pages escape HTML, send nosniff headers, and report an exact download length
-• The sync server now restarts the moment you change the PIN or toggle the app lock
+• Send to TV now asks for your app-lock PIN before anyone on the network can download your APKs
+• Fixed the pairing token being dropped after scanning a QR code
+• Typing a TV's IP by hand now reuses its advertised token
+• PINs now use PBKDF2-HMAC-SHA256 and upgrade themselves on next unlock
+• Backup passwords use the same KDF, with hostile iteration counts clamped
+• Sync pages escape HTML and send nosniff headers
+• The sync server restarts when you change the PIN or app lock

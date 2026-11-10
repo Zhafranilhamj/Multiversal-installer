@@ -239,7 +239,7 @@ jobs:
           else
             gh release create "$TAG" release-artifacts/* \
               --target "$GITHUB_SHA" \
-              --title "Universal Installer $TAG" \
+              --title "$TAG" \
               --notes-file "$NOTES" \
               $PRERELEASE_FLAG
           fi

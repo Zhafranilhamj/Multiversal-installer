@@ -50,7 +50,7 @@ android {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 2035
-        versionName = "1.22.0"
+        versionName = "1.23.0"
 
     }
 

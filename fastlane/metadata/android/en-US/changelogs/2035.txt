@@ -1,5 +1,4 @@
-• The receive server now requires the pairing token; unauthenticated visitors get a clear 401 page and repeated bad attempts are locked out
-• Uploads stream through a bounded multipart parser that writes to a temporary file and moves it into place, so a half-written APK can never be offered for install
+• The receive server now requires the pairing token; unauthenticated visitors get a 401 and repeated bad attempts are locked out
+• Uploads stream to a temporary file and are moved into place, so a half-written APK can never be offered for install
 • Uploaded file names are sanitised before they touch storage
-• /ping stays open so the phone can still probe which port the TV is listening on
-• Root installs build correct pm install-create commands and drain shell output while it runs, so a verbose pm can no longer deadlock the install
+• Root installs build correct pm commands and drain shell output as it runs, so a verbose pm can no longer deadlock
