@@ -42,6 +42,12 @@ if (hasFirebaseConfig) {
     }
 }
 
+// Room needs an explicit schema location once exportSchema is on, otherwise the processor warns
+// and writes nothing. Committed under app/schemas/ — see AppDatabase.
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 android {
     namespace = "app.pwhs.universalinstaller"
     compileSdk {

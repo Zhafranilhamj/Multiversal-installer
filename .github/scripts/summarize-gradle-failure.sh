@@ -34,5 +34,8 @@ while IFS= read -r line; do
   [[ -z "$line" ]] && continue
   echo "::error::$(escape "$line")"
   COUNT=$((COUNT + 1))
-  [[ "$COUNT" -ge 40 ]] && break
+  if [[ "$COUNT" -ge 40 ]]; then break; fi
 done <"$OUT"
+
+# Diagnostics are best-effort; never turn a summarizer quirk into a second job failure.
+exit 0

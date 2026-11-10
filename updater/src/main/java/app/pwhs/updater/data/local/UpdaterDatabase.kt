@@ -5,10 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+// See :app's AppDatabase for why the schema is exported. Six versions and five handwritten
+// migrations is exactly the history that needs to be diffable.
 @Database(
     entities = [TrackedAppEntity::class],
     version = 6,
-    exportSchema = false,
+    exportSchema = true,
 )
 abstract class UpdaterDatabase : RoomDatabase() {
     abstract fun trackedAppDao(): TrackedAppDao

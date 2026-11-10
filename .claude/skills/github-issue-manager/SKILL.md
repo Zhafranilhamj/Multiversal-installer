@@ -43,7 +43,7 @@ Use `scripts/create_pull_request.cjs` to automate the final step.
 ## Usage Examples
 
 ### "Get latest issues from the last 24h"
-1. Run `node .gemini/skills/github-issue-manager/scripts/fetch_issue_data.cjs 1`
+1. Run `node .claude/skills/github-issue-manager/scripts/fetch_issue_data.cjs 1`
 2. Summarize each issue and its comments.
 3. Identify which issues need immediate attention.
 
@@ -51,4 +51,4 @@ Use `scripts/create_pull_request.cjs` to automate the final step.
 1. Read the issue description and comments carefully.
 2. Search the codebase for related symbols or UI components.
 3. Implement the fix.
-4. Run `node .gemini/skills/github-issue-manager/scripts/create_pull_request.cjs 45 fix/issue-45 "Fix crash in UI" "This PR addresses the crash reported in #45..."`
+4. Run `node .claude/skills/github-issue-manager/scripts/create_pull_request.cjs 45 fix/issue-45 "Fix crash in UI" "This PR addresses the crash reported in #45..."`

@@ -5,6 +5,19 @@ on:
     branches: [ "**" ]
   pull_request:
     branches: [ "**" ]
+  workflow_dispatch:
+    inputs:
+      update_room_schemas:
+        description: 'Commit regenerated Room schema JSON back to this branch'
+        type: boolean
+        default: false
+
+permissions:
+  # write so the dispatch above can commit regenerated Room schema JSON
+  contents: write
+  # The failure-diagnostic step creates a check run so the compiler errors are readable from the
+  # REST API, not only from the runner log.
+  checks: write
 
 concurrency:
   group: build-test-${{ github.ref }}
@@ -127,14 +140,34 @@ jobs:
             --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle.log"
 
       # Room writes app/schemas and updater/schemas during KSP. They are committed, so a diff
-      # against the working tree means a schema change landed without its JSON.
+      # against the working tree means an entity changed without its schema JSON — which is exactly
+      # the drift that silently breaks a migration on an existing install.
       - name: Verify exported Room schemas are committed
+        if: ${{ inputs.update_room_schemas != true }}
         run: |
           if [ -n "$(git status --porcelain -- app/schemas updater/schemas)" ]; then
-            echo "::error::Room schema JSON is out of date. Commit app/schemas and updater/schemas."
+            echo "::error::Room schema JSON is out of date. Re-run this workflow with 'Commit regenerated Room schema JSON' enabled."
             git status --porcelain -- app/schemas updater/schemas
+            git diff -- app/schemas updater/schemas | head -n 100
             exit 1
           fi
+
+      # Regenerating by hand is error-prone (Room's JSON has to match byte for byte), so the
+      # workflow can do it: dispatch with the input enabled and it commits the KSP output.
+      - name: Commit regenerated Room schemas
+        if: ${{ inputs.update_room_schemas == true }}
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain -- app/schemas updater/schemas)" ]; then
+            echo "Room schemas already match the committed JSON."
+            exit 0
+          fi
+          git status --porcelain -- app/schemas updater/schemas
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/schemas updater/schemas
+          git commit -m "chore(room): export schema JSON for the current database versions"
+          git push origin "HEAD:$GITHUB_REF_NAME"
 
       - name: Upload exported Room schemas
         if: always()
