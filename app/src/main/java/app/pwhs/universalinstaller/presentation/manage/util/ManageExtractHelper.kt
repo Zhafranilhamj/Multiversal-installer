@@ -13,6 +13,7 @@ import app.pwhs.core.install.ApkExtractor
 import app.pwhs.core.network.VirusDetecService
 import app.pwhs.universalinstaller.domain.model.InstalledApp
 import app.pwhs.universalinstaller.domain.scanner.ScanProvider
+import app.pwhs.universalinstaller.presentation.install.util.DirectScanHelper
 import app.pwhs.universalinstaller.presentation.manage.BatchExtractState
 import app.pwhs.universalinstaller.presentation.manage.ExtractMode
 import app.pwhs.universalinstaller.presentation.manage.ExtractState
@@ -62,8 +63,7 @@ object ManageExtractHelper {
                 return@withContext if (key.isBlank()) {
                     VtResult(status = VtStatus.NO_API_KEY, provider = ScanProvider.VIRUSTOTAL.label)
                 } else {
-                    app.pwhs.universalinstaller.presentation.install.util.DirectScanHelper
-                        .service.lookup(sha256, key)
+                    DirectScanHelper.service.lookup(sha256, key)
                 }
             }
 

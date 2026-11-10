@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pwhs.core.data.local.dataStore
+import app.pwhs.core.network.VirusDetecService
 import app.pwhs.universalinstaller.R
 import app.pwhs.universalinstaller.data.local.UninstallLogDao
 import app.pwhs.universalinstaller.domain.manager.InstallBlacklist
@@ -43,7 +44,7 @@ class ManageViewModel(
     private val uninstallLogDao: UninstallLogDao,
     private val backendFactory: InstallerBackendFactory,
     private val privilegedProvider: PrivilegedProvider,
-    private val virusDetecService: app.pwhs.core.network.VirusDetecService,
+    private val virusDetecService: VirusDetecService,
 ) : ViewModel() {
 
     private val notifier = UninstallNotifier(application)
