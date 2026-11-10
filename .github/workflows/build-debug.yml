@@ -38,7 +38,6 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          cache-enabled: true
           cache-read-only: ${{ github.event_name == 'pull_request' }}
 
       - name: Grant execute permission for gradlew
@@ -47,7 +46,9 @@ jobs:
       # Runs the JVM unit tests of *every* module. Previously only :app was exercised, and only
       # from prerelease.yml, so :core, :tv and :updater tests never gated a merge.
       - name: Run unit tests
-        run: ./gradlew $OPENSOURCE_UNIT_TEST_TASKS --stacktrace
+        run: |
+          set -o pipefail
+          ./gradlew $OPENSOURCE_UNIT_TEST_TASKS --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle.log"
 
       - name: Upload test reports
         if: always()
@@ -59,6 +60,19 @@ jobs:
             **/build/test-results/
           retention-days: 14
           if-no-files-found: warn
+
+      - name: Summarize failures
+        if: failure()
+        run: .github/scripts/summarize-gradle-failure.sh "$RUNNER_TEMP/gradle.log"
+
+      - name: Upload Gradle log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-tests-gradle-log
+          path: ${{ runner.temp }}/gradle.log
+          retention-days: 7
+          if-no-files-found: ignore
 
   build:
     name: Debug builds
@@ -76,14 +90,16 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          cache-enabled: true
           cache-read-only: ${{ github.event_name == 'pull_request' }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Run Gradle Build
-        run: ./gradlew :app:assembleOpensourceDebug :tv:assembleDebug :wearos:assembleDebug
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleOpensourceDebug :tv:assembleOpensourceDebug :wearos:assembleDebug \
+            --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle.log"
 
       - name: Upload debug APKs
         uses: actions/upload-artifact@v4
@@ -91,6 +107,19 @@ jobs:
           name: debug-apks
           path: |
             app/build/outputs/apk/opensource/debug/*.apk
-            tv/build/outputs/apk/debug/*.apk
+            tv/build/outputs/apk/opensource/debug/*.apk
             wearos/build/outputs/apk/debug/*.apk
           retention-days: 14
+
+      - name: Summarize failures
+        if: failure()
+        run: .github/scripts/summarize-gradle-failure.sh "$RUNNER_TEMP/gradle.log"
+
+      - name: Upload Gradle log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-gradle-log
+          path: ${{ runner.temp }}/gradle.log
+          retention-days: 7
+          if-no-files-found: ignore

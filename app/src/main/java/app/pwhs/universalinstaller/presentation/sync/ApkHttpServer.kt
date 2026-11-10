@@ -258,7 +258,7 @@ class ApkHttpServer(
  * 429 is not in NanoHTTPD's `Status` enum, and the lockout response has to be distinguishable
  * from a plain 403 so a browser — and the person staring at it — knows to wait rather than retry.
  */
-private object TooManyRequests : Response.IStatus {
+private object TooManyRequests : NanoHTTPD.Response.IStatus {
     override fun getDescription(): String = "429 Too Many Requests"
     override fun getRequestStatus(): Int = 429
 }
