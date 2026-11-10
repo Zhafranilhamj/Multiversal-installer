@@ -7,10 +7,9 @@ package app.pwhs.universalinstaller.presentation.manage.util
 
 import android.content.Context
 import app.pwhs.core.network.VirusDetecService
-import app.pwhs.universalinstaller.R
+import app.pwhs.core.telemetry.AnalyticsHelper
 import app.pwhs.universalinstaller.domain.model.InstalledApp
 import app.pwhs.universalinstaller.presentation.manage.ScanUiResult
-import app.pwhs.universalinstaller.util.AnalyticsHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
