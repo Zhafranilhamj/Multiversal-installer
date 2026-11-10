@@ -72,7 +72,9 @@ class VirusDetecService(
         while (input.read(buffer).also { read = it } != -1) {
             digest.update(buffer, 0, read)
         }
-        digest.digest().joinToString("") { "%02x".format(it) }
+        // Locale.ROOT: the default locale can format hex digits with non-ASCII numerals on
+        // Arabic/Hindi devices, which would produce a hash no provider recognises.
+        digest.digest().joinToString("") { "%02x".format(java.util.Locale.ROOT, it) }
     }
 
     suspend fun checkHealth(): Result<Boolean> = withContext(Dispatchers.IO) {

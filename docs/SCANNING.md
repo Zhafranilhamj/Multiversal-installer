@@ -5,10 +5,20 @@ and choose **Normal** or **Strict**. No provider is selected automatically, incl
 when upgrading from the previous build. Automatic hash lookup remains disabled until
 that choice is made. Turning scanning off prevents new lookups and scans.
 
+An explicit tap on **Security Scan** is different from an automatic lookup: it always
+runs. If no provider has been chosen it uses VirusDetec, which needs no key; if
+VirusTotal is chosen but has no key saved, the scan reports exactly that instead of
+returning silently. Every outcome — disabled, missing key, rate limited, too large,
+network failure — is reported to the UI.
+
 - **VirusTotal:** direct HTTPS access to `www.virustotal.com/api/v3`; requires a personal
   API key saved in Settings. Automatic lookup sends the hash, not APK metadata or file
   bytes. The explicit Scan action may upload the file if the hash is unknown. The client
-  supports uploads up to 32 MiB, polls at 30-second intervals, and stops on rate limiting.
+  follows VirusTotal's documented size routing: files up to 32 MB go to `POST /files`,
+  and anything larger is posted to the one-time pre-signed URL returned by
+  `GET /files/upload_url`, up to the real 650 MB ceiling. Both paths stream the APK from
+  disk, so a large file is never read into memory, and the pre-signed URL is accepted
+  only for `virustotal.com` hosts. Scans stop on rate limiting rather than retrying.
   The key is stored using the existing app-private DataStore key setting; it is not
   included in pending-install records or sent to VirusDetec. This is not a new encrypted
   credential vault.
