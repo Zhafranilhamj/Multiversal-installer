@@ -168,6 +168,7 @@ fun ManageScreen(
         onReinstall = viewModel::reinstallApp,
         onInstallToSecureFolder = viewModel::installToSecureFolder,
         onCheckVirusTotal = { app -> viewModel.scanVirusTotal(context, app) },
+        onDismissScanResult = viewModel::dismissScanResult,
         onAddToServer = viewModel::addToServer,
         onForceStop = viewModel::forceStop,
         onSetEnabled = viewModel::setEnabled,

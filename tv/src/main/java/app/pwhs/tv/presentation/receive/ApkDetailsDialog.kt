@@ -140,10 +140,12 @@ fun ApkDetailsDialog(
             val report = lookupRes?.report ?: lookupRes?.precheckReport
             vtResult = if (report != null) {
                 report.toVtResult()
-            } else if (lookupRes?.needUpload == true) {
+            } else if (lookupRes != null) {
+                // Answered, but no report: the file is simply not known yet. A failed request is
+                // an error, not a clean bill of health.
                 VtResult(status = VtStatus.NOT_FOUND, analysisId = hash)
             } else {
-                VtResult(status = VtStatus.CLEAN)
+                VtResult(status = VtStatus.ERROR)
             }
         }
     }

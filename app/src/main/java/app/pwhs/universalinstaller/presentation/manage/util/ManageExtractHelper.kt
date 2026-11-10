@@ -1,19 +1,23 @@
 package app.pwhs.universalinstaller.presentation.manage.util
 
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Environment
 import androidx.documentfile.provider.DocumentFile
 import app.pwhs.core.data.local.dataStore
+import app.pwhs.core.domain.model.LookupRequest
+import app.pwhs.core.domain.model.VtResult
+import app.pwhs.core.domain.model.VtStatus
+import app.pwhs.core.domain.model.toVtResult
 import app.pwhs.core.install.ApkExtractor
+import app.pwhs.core.network.VirusDetecService
 import app.pwhs.universalinstaller.domain.model.InstalledApp
-import app.pwhs.universalinstaller.util.CustomTabsHelper
+import app.pwhs.universalinstaller.domain.scanner.ScanProvider
 import app.pwhs.universalinstaller.presentation.manage.BatchExtractState
 import app.pwhs.universalinstaller.presentation.manage.ExtractMode
 import app.pwhs.universalinstaller.presentation.manage.ExtractState
-import app.pwhs.universalinstaller.presentation.install.util.InstallVirusTotalHelper
 import app.pwhs.universalinstaller.presentation.setting.PreferencesKeys
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
@@ -23,33 +27,96 @@ import java.security.MessageDigest
 
 object ManageExtractHelper {
 
-    suspend fun scanVirusTotal(context: Context, app: InstalledApp) = withContext(Dispatchers.IO) {
-        if (InstallVirusTotalHelper.isDisabled(context)) return@withContext
+    /**
+     * Scans an installed app's base APK and returns the verdict for the caller to show.
+     *
+     * This used to hash the file and then simply open virusdetect.pwhs.app in a browser, so the
+     * tap looked like a scan but answered nothing inside the app. It now performs the lookup and
+     * reports every outcome, including the ones that explain why no verdict is available.
+     */
+    suspend fun scanVirusTotal(
+        context: Context,
+        app: InstalledApp,
+        virusDetecService: VirusDetecService,
+    ): VtResult = withContext(Dispatchers.IO) {
         try {
+            if (app.packageName.isBlank()) return@withContext errorResult("Unknown package")
             val appInfo = context.packageManager.getApplicationInfo(app.packageName, 0)
-            val baseApkFile = File(appInfo.sourceDir)
-            if (baseApkFile.exists()) {
-                val digest = MessageDigest.getInstance("SHA-256")
-                val buffer = ByteArray(8192)
-                baseApkFile.inputStream().use { input ->
-                    var bytes = input.read(buffer)
-                    while (bytes >= 0) {
-                        digest.update(buffer, 0, bytes)
-                        bytes = input.read(buffer)
-                    }
+            val versionCode = runCatching {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                    context.packageManager.getPackageInfo(app.packageName, 0).longVersionCode
+                } else {
+                    @Suppress("DEPRECATION")
+                    context.packageManager.getPackageInfo(app.packageName, 0).versionCode.toLong()
                 }
-                val sha256 = digest.digest().joinToString("") { "%02x".format(it) }
+            }.getOrDefault(0L)
+            val baseApkFile = File(appInfo.sourceDir)
+            if (!baseApkFile.exists()) return@withContext errorResult("APK file is missing")
 
-                withContext(Dispatchers.Main) {
-                    CustomTabsHelper.openUrl(
-                        context,
-                        "https://virusdetect.pwhs.app",
-                    )
+            val sha256 = sha256Of(baseApkFile)
+                ?: return@withContext errorResult("Could not read the installed APK")
+
+            val prefs = context.dataStore.data.first()
+            if (ScanProvider.resolve(prefs[PreferencesKeys.SCAN_PROVIDER]) == ScanProvider.VIRUSTOTAL) {
+                val key = prefs[PreferencesKeys.VIRUSTOTAL_API_KEY].orEmpty()
+                return@withContext if (key.isBlank()) {
+                    VtResult(status = VtStatus.NO_API_KEY, provider = ScanProvider.VIRUSTOTAL.label)
+                } else {
+                    app.pwhs.universalinstaller.presentation.install.util.DirectScanHelper
+                        .service.lookup(sha256, key)
                 }
             }
+
+            val lookup = virusDetecService.lookup(
+                LookupRequest(
+                    sha256 = sha256,
+                    packageName = app.packageName,
+                    appName = app.appName,
+                    versionName = app.versionName,
+                    versionCode = versionCode,
+                )
+            )
+            val response = lookup.getOrNull()
+                ?: return@withContext errorResult(lookup.exceptionOrNull()?.message.orEmpty())
+            val report = response.report ?: response.precheckReport
+            if (report != null) {
+                report.toVtResult().copy(provider = ScanProvider.VIRUSDETEC.label)
+            } else {
+                // Answered, but nothing on file: the caller can offer an upload or a rescan.
+                VtResult(
+                    status = VtStatus.NOT_FOUND,
+                    analysisId = sha256,
+                    provider = ScanProvider.VIRUSDETEC.label,
+                )
+            }
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
-            Timber.e(e, "Failed to scan VT for ${app.packageName}")
+            Timber.e(e, "Failed to scan ${app.packageName}")
+            errorResult(e.message.orEmpty())
         }
+    }
+
+    private fun errorResult(message: String) = VtResult(
+        status = VtStatus.ERROR,
+        errorMessage = message.ifBlank { "Scan failed" },
+    )
+
+    private fun sha256Of(file: File): String? = try {
+        val digest = MessageDigest.getInstance("SHA-256")
+        val buffer = ByteArray(8192)
+        file.inputStream().use { input ->
+            var bytes = input.read(buffer)
+            while (bytes >= 0) {
+                digest.update(buffer, 0, bytes)
+                bytes = input.read(buffer)
+            }
+        }
+        digest.digest().joinToString("") { "%02x".format(java.util.Locale.ROOT, it) }
+    } catch (e: CancellationException) {
+        throw e
+    } catch (_: Exception) {
+        null
     }
 
     suspend fun extractApp(

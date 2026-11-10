@@ -50,6 +50,9 @@ class VirusDetecService(
         const val DEFAULT_CLIENT_API_KEY = "vd_client_live_u89b21f00a"
         const val NETWORK_ERROR_TAG = "__NETWORK_ERROR__"
 
+        /** Uploads get their own ceiling: 650 MB over mobile data is minutes, not seconds. */
+        private const val UPLOAD_TIMEOUT_MILLIS = 30 * 60 * 1000L
+
         val defaultClient: HttpClient by lazy {
             HttpClient(OkHttp) {
                 install(HttpTimeout) {
@@ -142,6 +145,14 @@ class VirusDetecService(
         }
     }
 
+    /**
+     * Uploads the ticket's file in a single request.
+     *
+     * Big APKs used to be rejected before they got here. `file.readChannel()` streams from disk,
+     * so nothing is ever held in memory regardless of size, and the per-request timeout is raised
+     * for the upload because a multi-hundred-megabyte PUT over mobile data takes far longer than
+     * the 60s the service defaults to.
+     */
     suspend fun uploadBinary(
         uploadUrl: String,
         file: File,
@@ -151,6 +162,7 @@ class VirusDetecService(
             val response: HttpResponse = client.put(uploadUrl) {
                 contentType(ContentType.parse("application/vnd.android.package-archive"))
                 setBody(file.readChannel())
+                timeout { requestTimeoutMillis = UPLOAD_TIMEOUT_MILLIS }
                 onUpload { bytesSentTotal, contentLength ->
                     if (contentLength != null && contentLength > 0) {
                         val progress = ((bytesSentTotal.toDouble() / contentLength) * 100).toInt().coerceIn(0, 100)

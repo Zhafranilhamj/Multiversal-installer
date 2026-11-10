@@ -161,6 +161,7 @@ internal fun UninstallUi(
     onReinstall: (String, String) -> Unit = { _, _ -> },
     onInstallToSecureFolder: (String, String, Int) -> Unit = { _, _, _ -> },
     onCheckVirusTotal: (InstalledApp) -> Unit = {},
+    onDismissScanResult: () -> Unit = {},
     onAddToServer: (String, String) -> Unit = { _, _ -> },
     onForceStop: (String, String) -> Unit = { _, _ -> },
     onSetEnabled: (String, String, Boolean) -> Unit = { _, _, _ -> },
@@ -253,6 +254,21 @@ internal fun UninstallUi(
         onDismissSystemApp = onDismissSystemApp,
         selectedPackagesCount = uiState.selectedPackages.size,
     )
+    // A security scan of an installed app has no install dialog to report into, so it gets its
+    // own sheet. Without this the scan ran and the user saw nothing.
+    uiState.scanResult?.let { scan ->
+        AppScanResultSheet(
+            state = scan,
+            onDismiss = onDismissScanResult,
+            onRetry = {
+                onDismissScanResult()
+                uiState.filteredApps.firstOrNull { it.packageName == scan.packageName }
+                    ?.let { onCheckVirusTotal(it) }
+                    ?: uiState.apps.firstOrNull { it.packageName == scan.packageName }
+                        ?.let { onCheckVirusTotal(it) }
+            },
+        )
+    }
     actionTarget?.let { target ->
         // Re-probe before each open in case Shizuku permission was just revoked or root
         // shell expired — the cached `privilegedReady` flag may be stale.

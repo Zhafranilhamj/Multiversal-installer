@@ -43,6 +43,7 @@ class ManageViewModel(
     private val uninstallLogDao: UninstallLogDao,
     private val backendFactory: InstallerBackendFactory,
     private val privilegedProvider: PrivilegedProvider,
+    private val virusDetecService: app.pwhs.core.network.VirusDetecService,
 ) : ViewModel() {
 
     private val notifier = UninstallNotifier(application)
@@ -62,6 +63,7 @@ class ManageViewModel(
     private val _batchExtractState = MutableStateFlow<BatchExtractState>(BatchExtractState.Idle)
     private val _privilegedReady = MutableStateFlow(false)
     private val _privilegedActionResult = MutableStateFlow<PrivilegedActionResult?>(null)
+    private val _scanResult = MutableStateFlow<ScanUiResult?>(null)
 
     private var extractJob: Job? = null
 
@@ -74,7 +76,7 @@ class ManageViewModel(
             _apps, _searchQuery, _isLoading, _appFilter, _selectedPackages,
             _sortBy, _sortDirection, _usageAccess, _systemAppPrompt, _extractState,
             _privilegedReady, _privilegedActionResult, _groupBy, _batchExtractState, _isRefreshing,
-            blacklist
+            blacklist, _scanResult
         )
     ) { flows ->
         ManageFilterHelper.buildManageUiState(flows)
@@ -112,7 +114,17 @@ class ManageViewModel(
 
     fun scanVirusTotal(context: android.content.Context, app: InstalledApp) {
         AnalyticsHelper.logAppManagementAction("scan_virustotal")
-        viewModelScope.launch { ManageExtractHelper.scanVirusTotal(context, app) }
+        _scanResult.value = ScanUiResult(app.appName, app.packageName, isScanning = true)
+        viewModelScope.launch {
+            // The scan reports its own outcome — including "no verdict" and network failures — so
+            // the sheet never closes onto nothing.
+            val result = ManageExtractHelper.scanVirusTotal(context, app, virusDetecService)
+            _scanResult.value = ScanUiResult(app.appName, app.packageName, isScanning = false, result = result)
+        }
+    }
+
+    fun dismissScanResult() {
+        _scanResult.value = null
     }
 
     fun addToServer(packageName: String, appName: String) {
