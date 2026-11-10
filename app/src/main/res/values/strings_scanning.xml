@@ -5,7 +5,7 @@
     <string name="scan_privacy">Choosing a provider enables automatic hash lookups when scanning is on. VirusDetec also receives APK metadata. Tapping Scan can upload the complete APK to the selected provider; do not upload private or confidential files. Providers are separate services; no automatic fallback is used.</string>
     <string name="scan_choose_provider">Choose a provider to enable scanning. No scan requests are sent until you choose.</string>
     <string name="scan_default_provider">No provider picked yet — scans use VirusDetec, which needs no API key. Choose VirusTotal above to use your own key instead.</string>
-    <string name="scan_vt_info">VirusTotal: direct access with your personal API key. Uploaded files may be shared with security partners. This client uploads files up to 650 MB: files over 32 MB are sent through VirusTotal's pre-signed upload URL. Public API quotas apply.</string>
+    <string name="scan_vt_info">VirusTotal: direct access with your personal API key. Uploaded files may be shared with security partners. This client uploads files up to 650 MB: files over 32 MB are sent through VirusTotal\'s pre-signed upload URL. Public API quotas apply.</string>
     <string name="scan_vd_info">VirusDetec: a separate service at virusdetect.pwhs.app, with a workers.dev fallback. Uses a built-in client key, not your VirusTotal key. Its findings are not VirusTotal engine results.</string>
     <string name="scan_api_key">VirusTotal API key</string>
     <string name="scan_save_key">Save key</string>

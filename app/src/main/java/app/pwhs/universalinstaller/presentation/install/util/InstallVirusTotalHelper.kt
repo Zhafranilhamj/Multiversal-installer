@@ -147,10 +147,7 @@ object InstallVirusTotalHelper {
         }
     }
 
-    private suspend fun providerLabel(context: Context): String {
-        val stored = runCatchingContext { context.dataStore.data.first()[PreferencesKeys.SCAN_PROVIDER] }
-        return ScanProvider.resolve(stored).label
-    }
+    private suspend fun providerLabel(context: Context): String = provider(context).label
 
     /**
      * Runs an explicit scan and reports every state through [onProgress], including the states that
