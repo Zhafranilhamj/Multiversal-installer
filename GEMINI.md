@@ -10,6 +10,10 @@
   - Bắt buộc kiểm tra tính đồng bộ giữa `fastlane/Fastfile` và `.github/workflows/publish-release.yml` (tasks build của các module thay đổi như `:app:bundlePlayRelease`, `:tv:bundlePlayRelease`, `:wearos:bundleRelease`, đường dẫn artifact output).
   - Bắt buộc chạy build test các task release của module có thay đổi (kèm `./gradlew assembleDebug`) trước khi push tag để đảm bảo GitHub Actions hoàn toàn không bị fail.
   - Changelog release trên GitHub: Bắt buộc tổng hợp tất cả các form factor có thay đổi trong đợt release đó (Phone, Android TV, Wear OS). Form factor nào có thay đổi thì bắt buộc phải có mục release note riêng (`### 📱 Phone (App)`, `### 📺 Android TV`, `### ⌚ Wear OS`).
+- **Release Paths:** Two, and they are documented in `docs/RELEASES.md` — read it before touching either.
+  - `.github/workflows/release-apk.yml` (dispatch-only) builds the `opensource` release of all three form factors, verifies the signatures with `apksigner`, and publishes the APKs to a GitHub release. It needs only the keystore secrets.
+  - `.github/workflows/publish-release.yml` deploys the `play` flavor to Google Play on a `v*` tag, and is **opt-in via the `PLAY_DEPLOY_ENABLED` repository variable**. Do not remove that gate: without `GOOGLE_SERVICES_JSON` it writes an empty `app/src/play/google-services.json`, which makes `hasFirebaseConfig` true and fails the build with no message pointing at the cause.
+  - Changelog `.txt` files for all three modules live in `fastlane/metadata/android/en-US/changelogs/` (the Fastfile passes no `metadata_path`) and must stay under Google Play's 500-character cap — verify with `wc -c`.
 
 ## AI Guidance & Custom Skills
 This project uses specialized Gemini CLI skills to automate complex tasks. When you encounter the following scenarios, you SHOULD activate and follow the corresponding skill:
