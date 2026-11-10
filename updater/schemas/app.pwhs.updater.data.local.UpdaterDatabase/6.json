@@ -1,0 +1,159 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 6,
+    "identityHash": "b947eee3e44af388aabe05361ec137a9",
+    "entities": [
+      {
+        "tableName": "tracked_apps",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`packageName` TEXT NOT NULL, `appName` TEXT NOT NULL, `iconUrl` TEXT, `sourceType` TEXT NOT NULL, `sourceUrl` TEXT NOT NULL, `currentVersionName` TEXT NOT NULL, `currentVersionCode` INTEGER NOT NULL, `latestVersionName` TEXT, `latestVersionCode` INTEGER, `latestReleaseTag` TEXT, `latestDownloadUrl` TEXT, `releaseNotes` TEXT, `publishedAt` INTEGER, `lastCheckedAt` INTEGER NOT NULL, `includePrereleases` INTEGER NOT NULL, `customRegexFilter` TEXT, `versionRegex` TEXT, `matchGroup` TEXT, `useReleaseTitleAsVersion` INTEGER NOT NULL, `category` TEXT, `ignoredVersion` TEXT, `eTag` TEXT, `availableAssetsJson` TEXT, `installedVersionRegex` TEXT, `installedVersionMatchGroup` TEXT, PRIMARY KEY(`packageName`))",
+        "fields": [
+          {
+            "fieldPath": "packageName",
+            "columnName": "packageName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appName",
+            "columnName": "appName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iconUrl",
+            "columnName": "iconUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sourceType",
+            "columnName": "sourceType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceUrl",
+            "columnName": "sourceUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "currentVersionName",
+            "columnName": "currentVersionName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "currentVersionCode",
+            "columnName": "currentVersionCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latestVersionName",
+            "columnName": "latestVersionName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "latestVersionCode",
+            "columnName": "latestVersionCode",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "latestReleaseTag",
+            "columnName": "latestReleaseTag",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "latestDownloadUrl",
+            "columnName": "latestDownloadUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "releaseNotes",
+            "columnName": "releaseNotes",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "publishedAt",
+            "columnName": "publishedAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastCheckedAt",
+            "columnName": "lastCheckedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "includePrereleases",
+            "columnName": "includePrereleases",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customRegexFilter",
+            "columnName": "customRegexFilter",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "versionRegex",
+            "columnName": "versionRegex",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "matchGroup",
+            "columnName": "matchGroup",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "useReleaseTitleAsVersion",
+            "columnName": "useReleaseTitleAsVersion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ignoredVersion",
+            "columnName": "ignoredVersion",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "eTag",
+            "columnName": "eTag",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "availableAssetsJson",
+            "columnName": "availableAssetsJson",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "installedVersionRegex",
+            "columnName": "installedVersionRegex",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "installedVersionMatchGroup",
+            "columnName": "installedVersionMatchGroup",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "packageName"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b947eee3e44af388aabe05361ec137a9')"
+    ]
+  }
+}
