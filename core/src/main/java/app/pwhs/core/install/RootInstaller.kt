@@ -2,6 +2,7 @@ package app.pwhs.core.install
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import app.pwhs.core.util.RootShell
 import app.pwhs.core.data.local.SharedPrefsKeys
 import app.pwhs.core.data.local.dataStore
@@ -152,14 +153,17 @@ class RootInstaller(private val context: Context) {
         context.contentResolver.openInputStream(uri) ?: throw IllegalStateException("Cannot open $uri")
 
     private suspend fun createSession(replace: Boolean, downgrade: Boolean, grant: Boolean, test: Boolean, allUsers: Boolean): String {
-        val flags = buildString {
-            if (replace) append(" -r")
-            if (downgrade) append(" -d")
-            if (grant) append(" -g")
-            if (test) append(" -t")
-            if (allUsers) append(" --user 0")
-        }
-        val r = RootShell.exec("pm install-create$flags")
+        // `pm`'s own default is the calling user, so no --user flag unless "all users" was asked
+        // for — and then only on builds whose `pm` parses the symbolic id. See PmInstallCommand.
+        val cmd = PmInstallCommand.installCreate(
+            replace = replace,
+            downgrade = downgrade,
+            grantPermissions = grant,
+            allowTest = test,
+            allUsers = allUsers,
+            sdkInt = Build.VERSION.SDK_INT,
+        )
+        val r = RootShell.exec(cmd)
         if (!r.isSuccess) throw RuntimeException("pm install-create failed: ${r.output.trim()}")
         return SESSION_ID.find(r.output)?.groupValues?.get(1)
             ?: throw RuntimeException("Could not parse session id from: ${r.output.trim()}")
@@ -167,18 +171,18 @@ class RootInstaller(private val context: Context) {
 
     private suspend fun writeSplit(sessionId: String, index: Int, file: File) {
         val size = file.length()
-        val path = file.absolutePath.replace(" ", "\\ ")
+        val path = file.absolutePath
         val name = file.nameWithoutExtension
-        var r = RootShell.exec("pm install-write -S $size $sessionId $name $path")
+        var r = RootShell.exec(PmInstallCommand.installWrite(sessionId, name, size, path))
         if (!r.isSuccess) {
             // Older `pm` rejects the path-arg form — pipe the bytes in via stdin instead.
-            r = RootShell.exec("cat $path | pm install-write -S $size $sessionId $name -")
+            r = RootShell.exec(PmInstallCommand.installWriteViaStdin(sessionId, name, size, path))
             if (!r.isSuccess) throw RuntimeException("pm install-write failed for $name: ${r.output.trim()}")
         }
     }
 
     private suspend fun commitSession(sessionId: String) {
-        val r = RootShell.exec("pm install-commit $sessionId")
+        val r = RootShell.exec(PmInstallCommand.installCommit(sessionId))
         // `pm` prints soft failures ("Failure [INSTALL_FAILED_...]") with exit 0, so check the token too.
         if (!r.isSuccess || !r.output.contains("Success", ignoreCase = true)) {
             throw RuntimeException(r.output.trim().ifBlank { "pm install-commit failed" })

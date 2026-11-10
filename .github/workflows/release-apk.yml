@@ -1,0 +1,298 @@
+name: Release APK
+
+# Builds signed, R8-optimized release APKs for every form factor from a plain checkout and
+# publishes them to a GitHub release. Only the repository keystore secrets are needed — no Play
+# Store key and no google-services.json, because this ships the `opensource` flavor, the same
+# build F-Droid reproduces and the one people sideload.
+#
+# Deliberately `workflow_dispatch` only: it publishes a public, signed, downloadable release, so
+# it must never fire on an ordinary push. `publish-release.yml` owns the `v*` tag path and the
+# Play Store deploy.
+on:
+  workflow_dispatch:
+    inputs:
+      prerelease:
+        description: 'Mark the GitHub release as a pre-release'
+        type: boolean
+        default: true
+      notes:
+        description: 'Extra release notes appended to the changelog (optional)'
+        type: string
+        required: false
+
+permissions:
+  contents: write
+  # The failure-diagnostic step creates a check run.
+  checks: write
+
+concurrency:
+  group: release-apk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    name: Build & publish signed APKs
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # The tag and the artifact names come from the modules' own version declarations, so there is
+      # exactly one source of truth and a dispatch from any branch names itself correctly.
+      - name: Resolve versions
+        id: versions
+        run: |
+          set -euo pipefail
+          version_name() { awk -F'"' '/versionName[[:space:]]*=/ {print $2; exit}' "$1"; }
+          version_code() { awk '/versionCode[[:space:]]*=/ {gsub(/[^0-9]/, "", $NF); print $NF; exit}' "$1"; }
+
+          APP_NAME=$(version_name app/build.gradle.kts)
+          APP_CODE=$(version_code app/build.gradle.kts)
+          TV_NAME=$(version_name tv/build.gradle.kts)
+          TV_CODE=$(version_code tv/build.gradle.kts)
+          WEAR_NAME=$(version_name wearos/build.gradle.kts)
+          WEAR_CODE=$(version_code wearos/build.gradle.kts)
+
+          : "${APP_NAME:?could not read versionName from app/build.gradle.kts}"
+          : "${APP_CODE:?could not read versionCode from app/build.gradle.kts}"
+
+          echo "app_version=$APP_NAME"   >> "$GITHUB_OUTPUT"
+          echo "app_code=$APP_CODE"      >> "$GITHUB_OUTPUT"
+          echo "tv_version=$TV_NAME"     >> "$GITHUB_OUTPUT"
+          echo "tv_code=$TV_CODE"        >> "$GITHUB_OUTPUT"
+          echo "wear_version=$WEAR_NAME" >> "$GITHUB_OUTPUT"
+          echo "wear_code=$WEAR_CODE"    >> "$GITHUB_OUTPUT"
+          echo "tag=v$APP_NAME"          >> "$GITHUB_OUTPUT"
+
+          echo "📱 Phone    $APP_NAME ($APP_CODE)"
+          echo "📺 TV       $TV_NAME ($TV_CODE)"
+          echo "⌚ Wear OS  $WEAR_NAME ($WEAR_CODE)"
+          echo "🏷️  Tag      v$APP_NAME"
+
+      - name: Configure signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD || secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          umask 077
+          : "${KEYSTORE_BASE64:?Configure the KEYSTORE_BASE64 repository secret}"
+          : "${STORE_PASSWORD:?Configure the STORE_PASSWORD (or KEYSTORE_PASSWORD) secret}"
+          : "${KEY_ALIAS:?Configure the KEY_ALIAS secret}"
+          : "${KEY_PASSWORD:?Configure the KEY_PASSWORD secret}"
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
+          # Validates the keystore/alias/passwords up front and writes key.properties, failing with
+          # a readable message instead of an opaque Gradle signing error later. Prints no secrets.
+          java .github/scripts/PrepareSigning.java
+
+      - name: Unit tests
+        run: |
+          set -o pipefail
+          ./gradlew --stacktrace \
+            :core:testDebugUnitTest \
+            :updater:testDebugUnitTest \
+            :wearos:testDebugUnitTest \
+            :tv:testOpensourceDebugUnitTest \
+            :app:testOpensourceDebugUnitTest \
+            2>&1 | tee "$RUNNER_TEMP/gradle.log"
+
+      - name: Build signed release APKs
+        run: |
+          set -o pipefail
+          ./gradlew --stacktrace \
+            :app:assembleOpensourceRelease \
+            :tv:assembleOpensourceRelease \
+            :wearos:assembleRelease \
+            2>&1 | tee -a "$RUNNER_TEMP/gradle.log"
+
+      - name: Collect, sign-verify and checksum
+        env:
+          APP_VERSION: ${{ steps.versions.outputs.app_version }}
+          TV_VERSION: ${{ steps.versions.outputs.tv_version }}
+          WEAR_VERSION: ${{ steps.versions.outputs.wear_version }}
+        run: |
+          set -euo pipefail
+          mkdir -p release-artifacts
+
+          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
+          : "${APKSIGNER:?apksigner not found under $ANDROID_HOME/build-tools}"
+
+          # Takes a glob rather than an exact name so an AGP rename shows up as a clear error
+          # instead of a silently empty release.
+          copy_and_verify() {
+            local glob="$1" out="$2" matches
+            mapfile -t matches < <(ls -1 $glob 2>/dev/null || true)
+            if [ "${#matches[@]}" -ne 1 ]; then
+              echo "::error::Expected exactly one APK matching '$glob', found ${#matches[@]}"
+              exit 1
+            fi
+            local src="${matches[0]}"
+            cp "$src" "release-artifacts/$out"
+            echo "── $out" >> release-artifacts/signature.txt
+            "$APKSIGNER" verify --verbose --print-certs "release-artifacts/$out" >> release-artifacts/signature.txt
+            echo >> release-artifacts/signature.txt
+          }
+
+          : > release-artifacts/signature.txt
+          copy_and_verify "app/build/outputs/apk/opensource/release/*.apk" \
+                          "universal-installer-phone-$APP_VERSION.apk"
+          copy_and_verify "tv/build/outputs/apk/opensource/release/*.apk" \
+                          "universal-installer-tv-$TV_VERSION.apk"
+          copy_and_verify "wearos/build/outputs/apk/release/*.apk" \
+                          "universal-installer-wearos-$WEAR_VERSION.apk"
+
+          (cd release-artifacts && sha256sum *.apk > SHA256SUMS)
+
+          # A release APK that came out of R8 unsigned would install nowhere; fail loudly here
+          # rather than publishing something that cannot be sideloaded.
+          grep -Eq "Verified using v2 scheme .*: true" release-artifacts/signature.txt || {
+            echo "::error::APK signature verification did not report a v2 signature"
+            cat release-artifacts/signature.txt
+            exit 1
+          }
+
+          ls -la release-artifacts/
+          cat release-artifacts/SHA256SUMS
+
+      - name: Compose release notes
+        env:
+          APP_VERSION: ${{ steps.versions.outputs.app_version }}
+          APP_CODE: ${{ steps.versions.outputs.app_code }}
+          TV_VERSION: ${{ steps.versions.outputs.tv_version }}
+          TV_CODE: ${{ steps.versions.outputs.tv_code }}
+          WEAR_VERSION: ${{ steps.versions.outputs.wear_version }}
+          WEAR_CODE: ${{ steps.versions.outputs.wear_code }}
+          EXTRA_NOTES: ${{ inputs.notes }}
+        run: |
+          set -euo pipefail
+          NOTES="$RUNNER_TEMP/notes.md"
+
+          # GEMINI.md requires a release note section per changed form factor. The curated
+          # per-release markdown is the source of truth when it exists; otherwise the notes are
+          # assembled from the fastlane changelog each versionCode ships with.
+          CURATED="fastlane/metadata/android/en-US/changelogs/release_notes_v$APP_VERSION.md"
+          CHANGELOG_DIR="fastlane/metadata/android/en-US/changelogs"
+          if [ -f "$CURATED" ]; then
+            cp "$CURATED" "$NOTES"
+          else
+            {
+              echo "### 📱 Phone (App)"; cat "$CHANGELOG_DIR/$APP_CODE.txt" 2>/dev/null || echo "• Bug fixes"; echo
+              echo "### 📺 Android TV";   cat "$CHANGELOG_DIR/$TV_CODE.txt" 2>/dev/null   || echo "• Bug fixes"; echo
+              echo "### ⌚ Wear OS";      cat "$CHANGELOG_DIR/$WEAR_CODE.txt" 2>/dev/null || echo "• Bug fixes"
+            } > "$NOTES"
+          fi
+
+          {
+            echo
+            echo "---"
+            echo
+            echo "| Form factor | Version | versionCode | File |"
+            echo "|---|---|---|---|"
+            echo "| 📱 Phone | $APP_VERSION | $APP_CODE | \`universal-installer-phone-$APP_VERSION.apk\` |"
+            echo "| 📺 Android TV | $TV_VERSION | $TV_CODE | \`universal-installer-tv-$TV_VERSION.apk\` |"
+            echo "| ⌚ Wear OS | $WEAR_VERSION | $WEAR_CODE | \`universal-installer-wearos-$WEAR_VERSION.apk\` |"
+            echo
+            echo "These are the \`opensource\` flavor builds: no Firebase Analytics or Crashlytics."
+            echo "Signed with the repository release key, R8-optimized, resource-shrunk, and"
+            echo "verified with \`apksigner\` — see \`signature.txt\` and \`SHA256SUMS\` below."
+            echo
+            echo "Installing over an older build signed by a *different* key needs a manual"
+            echo "uninstall first; back up settings before doing that."
+            if [ -n "$EXTRA_NOTES" ]; then echo; echo "$EXTRA_NOTES"; fi
+            echo
+            echo "Commit: $GITHUB_SHA"
+          } >> "$NOTES"
+
+          cat "$NOTES"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.versions.outputs.tag }}
+          PRERELEASE: ${{ inputs.prerelease }}
+        run: |
+          set -euo pipefail
+          NOTES="$RUNNER_TEMP/notes.md"
+          PRERELEASE_FLAG=""
+          if [ "$PRERELEASE" = "true" ]; then PRERELEASE_FLAG="--prerelease"; fi
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists — replacing its artifacts and notes."
+            gh release upload "$TAG" release-artifacts/* --clobber
+            gh release edit "$TAG" --notes-file "$NOTES" $PRERELEASE_FLAG
+          else
+            gh release create "$TAG" release-artifacts/* \
+              --target "$GITHUB_SHA" \
+              --title "$TAG" \
+              --notes-file "$NOTES" \
+              $PRERELEASE_FLAG
+          fi
+
+          echo "::notice::Published $TAG → $(gh release view "$TAG" --json url --jq .url)"
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apks-${{ steps.versions.outputs.tag }}
+          path: release-artifacts/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-unit-test-reports
+          path: |
+            **/build/reports/tests/
+            **/build/test-results/
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Summarize failures
+        if: failure()
+        run: .github/scripts/summarize-gradle-failure.sh "$RUNNER_TEMP/gradle.log"
+
+      - name: Publish failure diagnostic
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const file = process.env.RUNNER_TEMP + '/gradle-failure-summary.txt';
+            const summary = fs.existsSync(file)
+              ? fs.readFileSync(file, 'utf8')
+              : 'No Gradle diagnostics were captured; see the workflow log.';
+            await github.rest.checks.create({
+              ...context.repo,
+              name: 'Release build failure diagnostic',
+              head_sha: context.sha,
+              status: 'completed',
+              conclusion: 'failure',
+              output: {
+                title: 'Failed Gradle tasks and compiler errors',
+                summary: '```\n' + summary.slice(-60000) + '\n```',
+              },
+            });
+
+      # key.properties is gitignored, but never leave signing material on the runner.
+      - name: Remove signing material
+        if: always()
+        run: rm -f key.properties "$RUNNER_TEMP/release.jks"

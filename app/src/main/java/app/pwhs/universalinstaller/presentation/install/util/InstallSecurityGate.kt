@@ -14,6 +14,7 @@ import app.pwhs.universalinstaller.presentation.setting.PreferencesKeys
 import app.pwhs.universalinstaller.presentation.setting.security.components.PinDialog
 import app.pwhs.universalinstaller.presentation.setting.security.components.PinDialogMode
 import app.pwhs.universalinstaller.presentation.setting.security.util.PinCryptoHelper
+import app.pwhs.universalinstaller.presentation.setting.security.util.PinRecordUpgrader
 import app.pwhs.universalinstaller.util.BiometricGate
 import kotlinx.coroutines.flow.map
 
@@ -33,6 +34,18 @@ private data class GateConfig(
     val pinHash: String,
     val pinSalt: String,
 )
+
+/**
+ * Verifies [pin] and, when the stored record predates PBKDF2, re-hashes it while the PIN is still
+ * known. Shared by the install and uninstall gates so the migration cannot be missed by one of them.
+ */
+private fun verifyAndUpgradePin(context: Context, pin: String, config: GateConfig): Boolean {
+    val verified = PinCryptoHelper.verifyPin(pin, config.pinHash, config.pinSalt)
+    if (verified) {
+        PinRecordUpgrader.upgradeAfterSuccessfulVerify(context, pin, config.pinHash)
+    }
+    return verified
+}
 
 /**
  * Reusable security gate for installation flows.
@@ -93,7 +106,7 @@ fun rememberInstallSecurityGate(
                 onCancel()
             },
             onVerifyPin = { pin ->
-                PinCryptoHelper.verifyPin(pin, config.pinHash, config.pinSalt)
+                verifyAndUpgradePin(context, pin, config)
             },
             onSuccess = {
                 showPinDialog = false
@@ -181,7 +194,7 @@ fun rememberUninstallSecurityGate(
                 pendingAction = null
             },
             onVerifyPin = { pin ->
-                PinCryptoHelper.verifyPin(pin, config.pinHash, config.pinSalt)
+                verifyAndUpgradePin(context, pin, config)
             },
             onSuccess = {
                 showPinDialog = false

@@ -7,6 +7,11 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
 }
 
+// Room needs an explicit schema location once exportSchema is on. See UpdaterDatabase.
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 android {
     namespace = "app.pwhs.updater"
     compileSdk {

@@ -5,10 +5,13 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
+// exportSchema writes app/schemas/<fqcn>/<version>.json at build time. That file is committed and
+// is the only way Room can tell us an entity changed without a matching migration, and the only
+// way MigrationTestHelper can verify 1->5 against the real historic schemas.
 @Database(
     entities = [InstallHistoryEntity::class, UninstallLogEntity::class, DownloadHistoryEntity::class],
     version = 5,
-    exportSchema = false,
+    exportSchema = true,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun installHistoryDao(): InstallHistoryDao

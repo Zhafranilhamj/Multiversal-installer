@@ -72,27 +72,15 @@ private fun SendToTvScreen(onBack: () -> Unit) {
     val discoveredTvs by remember { TvDiscovery.discover(context) }.collectAsState(initial = emptyList())
 
     fun connectToTv(rawInput: String, isFromQr: Boolean = false) {
-        val trimmed = rawInput.trim().removePrefix("http://").removePrefix("https://").trimEnd('/')
-        val hostPart = trimmed.substringBefore("/").substringBefore("?")
-        val resolvedIp = if (hostPart.length in 4..6 && hostPart.all { it.isLetter() }) {
-            app.pwhs.core.receiver.IpEncoder.decode(hostPart, app.pwhs.core.receiver.LanAddress.siteLocalIpv4()) ?: hostPart
-        } else hostPart
-
-        val host: String
-        val port: Int
-        if (resolvedIp.contains(":")) {
-            host = resolvedIp.substringBefore(":")
-            port = resolvedIp.substringAfter(":").toIntOrNull() ?: 8787
-        } else {
-            host = resolvedIp
-            port = 8787
-        }
-
-        val isValidHost = android.util.Patterns.IP_ADDRESS.matcher(host).matches() ||
-                host == "localhost" ||
-                host.endsWith(".local")
-
-        if (host.isBlank() || !isValidHost || port !in 1..65535) {
+        // Handles every shape the address arrives in — scanned QR (with its pairing token), the
+        // 4-letter IP mnemonic from the TV screen, a bare ip:port, an mDNS name — and picks up the
+        // NSD-advertised token when the input carried none, so manual entry still pairs.
+        val address = TvAddressResolver.resolve(
+            rawInput = rawInput,
+            localIp = app.pwhs.core.receiver.LanAddress.siteLocalIpv4(),
+            discoveredTokenFor = { host -> discoveredTvs.firstOrNull { it.host == host }?.token.orEmpty() },
+        )
+        if (address == null) {
             val err = context.getString(R.string.tv_sync_error_invalid_input)
             if (isFromQr) {
                 Toast.makeText(context, err, Toast.LENGTH_SHORT).show()
@@ -101,6 +89,8 @@ private fun SendToTvScreen(onBack: () -> Unit) {
             }
             return
         }
+        val host = address.host
+        val pairingToken = address.pairingToken
 
         if (!isFromQr) {
             isConnectingManual = true
@@ -108,13 +98,9 @@ private fun SendToTvScreen(onBack: () -> Unit) {
         }
 
         scope.launch {
-            val candidatePorts = if (resolvedIp.contains(":")) {
-                listOf(port) + listOf(8787, 8788, 8789, 8790, 8791, 8792).filter { it != port }
-            } else {
-                listOf(8787, 8788, 8789, 8790, 8791, 8792)
-            }
+            val candidatePorts = address.candidatePorts()
             var connectedTarget: String? = null
-            var connectedPort: Int = port
+            var connectedPort: Int = address.port
 
             withContext(Dispatchers.IO) {
                 for (p in candidatePorts) {
@@ -131,7 +117,10 @@ private fun SendToTvScreen(onBack: () -> Unit) {
                     }.getOrDefault(false)
 
                     if (ok) {
-                        connectedTarget = "http://$host:$p/"
+                        connectedTarget = app.pwhs.core.security.PairingToken.appendToUrl(
+                            "http://$host:$p/",
+                            pairingToken,
+                        )
                         connectedPort = p
                         break
                     }
@@ -143,7 +132,7 @@ private fun SendToTvScreen(onBack: () -> Unit) {
             }
 
             if (connectedTarget != null) {
-                savedTvIp = if (resolvedIp.contains(":")) resolvedIp else "$host:$connectedPort"
+                savedTvIp = "$host:$connectedPort"
                 scanned = connectedTarget
                 errorMessage = null
                 isSuccess = false
@@ -369,7 +358,12 @@ private fun SendToTvScreen(onBack: () -> Unit) {
                                     devices = discoveredTvs,
                                     isSearching = true,
                                     onSelectTv = { tv ->
-                                        scanned = "http://${tv.host}:${tv.port}/"
+                                        // Carry the pairing token NSD advertised, or the receiver
+                                        // will refuse the upload as unpaired.
+                                        scanned = app.pwhs.core.security.PairingToken.appendToUrl(
+                                            "http://${tv.host}:${tv.port}/",
+                                            tv.token,
+                                        )
                                         errorMessage = null
                                         isSuccess = false
                                     }

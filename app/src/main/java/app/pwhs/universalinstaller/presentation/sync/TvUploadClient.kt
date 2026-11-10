@@ -71,6 +71,12 @@ object TvUploadClient {
                 connectTimeout = 15_000
                 readTimeout = 120_000
                 setRequestProperty("Content-Type", "multipart/form-data; boundary=$boundary")
+                // The receiver authenticates on the pairing token from the QR. It is sent as a
+                // header as well as a query parameter so it survives proxies that strip queries,
+                // and so it stays out of any access log on the way.
+                if (token.isNotBlank()) {
+                    setRequestProperty(app.pwhs.core.security.PairingToken.HEADER, token)
+                }
                 if (totalLength >= 0) {
                     setFixedLengthStreamingMode(totalLength)
                 } else {
@@ -100,8 +106,13 @@ object TvUploadClient {
             }
             val code = conn.responseCode
             conn.disconnect()
-            if (code in 200..299) Result.Success
-            else Result.Failure("TV rejected upload (HTTP $code)")
+            when (code) {
+                in 200..299 -> Result.Success
+                // 401/403 means the receiver did not accept our pairing token — it restarted and
+                // minted a new one, or an older TV build is paired with a newer phone.
+                401, 403 -> Result.Failure("The TV rejected the pairing code. Re-scan its QR code and try again.")
+                else -> Result.Failure("TV rejected upload (HTTP $code)")
+            }
         } catch (t: Throwable) {
             Result.Failure(t.message ?: "Upload failed")
         }

@@ -17,7 +17,11 @@ import java.util.concurrent.TimeUnit
  *
  * stderr is folded into stdout ([ProcessBuilder.redirectErrorStream]) because `pm` prints its
  * `Failure [...]` diagnostics to stdout anyway and merging avoids the two-pipe read deadlock.
- * Command output here is tiny, so reading after [Process.waitFor] can't fill the pipe buffer.
+ *
+ * Output is drained by [ProcessDrainer] on a daemon thread *while* the command runs. Reading it
+ * only after [Process.waitFor] deadlocks once the child writes more than the ~64 KB pipe buffer:
+ * the child blocks in `write()`, waitFor never returns, and a working command gets killed and
+ * reported as a timeout. `pm` on chatty OEM builds can produce that much.
  */
 object RootShell {
 
@@ -56,6 +60,9 @@ object RootShell {
         val process = ProcessBuilder("su", "-c", cmd)
             .redirectErrorStream(true)
             .start()
+        // Started before waitFor on purpose — see the class doc.
+        val drainer = ProcessDrainer.start(process.inputStream)
+
         val finished = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             process.waitFor(timeoutSeconds, TimeUnit.SECONDS)
         } else {
@@ -70,9 +77,12 @@ object RootShell {
         }
         if (!finished) {
             destroyProcess(process)
+            drainer.cancel()
             return@withContext Result(-1, "Command timed out after ${timeoutSeconds}s: $cmd")
         }
-        val output = process.inputStream.bufferedReader().use { it.readText() }
+        // The child has exited, so its stdout is at EOF and the drainer returns promptly; the
+        // timeout only covers a wedged read.
+        val output = drainer.awaitText()
         Result(process.exitValue(), output)
     }
 

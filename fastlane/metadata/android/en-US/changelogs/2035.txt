@@ -1,0 +1,4 @@
+• The receive server now requires the pairing token; unauthenticated visitors get a 401 and repeated bad attempts are locked out
+• Uploads stream to a temporary file and are moved into place, so a half-written APK can never be offered for install
+• Uploaded file names are sanitised before they touch storage
+• Root installs build correct pm commands and drain shell output as it runs, so a verbose pm can no longer deadlock

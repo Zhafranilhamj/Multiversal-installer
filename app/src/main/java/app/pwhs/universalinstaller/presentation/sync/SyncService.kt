@@ -12,9 +12,11 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
+import app.pwhs.core.data.local.dataStore
+import app.pwhs.core.security.LanSessionStore
+import app.pwhs.core.security.PinAttemptLimiter
 import app.pwhs.universalinstaller.R
 import app.pwhs.universalinstaller.presentation.setting.PreferencesKeys
-import app.pwhs.core.data.local.dataStore
 import timber.log.Timber
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,7 +45,16 @@ data class TransferProgress(
 object SyncManager {
     val state = MutableStateFlow(SyncState.STOPPED)
     val serverUrl = MutableStateFlow<String?>(null)
-    val pinCode = MutableStateFlow<String?>("1234")
+
+    /**
+     * The PIN currently guarding the share, or null when the gate is off. Starts empty rather
+     * than seeded with a constant — the real value is published by [SyncService] when the server
+     * comes up, so the UI can never show a PIN that is not actually in force.
+     */
+    val pinCode = MutableStateFlow<String?>(null)
+
+    /** True while [pinCode] is a per-session generated PIN the user has not configured themselves. */
+    val pinIsTemporary = MutableStateFlow(false)
     val activeConnections = MutableStateFlow(0)
     val sharedFiles = MutableStateFlow<List<java.io.File>>(emptyList())
     val activeTransfers = MutableStateFlow<Map<String, TransferProgress>>(emptyMap())
@@ -98,6 +109,14 @@ class SyncService : Service() {
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
     private var serverUrlCache: String? = null
 
+    /**
+     * Session tokens + PIN throttling for the share. Owned by the service so every restart of the
+     * share begins with no live sessions — a token minted for an earlier PIN must not survive the
+     * PIN being rotated.
+     */
+    private val sessionStore = LanSessionStore(ttlMillis = SyncAuthenticator.COOKIE_TTL_MILLIS)
+    private val attemptLimiter = PinAttemptLimiter()
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent == null || intent.action == "STOP") {
             stopSelf()
@@ -112,32 +131,52 @@ class SyncService : Service() {
         runBlocking {
             val prefs = applicationContext.dataStore.data.first()
             val requirePin = prefs[PreferencesKeys.SYNC_REQUIRE_PIN] ?: true
-            var pin = prefs[PreferencesKeys.SYNC_PIN_CODE] ?: ""
-            if (pin.isEmpty()) {
-                pin = "1234"
-            }
+            val storedPin = prefs[PreferencesKeys.SYNC_PIN_CODE].orEmpty()
             val portStr = prefs[PreferencesKeys.SYNC_SERVER_PORT] ?: "8080"
             val port = portStr.toIntOrNull() ?: 8080
-            
+
+            // No constant fallback PIN. If the gate is on but nothing was configured, mint a
+            // random PIN for this session and surface it in the UI and the notification — the
+            // user still sees a working gate, an attacker on the LAN no longer gets "1234".
+            val temporaryPin = requirePin && storedPin.isBlank()
+            val pin = storedPin.ifBlank { SyncPinFactory.generatePin() }
+
+            SyncManager.pinIsTemporary.value = temporaryPin
             SyncManager.pinCode.value = if (requirePin) pin else null
 
             try {
-                // If there's an existing server running, stop it
+                // If there's an existing server running, stop it. Sessions from the previous run
+                // (possibly minted under a different PIN) must not stay valid.
                 server?.stop()
+                sessionStore.revokeAll()
+                attemptLimiter.reset()
 
-                server = ApkHttpServer(this@SyncService, port, requirePin, pin) { delta ->
-                    if (delta > 0) SyncManager.incrementConnections()
-                    else SyncManager.decrementConnections()
-                }
+                server = ApkHttpServer(
+                    context = this@SyncService,
+                    port = port,
+                    requirePin = requirePin,
+                    pinCode = pin,
+                    onConnectionChange = { delta ->
+                        if (delta > 0) SyncManager.incrementConnections()
+                        else SyncManager.decrementConnections()
+                    },
+                    authenticator = SyncAuthenticator(
+                        requirePin = requirePin,
+                        pinCode = pin,
+                        sessionStore = sessionStore,
+                        attemptLimiter = attemptLimiter,
+                    ),
+                )
                 server?.start()
-                
+
                 val ip = getLocalIpAddress()
                 if (ip != null) {
                     serverUrlCache = "http://$ip:$port"
                     SyncManager.serverUrl.value = serverUrlCache
                     SyncManager.state.value = SyncState.RUNNING
                     refreshSharedFiles()
-                    updateNotification("Server running at http://$ip:$port")
+                    idleNotificationText = runningNotificationText(serverUrlCache!!, requirePin, pin)
+                    updateNotification(idleNotificationText)
                     startProgressObserver()
                 } else {
                     SyncManager.state.value = SyncState.ERROR
@@ -186,6 +225,18 @@ class SyncService : Service() {
         }
     }
 
+    /** Idle-state notification text; also reused by the progress observer between transfers. */
+    private var idleNotificationText: String = ""
+
+    /**
+     * The PIN is appended to the ongoing notification so a generated per-session PIN is still
+     * readable when the app UI is not open — that is the whole point of not defaulting to "1234".
+     */
+    private fun runningNotificationText(url: String, requirePin: Boolean, pin: String): String {
+        val base = "Server running at $url"
+        return if (requirePin) "$base · PIN $pin" else base
+    }
+
     private fun updateNotification(text: String) {
         val channelId = "sync_service_channel"
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -231,8 +282,12 @@ class SyncService : Service() {
         }
         serviceScope.cancel()
         server?.stop()
+        sessionStore.revokeAll()
+        attemptLimiter.reset()
         SyncManager.state.value = SyncState.STOPPED
         SyncManager.serverUrl.value = null
+        SyncManager.pinCode.value = null
+        SyncManager.pinIsTemporary.value = false
         SyncManager.resetConnections()
     }
 
@@ -261,7 +316,7 @@ class SyncService : Service() {
                     val notification = createNotification(channelId, text, overallPercent)
                     manager.notify(1001, notification)
                 } else if (serverUrlCache != null) {
-                    val notification = createNotification(channelId, "Server running at $serverUrlCache")
+                    val notification = createNotification(channelId, idleNotificationText)
                     manager.notify(1001, notification)
                 }
             }

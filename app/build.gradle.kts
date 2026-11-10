@@ -42,6 +42,12 @@ if (hasFirebaseConfig) {
     }
 }
 
+// Room needs an explicit schema location once exportSchema is on, otherwise the processor warns
+// and writes nothing. Committed under app/schemas/ — see AppDatabase.
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 android {
     namespace = "app.pwhs.universalinstaller"
     compileSdk {
@@ -54,8 +60,8 @@ android {
         applicationId = "app.pwhs.universalinstaller"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 47
-        versionName = "1.22.0"
+        versionCode = 48
+        versionName = "1.23.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

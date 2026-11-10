@@ -15,10 +15,12 @@
 This project uses specialized Gemini CLI skills to automate complex tasks. When you encounter the following scenarios, you SHOULD activate and follow the corresponding skill:
 
 - **Implementing New Features:** Use the `cook` skill. It provides a structured "kitchen" workflow (Research -> Recipe -> Cook -> Taste Test).
-  - Location: `.gemini/skills/cook/SKILL.md`
+  - Location: `.claude/skills/cook/SKILL.md`
 - **Releasing New Versions:** Use the `upgrade-app` skill. It automates version bumping, changelog generation, tagging, and GitHub releases.
-  - Location: `.gemini/skills/upgrade-app/SKILL.md`
+  - Location: `.claude/skills/upgrade-app/SKILL.md`
 - **Translating CSV Files:** Use the `csv-translator` skill. It handles splitting large files, translation, and auto-importing strings into Android resources.
-  - Location: `.gemini/skills/csv-translator/SKILL.md`
+  - Location: `.claude/skills/csv-translator/SKILL.md`
 
-Always refer to the project-specific memory in `.gemini/tmp/universal-installer/memory/MEMORY.md` for private local context.
+Skills are versioned in the repository under `.claude/skills/<name>/SKILL.md`; keep this list and
+that directory in sync when a skill is added or renamed. Local, untracked agent memory (if any)
+lives outside the repository and is never a source of truth for project rules.
