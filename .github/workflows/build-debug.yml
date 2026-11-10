@@ -65,6 +65,31 @@ jobs:
         if: failure()
         run: .github/scripts/summarize-gradle-failure.sh "$RUNNER_TEMP/gradle.log"
 
+      # The runner log and uploaded artifacts are only readable from a browser session. Publishing
+      # the filtered diagnostics as a check run makes them reachable from the REST API too, which
+      # is what an automated agent triaging this build has to work with.
+      - name: Publish failure diagnostic
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const file = process.env.RUNNER_TEMP + '/gradle-failure-summary.txt';
+            const summary = fs.existsSync(file)
+              ? fs.readFileSync(file, 'utf8')
+              : 'No Gradle diagnostics were captured; see the workflow log.';
+            await github.rest.checks.create({
+              ...context.repo,
+              name: 'Gradle failure diagnostic (${{ github.job }})',
+              head_sha: context.sha,
+              status: 'completed',
+              conclusion: 'failure',
+              output: {
+                title: 'Failed Gradle tasks and compiler errors',
+                summary: '```\n' + summary.slice(-60000) + '\n```',
+              },
+            });
+
       - name: Upload Gradle log
         if: failure()
         uses: actions/upload-artifact@v4
@@ -101,6 +126,27 @@ jobs:
           ./gradlew :app:assembleOpensourceDebug :tv:assembleOpensourceDebug :wearos:assembleDebug \
             --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle.log"
 
+      # Room writes app/schemas and updater/schemas during KSP. They are committed, so a diff
+      # against the working tree means a schema change landed without its JSON.
+      - name: Verify exported Room schemas are committed
+        run: |
+          if [ -n "$(git status --porcelain -- app/schemas updater/schemas)" ]; then
+            echo "::error::Room schema JSON is out of date. Commit app/schemas and updater/schemas."
+            git status --porcelain -- app/schemas updater/schemas
+            exit 1
+          fi
+
+      - name: Upload exported Room schemas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: room-schemas
+          path: |
+            app/schemas/
+            updater/schemas/
+          retention-days: 7
+          if-no-files-found: warn
+
       - name: Upload debug APKs
         uses: actions/upload-artifact@v4
         with:
@@ -114,6 +160,31 @@ jobs:
       - name: Summarize failures
         if: failure()
         run: .github/scripts/summarize-gradle-failure.sh "$RUNNER_TEMP/gradle.log"
+
+      # The runner log and uploaded artifacts are only readable from a browser session. Publishing
+      # the filtered diagnostics as a check run makes them reachable from the REST API too, which
+      # is what an automated agent triaging this build has to work with.
+      - name: Publish failure diagnostic
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const file = process.env.RUNNER_TEMP + '/gradle-failure-summary.txt';
+            const summary = fs.existsSync(file)
+              ? fs.readFileSync(file, 'utf8')
+              : 'No Gradle diagnostics were captured; see the workflow log.';
+            await github.rest.checks.create({
+              ...context.repo,
+              name: 'Gradle failure diagnostic (${{ github.job }})',
+              head_sha: context.sha,
+              status: 'completed',
+              conclusion: 'failure',
+              output: {
+                title: 'Failed Gradle tasks and compiler errors',
+                summary: '```\n' + summary.slice(-60000) + '\n```',
+              },
+            });
 
       - name: Upload Gradle log
         if: failure()

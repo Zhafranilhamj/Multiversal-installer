@@ -1,8 +1,8 @@
 name: Installer reliability pre-release
 
+# Deliberate runs only: this publishes a signed GitHub pre-release, so it must not fire on every
+# push. It used to be pinned to a single sprint branch that has since been merged and deleted.
 on:
-  push:
-    branches: ['arena/47a9e606-universal-installer']
   workflow_dispatch:
 
 permissions:
