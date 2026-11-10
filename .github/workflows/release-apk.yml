@@ -22,6 +22,8 @@ on:
 
 permissions:
   contents: write
+  # The failure-diagnostic step creates a check run.
+  checks: write
 
 concurrency:
   group: release-apk-${{ github.ref }}
@@ -120,9 +122,10 @@ jobs:
             2>&1 | tee -a "$RUNNER_TEMP/gradle.log"
 
       - name: Collect, sign-verify and checksum
-        id: collect
         env:
-          TAG: ${{ steps.versions.outputs.tag }}
+          APP_VERSION: ${{ steps.versions.outputs.app_version }}
+          TV_VERSION: ${{ steps.versions.outputs.tv_version }}
+          WEAR_VERSION: ${{ steps.versions.outputs.wear_version }}
         run: |
           set -euo pipefail
           mkdir -p release-artifacts
@@ -130,12 +133,16 @@ jobs:
           APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
           : "${APKSIGNER:?apksigner not found under $ANDROID_HOME/build-tools}"
 
+          # Takes a glob rather than an exact name so an AGP rename shows up as a clear error
+          # instead of a silently empty release.
           copy_and_verify() {
-            local src="$1" out="$2"
-            if [ ! -f "$src" ]; then
-              echo "::error::Expected build output is missing: $src"
+            local glob="$1" out="$2" matches
+            mapfile -t matches < <(ls -1 $glob 2>/dev/null || true)
+            if [ "${#matches[@]}" -ne 1 ]; then
+              echo "::error::Expected exactly one APK matching '$glob', found ${#matches[@]}"
               exit 1
             fi
+            local src="${matches[0]}"
             cp "$src" "release-artifacts/$out"
             echo "── $out" >> release-artifacts/signature.txt
             "$APKSIGNER" verify --verbose --print-certs "release-artifacts/$out" >> release-artifacts/signature.txt
@@ -143,18 +150,18 @@ jobs:
           }
 
           : > release-artifacts/signature.txt
-          copy_and_verify "app/build/outputs/apk/opensource/release/app-opensource-release.apk" \
-                          "universal-installer-$TAG-phone.apk"
-          copy_and_verify "tv/build/outputs/apk/opensource/release/tv-opensource-release.apk" \
-                          "universal-installer-$TAG-tv.apk"
-          copy_and_verify "wearos/build/outputs/apk/release/wearos-release.apk" \
-                          "universal-installer-$TAG-wearos.apk"
+          copy_and_verify "app/build/outputs/apk/opensource/release/*.apk" \
+                          "universal-installer-phone-$APP_VERSION.apk"
+          copy_and_verify "tv/build/outputs/apk/opensource/release/*.apk" \
+                          "universal-installer-tv-$TV_VERSION.apk"
+          copy_and_verify "wearos/build/outputs/apk/release/*.apk" \
+                          "universal-installer-wearos-$WEAR_VERSION.apk"
 
           (cd release-artifacts && sha256sum *.apk > SHA256SUMS)
 
           # A release APK that came out of R8 unsigned would install nowhere; fail loudly here
           # rather than publishing something that cannot be sideloaded.
-          grep -q "Verified using v2 scheme" release-artifacts/signature.txt || {
+          grep -Eq "Verified using v2 scheme .*: true" release-artifacts/signature.txt || {
             echo "::error::APK signature verification did not report a v2 signature"
             cat release-artifacts/signature.txt
             exit 1
@@ -164,9 +171,7 @@ jobs:
           cat release-artifacts/SHA256SUMS
 
       - name: Compose release notes
-        id: notes
         env:
-          TAG: ${{ steps.versions.outputs.tag }}
           APP_VERSION: ${{ steps.versions.outputs.app_version }}
           APP_CODE: ${{ steps.versions.outputs.app_code }}
           TV_VERSION: ${{ steps.versions.outputs.tv_version }}
@@ -199,9 +204,9 @@ jobs:
             echo
             echo "| Form factor | Version | versionCode | File |"
             echo "|---|---|---|---|"
-            echo "| 📱 Phone | $APP_VERSION | $APP_CODE | \`universal-installer-$TAG-phone.apk\` |"
-            echo "| 📺 Android TV | $TV_VERSION | $TV_CODE | \`universal-installer-$TAG-tv.apk\` |"
-            echo "| ⌚ Wear OS | $WEAR_VERSION | $WEAR_CODE | \`universal-installer-$TAG-wearos.apk\` |"
+            echo "| 📱 Phone | $APP_VERSION | $APP_CODE | \`universal-installer-phone-$APP_VERSION.apk\` |"
+            echo "| 📺 Android TV | $TV_VERSION | $TV_CODE | \`universal-installer-tv-$TV_VERSION.apk\` |"
+            echo "| ⌚ Wear OS | $WEAR_VERSION | $WEAR_CODE | \`universal-installer-wearos-$WEAR_VERSION.apk\` |"
             echo
             echo "These are the \`opensource\` flavor builds: no Firebase Analytics or Crashlytics."
             echo "Signed with the repository release key, R8-optimized, resource-shrunk, and"

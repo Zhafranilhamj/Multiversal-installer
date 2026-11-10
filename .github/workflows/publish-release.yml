@@ -13,6 +13,12 @@ jobs:
   deploy:
     name: Build & Deploy to Play Store
     runs-on: ubuntu-latest
+    # Opt-in: the Play deploy needs PLAY_STORE_CONFIG_JSON and GOOGLE_SERVICES_JSON, and an empty
+    # GOOGLE_SERVICES_JSON is worse than a missing one — it makes `hasFirebaseConfig` true, applies
+    # the google-services plugin against a blank file, and the build fails with no useful message.
+    # release-apk.yml also creates `v*` tags (for sideload-only releases), and those must not
+    # trigger a Play deploy. Set the repository variable PLAY_DEPLOY_ENABLED=true to arm this lane.
+    if: ${{ vars.PLAY_DEPLOY_ENABLED == 'true' }}
     permissions:
       contents: write
 
