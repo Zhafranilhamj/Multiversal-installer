@@ -132,6 +132,7 @@ import app.pwhs.universalinstaller.presentation.composable.ShimmerBox
 import app.pwhs.universalinstaller.presentation.composable.InstallerModeBadge
 import app.pwhs.universalinstaller.presentation.install.controller.SystemAppMethod
 import app.pwhs.universalinstaller.presentation.manage.logs.UninstallLogsActivity
+import app.pwhs.universalinstaller.presentation.manage.sheets.AppScanResultSheet
 import app.pwhs.universalinstaller.presentation.manage.permissions.AppPermissionsActivity
 import app.pwhs.core.data.local.dataStore
 import app.pwhs.core.data.local.SharedPrefsKeys
