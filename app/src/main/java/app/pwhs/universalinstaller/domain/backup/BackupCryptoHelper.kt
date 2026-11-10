@@ -1,11 +1,10 @@
 package app.pwhs.universalinstaller.domain.backup
 
+import app.pwhs.core.security.PasswordKdf
 import java.security.GeneralSecurityException
 import java.security.SecureRandom
 import javax.crypto.Cipher
-import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.GCMParameterSpec
-import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
 class InvalidPasswordException(
@@ -17,8 +16,8 @@ object BackupCryptoHelper {
 
     private const val ALGORITHM = "AES-256-GCM"
     private const val TRANSFORMATION = "AES/GCM/NoPadding"
-    private const val KDF_ALGORITHM = "PBKDF2WithHmacSHA256"
-    private const val ITERATION_COUNT = 100_000
+    private const val KDF_ALGORITHM = PasswordKdf.ALGORITHM
+    private const val ITERATION_COUNT = PasswordKdf.DEFAULT_ITERATIONS
     private const val KEY_LENGTH_BITS = 256
     private const val GCM_TAG_LENGTH_BITS = 128
     private const val SALT_LENGTH_BYTES = 16
@@ -54,6 +53,8 @@ object BackupCryptoHelper {
             val iv = Base64Compat.decode(envelope.iv)
             val cipherBytes = Base64Compat.decode(envelope.ciphertext)
 
+            // envelope.iterations comes out of the file, so it is attacker-controlled: a hostile
+            // backup could ask for Int.MAX_VALUE rounds and burn the CPU for minutes. Clamped.
             val secretKey = deriveKey(password, salt, envelope.iterations)
             val cipher = Cipher.getInstance(TRANSFORMATION)
             cipher.init(Cipher.DECRYPT_MODE, secretKey, GCMParameterSpec(GCM_TAG_LENGTH_BITS, iv))
@@ -68,9 +69,7 @@ object BackupCryptoHelper {
     }
 
     private fun deriveKey(password: String, salt: ByteArray, iterations: Int): SecretKeySpec {
-        val spec = PBEKeySpec(password.toCharArray(), salt, iterations, KEY_LENGTH_BITS)
-        val factory = SecretKeyFactory.getInstance(KDF_ALGORITHM)
-        val keyBytes = factory.generateSecret(spec).encoded
+        val keyBytes = PasswordKdf.deriveBytes(password, salt, iterations, KEY_LENGTH_BITS)
         return SecretKeySpec(keyBytes, "AES")
     }
 }

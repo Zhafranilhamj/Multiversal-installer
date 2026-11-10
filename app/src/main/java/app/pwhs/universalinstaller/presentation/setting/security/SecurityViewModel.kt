@@ -8,6 +8,7 @@ import app.pwhs.core.data.local.dataStore
 import app.pwhs.universalinstaller.presentation.install.controller.ShizukuShellExecutor
 import app.pwhs.universalinstaller.presentation.setting.PreferencesKeys
 import app.pwhs.universalinstaller.presentation.setting.security.util.PinCryptoHelper
+import app.pwhs.universalinstaller.presentation.setting.security.util.PinRecordUpgrader
 import app.pwhs.universalinstaller.presentation.setting.security.util.SystemInstallerManager
 import app.pwhs.universalinstaller.util.BiometricGate
 import com.topjohnwu.superuser.Shell
@@ -126,7 +127,12 @@ class SecurityViewModel(
                 cachedSalt = salt
             }
         }
-        return PinCryptoHelper.verifyPin(inputPin, hash, salt)
+        val verified = PinCryptoHelper.verifyPin(inputPin, hash, salt)
+        if (verified) {
+            // Legacy single-SHA-256 records are re-hashed with PBKDF2 while the PIN is known.
+            PinRecordUpgrader.upgradeAfterSuccessfulVerify(application, inputPin, hash)
+        }
+        return verified
     }
 
     /**

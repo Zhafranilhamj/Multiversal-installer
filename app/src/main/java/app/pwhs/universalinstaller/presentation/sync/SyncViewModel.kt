@@ -102,13 +102,27 @@ class SyncViewModel(application: Application) : AndroidViewModel(application) {
     fun setSyncRequirePin(enabled: Boolean) {
         viewModelScope.launch {
             dataStore.edit { prefs -> prefs[PreferencesKeys.SYNC_REQUIRE_PIN] = enabled }
+            restartRunningServer()
         }
     }
 
     fun setSyncPinCode(code: String) {
         viewModelScope.launch {
             dataStore.edit { prefs -> prefs[PreferencesKeys.SYNC_PIN_CODE] = code }
+            restartRunningServer()
         }
+    }
+
+    /**
+     * The share reads its PIN and gate setting once, when it starts. Rotating the PIN (or toggling
+     * the gate) while it is running therefore has to bounce the service: otherwise the old PIN
+     * keeps working and, worse, the session cookies minted under it stay valid.
+     */
+    private suspend fun restartRunningServer() {
+        if (SyncManager.state.value != SyncState.RUNNING) return
+        val intent = Intent(getApplication(), SyncService::class.java)
+        runCatching { ContextCompat.startForegroundService(getApplication(), intent) }
+            .onFailure { Timber.e(it, "Failed to restart SyncService after a PIN change") }
     }
 
     fun setSyncServerPort(port: String) {

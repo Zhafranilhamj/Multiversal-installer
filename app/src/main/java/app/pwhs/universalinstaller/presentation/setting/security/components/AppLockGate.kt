@@ -11,6 +11,7 @@ import app.pwhs.universalinstaller.R
 import app.pwhs.universalinstaller.presentation.setting.PreferencesKeys
 import app.pwhs.universalinstaller.presentation.setting.security.util.AppLockManager
 import app.pwhs.universalinstaller.presentation.setting.security.util.PinCryptoHelper
+import app.pwhs.universalinstaller.presentation.setting.security.util.PinRecordUpgrader
 import androidx.activity.compose.BackHandler
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -66,7 +67,12 @@ fun AppLockGate() {
             },
             onVerifyPin = { pin ->
                 val (hash, salt) = credentials
-                PinCryptoHelper.verifyPin(pin, hash, salt)
+                val verified = PinCryptoHelper.verifyPin(pin, hash, salt)
+                if (verified) {
+                    // Re-hash a pre-PBKDF2 record while the PIN is known; a no-op otherwise.
+                    PinRecordUpgrader.upgradeAfterSuccessfulVerify(context, pin, hash)
+                }
+                verified
             },
             onSuccess = {
                 AppLockManager.unlock()
