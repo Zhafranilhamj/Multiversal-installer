@@ -21,7 +21,7 @@ Per `.claude/skills/upgrade-app/SKILL.md`:
 - **Bump only modules that changed** since the last tag. All three depend on `:core`, so a `:core`
   change bumps all three.
 
-Current: phone 49 / 1.23.1, TV 2036 / 1.23.1, Wear OS 1043 / 1.23.1.
+Current: phone 50 / 1.23.2, TV 2037 / 1.23.2, Wear OS 1044 / 1.23.2.
 
 ## Changelogs
 

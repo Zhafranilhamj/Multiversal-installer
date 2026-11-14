@@ -154,7 +154,7 @@ platform :android do
 
     upload_to_play_store(
       track:                   options[:track],
-      package_name:            "app.pwhs.universalinstaller",
+      package_name:            "com.github.zhafranilhamj.multiversalinstaller",
       aab:                     WEAR_AAB,
       json_key:                "fastlane/play-store-key.json",
       metadata_path:           "./fastlane/metadata/android",

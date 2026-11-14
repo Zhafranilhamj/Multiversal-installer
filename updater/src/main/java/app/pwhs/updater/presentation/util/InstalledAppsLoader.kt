@@ -19,7 +19,7 @@ object InstalledAppsLoader {
         return installedPackages.mapNotNull { pkg ->
             val appInfo = pkg.applicationInfo ?: return@mapNotNull null
             val isSystem = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-            if (isSystem && pkg.packageName != "app.pwhs.universalinstaller") return@mapNotNull null
+            if (isSystem && pkg.packageName != "com.github.zhafranilhamj.multiversalinstaller") return@mapNotNull null
 
             val appName = runCatching { pm.getApplicationLabel(appInfo).toString() }.getOrDefault(pkg.packageName)
             val vCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

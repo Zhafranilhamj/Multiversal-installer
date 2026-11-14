@@ -98,8 +98,8 @@ class UpdatesViewModel(
             }
             addTrackedAppFromUrl(
                 context = context,
-                url = "https://github.com/pass-with-high-score/universal-installer",
-                targetPackageName = "app.pwhs.universalinstaller",
+                url = "https://github.com/Zhafranilhamj/Multiversal-installer",
+                targetPackageName = "com.github.zhafranilhamj.multiversalinstaller",
             )
             DefaultAppSeeder.markSeeded(context)
         }

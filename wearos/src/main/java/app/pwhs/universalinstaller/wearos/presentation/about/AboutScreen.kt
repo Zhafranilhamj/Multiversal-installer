@@ -161,7 +161,7 @@ private fun AboutScreenPreview() {
             AboutScreenContent(
                 appName = "Universal Installer",
                 version = "1.12.0 (1035)",
-                packageName = "app.pwhs.universalinstaller",
+                packageName = "com.github.zhafranilhamj.multiversalinstaller",
                 sourceDir = null,
                 onRate = {},
             )

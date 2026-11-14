@@ -61,7 +61,7 @@ import app.pwhs.universalinstaller.presentation.install.DialogTarget
 import kotlinx.coroutines.launch
 
 private const val TELEGRAM_SUPPORT_URL = "https://t.me/blockads_android"
-private const val GITHUB_REPO_URL = "https://github.com/pass-with-high-score/universal-installer"
+private const val GITHUB_REPO_URL = "https://github.com/Zhafranilhamj/Multiversal-installer"
 private const val GITHUB_NEW_ISSUE_URL = "$GITHUB_REPO_URL/issues/new"
 const val ERRORS_DOCS_URL = "https://universal-installer.pwhs.app/errors"
 

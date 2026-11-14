@@ -26,7 +26,7 @@
     <string name="manage_hide_system">Ẩn ứng dụng hệ thống</string>
     <string name="manage_empty">Bạn chưa cài ứng dụng nào.</string>
     <string name="uninstall">Gỡ cài đặt</string>
-    <string name="unknown_sources_hidden">Đồng hồ này ẩn tuỳ chọn đó. Hãy cấp quyền qua gỡ lỗi không dây:\nadb shell appops set app.pwhs.universalinstaller REQUEST_INSTALL_PACKAGES allow</string>
+    <string name="unknown_sources_hidden">Đồng hồ này ẩn tuỳ chọn đó. Hãy cấp quyền qua gỡ lỗi không dây:\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="more_title">Thêm</string>
     <string name="settings_title">Cài đặt</string>
     <string name="settings_storage">Dung lượng</string>

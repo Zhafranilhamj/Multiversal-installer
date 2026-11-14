@@ -59,7 +59,7 @@ class BaselineProfileGenerator {
     private companion object {
         // The applicationId, not the namespace: tv/build.gradle.kts sets
         // applicationId is shared with :app for the Play listing; the namespace is app.pwhs.tv.
-        const val PACKAGE = "app.pwhs.universalinstaller"
+        const val PACKAGE = "com.github.zhafranilhamj.multiversalinstaller"
         const val TIMEOUT_MS = 5_000L
     }
 }

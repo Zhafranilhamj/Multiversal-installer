@@ -1,2 +1,2 @@
-package_name("app.pwhs.universalinstaller")
+package_name("com.github.zhafranilhamj.multiversalinstaller")
 json_key_file("fastlane/play-store-key.json")

@@ -57,12 +57,12 @@ import app.pwhs.tv.R
 import app.pwhs.tv.ui.components.QrCode
 
 private const val TELEGRAM_URL = "https://t.me/blockads_android"
-private const val GITHUB_URL = "https://github.com/pass-with-high-score/universal-installer"
+private const val GITHUB_URL = "https://github.com/Zhafranilhamj/Multiversal-installer"
 private const val WEBSITE_URL = "https://universal-installer.pwhs.app/"
 private const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=app.pwhs.universalinstaller"
 private const val SPONSOR_URL = "https://github.com/sponsors/pass-with-high-score"
 private const val PRIVACY_URL = "https://universal-installer.pwhs.app/privacy"
-private const val LICENSE_URL = "https://github.com/pass-with-high-score/universal-installer/blob/main/LICENSE"
+private const val LICENSE_URL = "https://github.com/Zhafranilhamj/Multiversal-installer/blob/main/LICENSE"
 
 data class LinkDialogInfo(
     val title: String,

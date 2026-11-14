@@ -26,7 +26,7 @@
     <string name="manage_hide_system">सिस्टम ऐप्स छिपाएँ</string>
     <string name="manage_empty">आपने अभी तक कोई ऐप इंस्टॉल नहीं किया।</string>
     <string name="uninstall">अनइंस्टॉल करें</string>
-    <string name="unknown_sources_hidden">यह घड़ी यह सेटिंग छिपाती है। वायरलेस डीबगिंग से अनुमति दें:\nadb shell appops set app.pwhs.universalinstaller REQUEST_INSTALL_PACKAGES allow</string>
+    <string name="unknown_sources_hidden">यह घड़ी यह सेटिंग छिपाती है। वायरलेस डीबगिंग से अनुमति दें:\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="more_title">और</string>
     <string name="settings_title">सेटिंग</string>
     <string name="settings_storage">स्टोरेज</string>

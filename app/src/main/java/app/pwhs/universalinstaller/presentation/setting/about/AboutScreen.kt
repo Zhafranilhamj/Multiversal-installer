@@ -212,7 +212,7 @@ private fun AboutUi(
                     iconPainter = painterResource(R.drawable.ic_github),
                     title = stringResource(R.string.setting_github_title),
                     subtitle = stringResource(R.string.setting_github_subtitle),
-                    onClick = { uriHandler.openUriSafely(context, "https://github.com/pass-with-high-score/universal-installer") },
+                    onClick = { uriHandler.openUriSafely(context, "https://github.com/Zhafranilhamj/Multiversal-installer") },
                 )
             }
             item { AboutRowDivider() }
@@ -243,7 +243,7 @@ private fun AboutUi(
                     title = stringResource(R.string.about_license_title),
                     subtitle = stringResource(R.string.about_license_subtitle),
                     onClick = {
-                        uriHandler.openUriSafely(context, "https://github.com/pass-with-high-score/universal-installer/blob/main/LICENSE")
+                        uriHandler.openUriSafely(context, "https://github.com/Zhafranilhamj/Multiversal-installer/blob/main/LICENSE")
                     },
                 )
             }

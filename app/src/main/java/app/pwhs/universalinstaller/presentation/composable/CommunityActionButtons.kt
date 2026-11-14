@@ -18,7 +18,7 @@ import app.pwhs.core.util.openUriSafely
 import app.pwhs.universalinstaller.R
 
 private const val TELEGRAM_URL = "https://t.me/blockads_android"
-private const val GITHUB_URL = "https://github.com/pass-with-high-score/universal-installer"
+private const val GITHUB_URL = "https://github.com/Zhafranilhamj/Multiversal-installer"
 
 /**
  * Top-left header action buttons linking to the Telegram community and GitHub repository.

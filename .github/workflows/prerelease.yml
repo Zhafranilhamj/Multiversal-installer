@@ -74,9 +74,9 @@ jobs:
       - name: Verify signature and prepare download
         run: |
           mkdir -p release-artifacts
-          cp app/build/outputs/apk/opensource/release/*.apk release-artifacts/universal-installer-reliability.apk
+          cp app/build/outputs/apk/opensource/release/*.apk release-artifacts/multiversal-installer-reliability.apk
           APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
-          "$APKSIGNER" verify --verbose --print-certs release-artifacts/universal-installer-reliability.apk > release-artifacts/signature.txt
+          "$APKSIGNER" verify --verbose --print-certs release-artifacts/multiversal-installer-reliability.apk > release-artifacts/signature.txt
           (cd release-artifacts && sha256sum *.apk > SHA256SUMS)
       - uses: actions/upload-artifact@v4
         if: always()

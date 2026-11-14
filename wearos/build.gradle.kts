@@ -35,11 +35,11 @@ android {
     defaultConfig {
         // Must match the phone app: the Wearable Data Layer only routes a channel to the app with
         // the same package name and signing certificate on the other node.
-        applicationId = "app.pwhs.universalinstaller"
+        applicationId = "com.github.zhafranilhamj.multiversalinstaller"
         minSdk = 30
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1043
-        versionName = "1.23.1"
+        versionCode = 1044
+        versionName = "1.23.2"
     }
 
     // Same keystore as :app — a matching package name is not enough, the certificates must match too.

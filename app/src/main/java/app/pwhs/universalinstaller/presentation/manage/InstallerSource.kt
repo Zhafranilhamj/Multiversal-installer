@@ -46,6 +46,8 @@ fun resolveInstallerInfo(installerPackage: String?, packageName: String): Instal
         )
         "app.pwhs.universalinstaller" -> InstallerInfo(displayName = "Universal Installer")
         "app.pwhs.universalinstaller.debug" -> InstallerInfo(displayName = "Universal Installer (Debug)")
+        "com.github.zhafranilhamj.multiversalinstaller" -> InstallerInfo(displayName = "Universal Installer")
+        "com.github.zhafranilhamj.multiversalinstaller.debug" -> InstallerInfo(displayName = "Universal Installer (Debug)")
         "app.obtainium" -> InstallerInfo(displayName = "Obtainium")
         "com.android.packageinstaller", "com.google.android.packageinstaller" -> InstallerInfo(displayName = "Package Installer")
         "com.android.shell" -> InstallerInfo(displayName = "ADB (Shell)")
