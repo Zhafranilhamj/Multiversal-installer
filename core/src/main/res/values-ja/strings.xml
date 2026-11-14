@@ -12,7 +12,7 @@
     <string name="permission_return_channel_name">アプリに戻る</string>
     <string name="permission_return_channel_desc">システム設定で権限を付与した後にアプリに戻るための通知。</string>
     <string name="permission_return_title">許可が与えられました</string>
-    <string name="permission_return_body">タップして Universal Installer に戻ります。</string>
+    <string name="permission_return_body">タップして Multiversal-installer に戻ります。</string>
     <string name="onboarding_analytics_title">不具合の修正に協力する</string>
     <string name="onboarding_analytics_desc">アプリのインストールは端末ごとに動作が異なり、何が失敗したかはアプリが知らせてくれて初めて分かります。インストールが成功したか、何が失敗したかを送信します。インストールしたアプリ名は一切送信しません。</string>
     <string name="onboarding_analytics_switch">匿名の診断データを共有</string>
@@ -117,6 +117,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">統計</string>
-    <string name="error_cannot_open_settings">システム設定を開けません。手動で「設定」&gt;「アプリ」&gt;「Universal Installer」を開いて権限を付与してください。</string>
+    <string name="error_cannot_open_settings">システム設定を開けません。手動で「設定」&gt;「アプリ」&gt;「Multiversal-installer」を開いて権限を付与してください。</string>
     <string name="onboarding_xiaomi_dev_options_hint">開発者向けオプションがロック解除されていません。「設定」&gt;「デバイス情報」を開き、「ビルド番号」を7回タップしてください。</string>
 </resources>

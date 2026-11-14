@@ -10,7 +10,7 @@ import app.pwhs.core.util.openUriSafely
 
 /**
  * Universal Anti-Split Bridge / Protocol Constants.
- * Facilitates 1-click invocation from Universal Installer to Universal Anti-Split
+ * Facilitates 1-click invocation from Multiversal-installer to Universal Anti-Split
  * to merge split APK bundles (.xapk, .apks, .apkm, .zip or installed split apps)
  * into a single standalone APK and receive the output APK back via Activity Result.
  */

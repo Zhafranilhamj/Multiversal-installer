@@ -12,7 +12,7 @@
     <string name="loading">লোড হচ্ছে…</string>
 
     <string name="install_anyway">তবুও ইনস্টল করুন</string>
-    <string name="unknown_sources_msg">ঘড়ির সেটিংসে Universal Installer-এর জন্য \"অজানা অ্যাপ ইনস্টল করুন\" চালু করুন।</string>
+    <string name="unknown_sources_msg">ঘড়ির সেটিংসে Multiversal-installer-এর জন্য \"অজানা অ্যাপ ইনস্টল করুন\" চালু করুন।</string>
     <string name="unknown_sources_open_settings">সেটিংস খুলুন</string>
     <string name="unknown_sources_hidden">এই ঘড়িটি সেটিংটি লুকিয়ে রাখে। ওয়্যারলেস ডিবাগিংয়ের মাধ্যমে এটি মঞ্জুর করুন:\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="incompatible_min_sdk">Android API %1$d প্রয়োজন, এই ঘড়িটি API %2$d।</string>
@@ -23,7 +23,7 @@
     <string name="receive_channel_name">প্যাকেজ গ্রহণ করা হচ্ছে</string>
 
     <string name="home_empty_title">এখানে এখনও কিছু নেই</string>
-    <string name="home_empty_hint">আপনার ফোনে Universal Installer খুলুন এবং এই ঘড়িতে একটি প্যাকেজ পাঠান।</string>
+    <string name="home_empty_hint">আপনার ফোনে Multiversal-installer খুলুন এবং এই ঘড়িতে একটি প্যাকেজ পাঠান।</string>
     <string name="receiving">%1$s গ্রহণ করা হচ্ছে…</string>
     <string name="receive_failed">স্থানান্তর ব্যর্থ হয়েছে</string>
     <string name="badge_phone_app">ফোন অ্যাপ</string>

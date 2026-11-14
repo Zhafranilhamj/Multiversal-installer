@@ -12,7 +12,7 @@
     <string name="permission_return_channel_name">Επιστροφή στην εφαρμογή</string>
     <string name="permission_return_channel_desc">Ειδοποίηση για επιστροφή στην εφαρμογή μετά τη χορήγηση άδειας στις ρυθμίσεις συστήματος.</string>
     <string name="permission_return_title">Χορηγήθηκε άδεια</string>
-    <string name="permission_return_body">Πατήστε για να επιστρέψετε στο Universal Installer.</string>
+    <string name="permission_return_body">Πατήστε για να επιστρέψετε στο Multiversal-installer.</string>
     <string name="onboarding_analytics_title">Βοηθήστε να διορθωθούν τα προβλήματα</string>
     <string name="onboarding_analytics_desc">Η εγκατάσταση εφαρμογών λειτουργεί διαφορετικά σε κάθε τηλέφωνο και μαθαίνουμε τι αποτυγχάνει μόνο όταν μας το πει η εφαρμογή. Αναφέρει αν μια εγκατάσταση πέτυχε και τι πήγε στραβά — ποτέ ποια εφαρμογή εγκαταστήσατε.</string>
     <string name="onboarding_analytics_switch">Κοινοποίηση ανώνυμων διαγνωστικών</string>
@@ -117,6 +117,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">Στατιστικά</string>
-    <string name="error_cannot_open_settings">Δεν είναι δυνατό το άνοιγμα των ρυθμίσεων συστήματος. Ανοίξτε μη αυτόματα τις Ρυθμίσεις &gt; Εφαρμογές &gt; Universal Installer για να εκχωρήσετε άδεια.</string>
+    <string name="error_cannot_open_settings">Δεν είναι δυνατό το άνοιγμα των ρυθμίσεων συστήματος. Ανοίξτε μη αυτόματα τις Ρυθμίσεις &gt; Εφαρμογές &gt; Multiversal-installer για να εκχωρήσετε άδεια.</string>
     <string name="onboarding_xiaomi_dev_options_hint">Οι επιλογές για προγραμματιστές δεν έχουν ξεκλειδωθεί. Ανοίξτε Ρυθμίσεις &gt; Σχετικά με το τηλέφωνο και πατήστε τον Αριθμό έκδοσης 7 φορές.</string>
 </resources>

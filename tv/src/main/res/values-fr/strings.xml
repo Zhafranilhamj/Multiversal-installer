@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">Recevoir depuis le téléphone</string>
     <string name="tv_receive_starting">Démarrage du récepteur…</string>
     <string name="tv_receive_installing">Installation de %s…</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">Aucun fichier APK trouvé dans le stockage</string>
     <string name="tv_settings_title">Paramètres</string>
     <string name="tv_settings_section_about">À propos</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">Installez n\'importe quoi, n\'importe où</string>
     <string name="tv_settings_version">Version %s</string>
     <string name="tv_settings_section_install">Installation</string>

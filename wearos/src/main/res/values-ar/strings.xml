@@ -8,13 +8,13 @@
     <string name="install_failed">فشل التثبيت</string>
     <string name="loading">جارٍ التحميل…</string>
     <string name="install_anyway">التثبيت على أي حال</string>
-    <string name="unknown_sources_msg">فعّل تثبيت التطبيقات غير المعروفة لتطبيق Universal Installer في إعدادات الساعة.</string>
+    <string name="unknown_sources_msg">فعّل تثبيت التطبيقات غير المعروفة لتطبيق Multiversal-installer في إعدادات الساعة.</string>
     <string name="unknown_sources_open_settings">فتح الإعدادات</string>
     <string name="incompatible_min_sdk">يتطلب Android API %1$d، وهذه الساعة تعمل بالإصدار %2$d.</string>
     <string name="incompatible_not_a_watch_app">هذا تطبيق هاتف وليس تطبيق Wear OS.</string>
     <string name="apk_received_title">تم استلام APK</string>
     <string name="home_empty_title">لا يوجد شيء هنا بعد</string>
-    <string name="home_empty_hint">افتح Universal Installer على هاتفك وأرسل حزمة إلى هذه الساعة.</string>
+    <string name="home_empty_hint">افتح Multiversal-installer على هاتفك وأرسل حزمة إلى هذه الساعة.</string>
     <string name="receiving">جارٍ استلام %1$s…</string>
     <string name="receive_failed">فشل النقل</string>
     <string name="badge_phone_app">تطبيق هاتف</string>

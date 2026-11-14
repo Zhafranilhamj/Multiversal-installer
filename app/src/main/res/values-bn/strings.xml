@@ -30,7 +30,7 @@
     <string name="dir_picker_folder_name">ফোল্ডারের নাম</string>
     <string name="dir_picker_empty">এখানে কোনো সাবফোল্ডার নেই</string>
     <string name="dir_picker_grant_title">স্টোরেজ অ্যাক্সেস প্রয়োজন</string>
-    <string name="dir_picker_grant_message">Download এর মতো ফোল্ডারে সংরক্ষণ করতে Universal Installer-এর সমস্ত ফাইল অ্যাক্সেস প্রয়োজন। অনুমতি দিন, তারপর আবার চেষ্টা করুন।</string>
+    <string name="dir_picker_grant_message">Download এর মতো ফোল্ডারে সংরক্ষণ করতে Multiversal-installer-এর সমস্ত ফাইল অ্যাক্সেস প্রয়োজন। অনুমতি দিন, তারপর আবার চেষ্টা করুন।</string>
     <string name="dir_picker_grant_action">অনুমতি দিন</string>
     <string name="error_cannot_open_app">অ্যাপ খুলতে অক্ষম</string>
     <string name="error_no_file_picker">ফাইল নির্বাচনের জন্য কোনো ফাইল ম্যানেজার অ্যাপ পাওয়া যায়নি</string>

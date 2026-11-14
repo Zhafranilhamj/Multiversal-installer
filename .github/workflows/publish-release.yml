@@ -113,12 +113,12 @@ jobs:
 
       # Signing
       - name: Decode keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > universal-installer-release.jks
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > multiversal-installer-release.jks
 
       - name: Create key.properties
         run: |
           cat > key.properties <<EOF
-          storeFile=universal-installer-release.jks
+          storeFile=multiversal-installer-release.jks
           storePassword=${{ secrets.STORE_PASSWORD }}
           keyAlias=${{ secrets.KEY_ALIAS }}
           keyPassword=${{ secrets.KEY_PASSWORD }}

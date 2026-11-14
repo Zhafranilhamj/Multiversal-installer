@@ -302,7 +302,7 @@ fun AboutSettingsPane(
             iconTint = Color(0xFF01875F),
             onClick = {
                 activeLinkDialog = LinkDialogInfo(
-                    title = "Rate Universal Installer",
+                    title = "Rate Multiversal-installer",
                     url = PLAY_STORE_URL
                 )
             },

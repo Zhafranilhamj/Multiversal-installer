@@ -8,13 +8,13 @@
     <string name="install_failed">Pemasangan gagal</string>
     <string name="loading">Memuat…</string>
     <string name="install_anyway">Tetap pasang</string>
-    <string name="unknown_sources_msg">Aktifkan Pasang aplikasi tidak dikenal untuk Universal Installer di setelan jam tangan.</string>
+    <string name="unknown_sources_msg">Aktifkan Pasang aplikasi tidak dikenal untuk Multiversal-installer di setelan jam tangan.</string>
     <string name="unknown_sources_open_settings">Buka setelan</string>
     <string name="incompatible_min_sdk">Membutuhkan Android API %1$d, jam tangan ini API %2$d.</string>
     <string name="incompatible_not_a_watch_app">Ini aplikasi ponsel, bukan aplikasi Wear OS.</string>
     <string name="apk_received_title">APK diterima</string>
     <string name="home_empty_title">Belum ada apa pun di sini</string>
-    <string name="home_empty_hint">Buka Universal Installer di ponsel Anda dan kirim paket ke jam tangan ini.</string>
+    <string name="home_empty_hint">Buka Multiversal-installer di ponsel Anda dan kirim paket ke jam tangan ini.</string>
     <string name="receiving">Menerima %1$s…</string>
     <string name="receive_failed">Transfer gagal</string>
     <string name="badge_phone_app">Aplikasi ponsel</string>

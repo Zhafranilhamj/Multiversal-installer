@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">Terima dari telepon</string>
     <string name="tv_receive_starting">Memulai penerima…</string>
     <string name="tv_receive_installing">Memasang %s…</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">Tidak ada file APK yang ditemukan di penyimpanan</string>
     <string name="tv_settings_title">Pengaturan</string>
     <string name="tv_settings_section_about">Tentang</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">Instal apa saja, di mana saja</string>
     <string name="tv_settings_version">Versi %s</string>
     <string name="tv_settings_section_install">Pemasangan</string>

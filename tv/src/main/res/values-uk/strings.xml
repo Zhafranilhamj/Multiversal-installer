@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">Отримати з телефону</string>
     <string name="tv_receive_starting">Запуск приймача…</string>
     <string name="tv_receive_installing">Встановлення %s…</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">У сховищі не знайдено файлів APK</string>
     <string name="tv_settings_title">Налаштування</string>
     <string name="tv_settings_section_about">Про додаток</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">Встановлюйте що завгодно та будь-де</string>
     <string name="tv_settings_version">Версія %s</string>
     <string name="tv_settings_section_install">Встановлення</string>

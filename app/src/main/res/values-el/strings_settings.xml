@@ -104,9 +104,9 @@
     <string name="setting_shizuku_install_hint">Εγκαταστήστε το Shizuku από το Play Store για να χρησιμοποιήσετε αυτό το backend</string>
     <string name="setting_auto_confirm_title">Αυτόματη επιβεβαίωση εξωτερικών εγκαταστάσεων</string>
     <string name="setting_default_installer_title">Ορισμός ως προεπιλεγμένου προγράμματος εγκατάστασης</string>
-    <string name="setting_default_installer_subtitle">Απενεργοποιήστε το πρόγραμμα εγκατάστασης συστήματος για να χρησιμοποιείτε πάντα το Universal Installer για αρχεία APK (απαιτεί Shizuku ή Root)</string>
+    <string name="setting_default_installer_subtitle">Απενεργοποιήστε το πρόγραμμα εγκατάστασης συστήματος για να χρησιμοποιείτε πάντα το Multiversal-installer για αρχεία APK (απαιτεί Shizuku ή Root)</string>
     <string name="setting_default_installer_needs_backend">Ενεργοποιήστε πρώτα το Shizuku ή το Root για να αλλάξετε το προεπιλεγμένο πρόγραμμα εγκατάστασης</string>
-    <string name="setting_default_installer_enabled">Το Universal Installer είναι τώρα το προεπιλεγμένο</string>
+    <string name="setting_default_installer_enabled">Το Multiversal-installer είναι τώρα το προεπιλεγμένο</string>
     <string name="setting_default_installer_disabled">Το πρόγραμμα εγκατάστασης συστήματος αποκαταστάθηκε</string>
     <string name="setting_default_installer_failed">Αποτυχία αλλαγής προεπιλεγμένου προγράμματος εγκατάστασης</string>
     <string name="setting_section_profiles">Προφίλ προγράμματος εγκατάστασης</string>
@@ -134,7 +134,7 @@
     <string name="setting_shizuku_installer_preset_samsung">Samsung Galaxy Store</string>
     <string name="setting_shizuku_installer_preset_huawei">Huawei AppGallery</string>
     <string name="setting_shizuku_installer_preset_xiaomi">Xiaomi GetApps</string>
-    <string name="setting_about_app_name">Universal Installer</string>
+    <string name="setting_about_app_name">Multiversal-installer</string>
     <string name="setting_github_title">GitHub</string>
     <string name="setting_telegram_title">Telegram</string>
     <string name="setting_website_subtitle">universal-installer.pwhs.app</string>
@@ -276,7 +276,7 @@
     <string name="setting_pin_lock_uninstall_title">Απαίτηση PIN για απεγκατάσταση</string>
     <string name="setting_pin_lock_uninstall_subtitle">Αίτημα για PIN πριν από την κατάργηση οποιουδήποτε πακέτου</string>
     <string name="setting_pin_lock_app_open_title">Κλείδωμα εφαρμογής κατά το άνοιγμα</string>
-    <string name="setting_pin_lock_app_open_subtitle">Απαίτηση PIN κάθε φορά που ανοίγει το Universal Installer</string>
+    <string name="setting_pin_lock_app_open_subtitle">Απαίτηση PIN κάθε φορά που ανοίγει το Multiversal-installer</string>
     <string name="setting_pin_lock_protect_settings_title">Προστασία ρυθμίσεων ασφαλείας</string>
     <string name="setting_pin_lock_protect_settings_subtitle">Αίτημα για PIN κατά το άνοιγμα των ρυθμίσεων ασφαλείας</string>
     <string name="setting_security_group_biometric">Βιομετρικός έλεγχος ταυτότητας</string>
@@ -286,7 +286,7 @@
     <string name="pin_dialog_title_confirm">Επιβεβαίωση PIN</string>
     <string name="pin_dialog_desc_confirm">Εισαγάγετε ξανά το 4ψήφιο PIN για επιβεβαίωση</string>
     <string name="pin_dialog_title_verify">Εισαγωγή PIN</string>
-    <string name="pin_dialog_desc_app_open">Εισαγάγετε το PIN για να ανοίξετε το Universal Installer</string>
+    <string name="pin_dialog_desc_app_open">Εισαγάγετε το PIN για να ανοίξετε το Multiversal-installer</string>
     <string name="pin_dialog_desc_install">Εισαγάγετε το PIN για έγκριση εγκατάστασης</string>
     <string name="pin_dialog_desc_uninstall">Εισαγάγετε το PIN για έγκριση απεγκατάστασης</string>
     <string name="pin_dialog_desc_settings">Εισαγάγετε το PIN για πρόσβαση στις ρυθμίσεις ασφαλείας</string>
@@ -300,7 +300,7 @@
     <string name="parental_guidance_card_subtitle">Πώς να αποτρέψετε τα παιδιά από την απεγκατάσταση ή την παράκαμψη της ασφάλειας</string>
     <string name="parental_guidance_card_btn">Προβολή οδηγού</string>
     <string name="parental_guidance_dialog_title">Ολοκληρωμένη γονική προστασία</string>
-    <string name="parental_guidance_dialog_content">Για να διασφαλίσετε ότι τα παιδιά δεν μπορούν να παρακάμψουν το Universal Installer:\n\n1. Αποτροπή απεγκατάστασης:\nΤο Android επιτρέπει την απεγκατάσταση μέσω των Ρυθμίσεων συστήματος. Χρησιμοποιήστε το κλείδωμα εφαρμογών της συσκευής σας ή το Google Family Link για να κλειδώσετε την εφαρμογή «Ρυθμίσεις».\n\n2. Αποτροπή εναλλακτικών προγραμμάτων εγκατάστασης:\nΧρησιμοποιήστε την επιλογή «Πάγωμα προγράμματος εγκατάστασης συστήματος» παρακάτω (απαιτείται Shizuku ή Root) για να αποτρέψετε άλλες εφαρμογές από το να το εκκινήσουν.\n\n3. Ανάκληση αδειών:\nΧρησιμοποιήστε την «Ανάκληση αδειών εγκατάστασης από άλλες εφαρμογές» παρακάτω για να διασφαλίσετε ότι μόνο το Universal Installer μπορεί να εγκαθιστά πακέτα.</string>
+    <string name="parental_guidance_dialog_content">Για να διασφαλίσετε ότι τα παιδιά δεν μπορούν να παρακάμψουν το Multiversal-installer:\n\n1. Αποτροπή απεγκατάστασης:\nΤο Android επιτρέπει την απεγκατάσταση μέσω των Ρυθμίσεων συστήματος. Χρησιμοποιήστε το κλείδωμα εφαρμογών της συσκευής σας ή το Google Family Link για να κλειδώσετε την εφαρμογή «Ρυθμίσεις».\n\n2. Αποτροπή εναλλακτικών προγραμμάτων εγκατάστασης:\nΧρησιμοποιήστε την επιλογή «Πάγωμα προγράμματος εγκατάστασης συστήματος» παρακάτω (απαιτείται Shizuku ή Root) για να αποτρέψετε άλλες εφαρμογές από το να το εκκινήσουν.\n\n3. Ανάκληση αδειών:\nΧρησιμοποιήστε την «Ανάκληση αδειών εγκατάστασης από άλλες εφαρμογές» παρακάτω για να διασφαλίσετε ότι μόνο το Multiversal-installer μπορεί να εγκαθιστά πακέτα.</string>
     <string name="setting_security_group_privileged">Προηγμένη προστασία (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">Απαιτείται Shizuku ή Root για την ενεργοποίηση αυτών των επιλογών</string>
     <string name="setting_disable_system_installer_title">Πάγωμα προγράμματος εγκατάστασης συστήματος</string>
@@ -313,7 +313,7 @@
     <string name="setting_revoke_other_installers_title">Ανάκληση αδειών εγκατάστασης από άλλες εφαρμογές</string>
     <string name="setting_revoke_other_installers_subtitle">Ανακαλεί τις άδειες εγκατάστασης APK από το Chrome, διαχειριστές αρχείων και άλλες εφαρμογές</string>
     <string name="setting_revoke_other_installers_dialog_title">Ανάκληση αδειών εγκατάστασης;</string>
-    <string name="setting_revoke_other_installers_dialog_desc">Αυτό θα απενεργοποιήσει τη δυνατότητα άλλων εφαρμογών να εγκαθιστούν APK, αφήνοντας το Universal Installer ως το μοναδικό πρόγραμμα εγκατάστασης.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">Αυτό θα απενεργοποιήσει τη δυνατότητα άλλων εφαρμογών να εγκαθιστούν APK, αφήνοντας το Multiversal-installer ως το μοναδικό πρόγραμμα εγκατάστασης.</string>
     <string name="setting_revoke_other_installers_toast_success">Ανακλήθηκαν οι άδειες εγκατάστασης από %1$d εφαρμογές</string>
     <string name="setting_revoke_other_installers_toast_none">Καμία άλλη εφαρμογή δεν έχει άδεια εγκατάστασης</string>
     <string name="setting_install_options_subtitle">Σημαίες δικαιωμάτων, υποβάθμιση, άδειες, πηγή εγκατάστασης</string>
@@ -335,9 +335,9 @@
     <string name="setting_porter_not_running">Το Porter είναι εγκατεστημένο αλλά δεν εκτελείται</string>
     <string name="setting_porter_start_service_hint">Ανοίξτε πρώτα το Porter και ξεκινήστε την υπηρεσία του</string>
     <string name="setting_default_uninstaller_title">Ορισμός ως προεπιλεγμένου προγράμματος απεγκατάστασης</string>
-    <string name="setting_default_uninstaller_subtitle">Ορισμός του Universal Installer ως προεπιλογής για απεγκαταστάσεις (απαιτείται Shizuku, Porter ή Root)</string>
+    <string name="setting_default_uninstaller_subtitle">Ορισμός του Multiversal-installer ως προεπιλογής για απεγκαταστάσεις (απαιτείται Shizuku, Porter ή Root)</string>
     <string name="setting_default_uninstaller_needs_backend">Ενεργοποιήστε πρώτα το Shizuku ή το Root για να αλλάξετε την προεπιλογή</string>
-    <string name="setting_default_uninstaller_enabled">Το Universal Installer είναι τώρα το προεπιλεγμένο πρόγραμμα απεγκατάστασης</string>
+    <string name="setting_default_uninstaller_enabled">Το Multiversal-installer είναι τώρα το προεπιλεγμένο πρόγραμμα απεγκατάστασης</string>
     <string name="setting_default_uninstaller_disabled">Η προτίμηση προεπιλεγμένου προγράμματος απεγκατάστασης καταργήθηκε</string>
     <string name="setting_default_uninstaller_failed">Αποτυχία αλλαγής προεπιλεγμένου προγράμματος απεγκατάστασης</string>
     <string name="about_section_more_apps">Οι εφαρμογές μας</string>

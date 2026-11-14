@@ -1,6 +1,6 @@
 # What this module is
 
-Shared core library for Universal Installer across Phone, TV, and Wear OS.
+Shared core library for Multiversal-installer across Phone, TV, and Wear OS.
 It provides common domain models, updates tracker, repository sources (GitHub, GitLab, F-Droid),
 and shared backup/restore strings.
 

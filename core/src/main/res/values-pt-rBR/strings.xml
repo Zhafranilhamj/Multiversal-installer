@@ -12,7 +12,7 @@
     <string name="permission_return_channel_name">Voltar ao aplicativo</string>
     <string name="permission_return_channel_desc">Notificação para retornar ao aplicativo após conceder permissão nas configurações do sistema.</string>
     <string name="permission_return_title">Permissão concedida</string>
-    <string name="permission_return_body">Toque para retornar ao Universal Installer.</string>
+    <string name="permission_return_body">Toque para retornar ao Multiversal-installer.</string>
     <string name="onboarding_analytics_title">Ajude a consertar o que quebra</string>
     <string name="onboarding_analytics_desc">Instalar aplicativos funciona de forma diferente em cada telefone, e só descobrimos o que falha quando o app avisa. Ele informa se uma instalação funcionou e o que deu errado — nunca qual aplicativo você instalou.</string>
     <string name="onboarding_analytics_switch">Compartilhar diagnósticos anônimos</string>
@@ -117,6 +117,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">Estatísticas</string>
-    <string name="error_cannot_open_settings">Não foi possível abrir as configurações do sistema. Abra Configurações manualmente &gt; Apps &gt; Universal Installer para conceder a permissão.</string>
+    <string name="error_cannot_open_settings">Não foi possível abrir as configurações do sistema. Abra Configurações manualmente &gt; Apps &gt; Multiversal-installer para conceder a permissão.</string>
     <string name="onboarding_xiaomi_dev_options_hint">Opções do desenvolvedor não desbloqueadas. Abra Configurações &gt; Sobre o telefone e toque 7 vezes no Número da versão.</string>
 </resources>

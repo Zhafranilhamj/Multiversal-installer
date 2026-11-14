@@ -104,9 +104,9 @@
     <string name="setting_shizuku_install_hint">इस बैकएंड का उपयोग करने के लिए Play Store से Shizuku इंस्टॉल करें</string>
     <string name="setting_auto_confirm_title">बाहरी इंस्टॉलेशन की स्वतः पुष्टि करें</string>
     <string name="setting_default_installer_title">डिफ़ॉल्ट इंस्टॉलर के रूप में सेट करें</string>
-    <string name="setting_default_installer_subtitle">APK फ़ाइलों के लिए हमेशा Universal Installer का उपयोग करने के लिए सिस्टम इंस्टॉलर को अक्षम करें (Shizuku या Root की आवश्यकता है)</string>
+    <string name="setting_default_installer_subtitle">APK फ़ाइलों के लिए हमेशा Multiversal-installer का उपयोग करने के लिए सिस्टम इंस्टॉलर को अक्षम करें (Shizuku या Root की आवश्यकता है)</string>
     <string name="setting_default_installer_needs_backend">डिफ़ॉल्ट इंस्टॉलर को बदलने के लिए पहले Shizuku या Root सक्षम करें</string>
-    <string name="setting_default_installer_enabled">Universal Installer अब डिफ़ॉल्ट है</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer अब डिफ़ॉल्ट है</string>
     <string name="setting_default_installer_disabled">सिस्टम इंस्टॉलर बहाल कर दिया गया</string>
     <string name="setting_default_installer_failed">डिफ़ॉल्ट इंस्टॉलर बदलने में विफल</string>
     <string name="setting_section_profiles">इंस्टॉलर प्रोफाइल</string>
@@ -276,7 +276,7 @@
     <string name="setting_pin_lock_uninstall_title">अनइंस्टॉल करने के लिए पिन आवश्यक</string>
     <string name="setting_pin_lock_uninstall_subtitle">किसी भी पैकेज को हटाने से पहले पिन मांगें</string>
     <string name="setting_pin_lock_app_open_title">ऐप खोलने पर लॉक करें</string>
-    <string name="setting_pin_lock_app_open_subtitle">Universal Installer खोले जाने पर हर बार पिन मांगें</string>
+    <string name="setting_pin_lock_app_open_subtitle">Multiversal-installer खोले जाने पर हर बार पिन मांगें</string>
     <string name="setting_pin_lock_protect_settings_title">सुरक्षा सेटिंग्स सुरक्षित करें</string>
     <string name="setting_pin_lock_protect_settings_subtitle">सुरक्षा सेटिंग्स खोलते समय पिन मांगें</string>
     <string name="setting_security_group_biometric">बायोमेट्रिक प्रमाणीकरण</string>
@@ -286,7 +286,7 @@
     <string name="pin_dialog_title_confirm">पिन की पुष्टि करें</string>
     <string name="pin_dialog_desc_confirm">पुष्टि करने के लिए अपना 4-अंकीय पिन पुनः दर्ज करें</string>
     <string name="pin_dialog_title_verify">पिन दर्ज करें</string>
-    <string name="pin_dialog_desc_app_open">Universal Installer खोलने के लिए पिन दर्ज करें</string>
+    <string name="pin_dialog_desc_app_open">Multiversal-installer खोलने के लिए पिन दर्ज करें</string>
     <string name="pin_dialog_desc_install">इंस्टॉलेशन अधिकृत करने के लिए पिन दर्ज करें</string>
     <string name="pin_dialog_desc_uninstall">अनइंस्टॉलेशन अधिकृत करने के लिए पिन दर्ज करें</string>
     <string name="pin_dialog_desc_settings">सुरक्षा सेटिंग्स तक पहुँचने के लिए पिन दर्ज करें</string>
@@ -300,7 +300,7 @@
     <string name="parental_guidance_card_subtitle">बच्चों को ऐप हटाने या सुरक्षा बायपास करने से कैसे रोकें</string>
     <string name="parental_guidance_card_btn">मार्गदर्शिका देखें</string>
     <string name="parental_guidance_dialog_title">व्यापक अभिभावकीय सुरक्षा</string>
-    <string name="parental_guidance_dialog_content">यह सुनिश्चित करने के लिए कि बच्चे Universal Installer को बायपास न कर सकें:\n\n1. अनइंस्टॉलेशन रोकें:\nAndroid सिस्टम सेटिंग्स के माध्यम से अनइंस्टॉल करने की अनुमति देता है। «सेटिंग्स» ऐप को लॉक करने के लिए अपने डिवाइस के ऐप लॉक या Google Family Link का उपयोग करें।\n\n2. अन्य इंस्टॉलर्स को रोकें:\nनीचे दिए गए «सिस्टम पैकेज इंस्टॉलर फ्रीज करें» विकल्प का उपयोग करें (Shizuku या Root आवश्यक) ताकि अन्य ऐप्स सिस्टम इंस्टॉलर को ट्रिगर न कर सकें।\n\n3. अनुमतियां रद्द करें:\nकेवल Universal Installer को पैकेज इंस्टॉल करने की अनुमति देने के लिए नीचे «अन्य ऐप्स की इंस्टॉलेशन अनुमतियां रद्द करें» का उपयोग करें।</string>
+    <string name="parental_guidance_dialog_content">यह सुनिश्चित करने के लिए कि बच्चे Multiversal-installer को बायपास न कर सकें:\n\n1. अनइंस्टॉलेशन रोकें:\nAndroid सिस्टम सेटिंग्स के माध्यम से अनइंस्टॉल करने की अनुमति देता है। «सेटिंग्स» ऐप को लॉक करने के लिए अपने डिवाइस के ऐप लॉक या Google Family Link का उपयोग करें।\n\n2. अन्य इंस्टॉलर्स को रोकें:\nनीचे दिए गए «सिस्टम पैकेज इंस्टॉलर फ्रीज करें» विकल्प का उपयोग करें (Shizuku या Root आवश्यक) ताकि अन्य ऐप्स सिस्टम इंस्टॉलर को ट्रिगर न कर सकें।\n\n3. अनुमतियां रद्द करें:\nकेवल Multiversal-installer को पैकेज इंस्टॉल करने की अनुमति देने के लिए नीचे «अन्य ऐप्स की इंस्टॉलेशन अनुमतियां रद्द करें» का उपयोग करें।</string>
     <string name="setting_security_group_privileged">उन्नत सुरक्षा (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">इन विकल्पों को सक्षम करने के लिए Shizuku या Root आवश्यक है</string>
     <string name="setting_disable_system_installer_title">सिस्टम पैकेज इंस्टॉलर फ्रीज करें</string>
@@ -313,7 +313,7 @@
     <string name="setting_revoke_other_installers_title">अन्य ऐप्स से इंस्टॉलेशन अनुमतियां रद्द करें</string>
     <string name="setting_revoke_other_installers_subtitle">Chrome, फ़ाइल प्रबंधकों और अन्य ऐप्स से APK इंस्टॉलेशन अनुमतियां रद्द करता है</string>
     <string name="setting_revoke_other_installers_dialog_title">इंस्टॉलेशन अनुमतियां रद्द करें?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">यह अन्य ऐप्स द्वारा APK इंस्टॉल करने की क्षमता को अक्षम कर देगा, जिससे Universal Installer एकमात्र इंस्टॉलर रहेगा।</string>
+    <string name="setting_revoke_other_installers_dialog_desc">यह अन्य ऐप्स द्वारा APK इंस्टॉल करने की क्षमता को अक्षम कर देगा, जिससे Multiversal-installer एकमात्र इंस्टॉलर रहेगा।</string>
     <string name="setting_revoke_other_installers_toast_success">%1$d ऐप्स से इंस्टॉलेशन अनुमतियां रद्द की गईं</string>
     <string name="setting_revoke_other_installers_toast_none">किसी अन्य ऐप के पास इंस्टॉलेशन अनुमति नहीं है</string>
     <string name="setting_install_options_subtitle">विशेषाधिकार प्राप्त विकल्प, डाउनग्रेड, अनुमतियां, इंस्टॉलेशन स्रोत</string>

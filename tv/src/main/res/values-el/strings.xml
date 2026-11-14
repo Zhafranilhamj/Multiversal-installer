@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">Λήψη από τηλέφωνο</string>
     <string name="tv_receive_starting">Εκκίνηση δέκτη…</string>
     <string name="tv_receive_installing">Εγκατάσταση %s…</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">Δεν βρέθηκαν αρχεία APK στον χώρο αποθήκευσης</string>
     <string name="tv_settings_title">Ρυθμίσεις</string>
     <string name="tv_settings_section_about">Σχετικά</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">Εγκαταστήστε οτιδήποτε, οπουδήποτε</string>
     <string name="tv_settings_version">Έκδοση %s</string>
     <string name="tv_settings_section_install">Εγκατάσταση</string>

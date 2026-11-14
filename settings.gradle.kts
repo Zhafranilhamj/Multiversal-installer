@@ -26,7 +26,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Universal Installer"
+rootProject.name = "Multiversal-installer"
 include(":app")
 include(":core")
 include(":updater")

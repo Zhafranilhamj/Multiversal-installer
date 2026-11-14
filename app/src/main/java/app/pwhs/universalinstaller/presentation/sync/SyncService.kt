@@ -255,7 +255,7 @@ class SyncService : Service() {
         )
 
         val builder = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("Universal Installer Sync")
+            .setContentTitle("Multiversal-installer Sync")
             .setContentText(text)
             .setSmallIcon(android.R.drawable.stat_sys_upload_done)
             .setOngoing(true)

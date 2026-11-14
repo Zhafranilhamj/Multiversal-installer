@@ -1,6 +1,6 @@
 # What this module is
 
-Android TV interface for Universal Installer, designed for large screen displays and 10-foot UI.
+Android TV interface for Multiversal-installer, designed for large screen displays and 10-foot UI.
 Provides D-pad navigable APK installation, tracked app updates, device storage status, and TV sync.
 `install` always means writing an application package onto this TV device.
 
@@ -16,7 +16,7 @@ Use direct register: `vi` uses "bạn", `pt-BR` uses "você".
 
 - Shizuku
 - Dhizuku
-- Universal Installer
+- Multiversal-installer
 - APK
 
 ## Glossary

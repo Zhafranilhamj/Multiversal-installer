@@ -159,7 +159,7 @@ private fun AboutScreenPreview() {
     UniversalInstallerTheme {
         AppScaffold {
             AboutScreenContent(
-                appName = "Universal Installer",
+                appName = "Multiversal-installer",
                 version = "1.12.0 (1035)",
                 packageName = "com.github.zhafranilhamj.multiversalinstaller",
                 sourceDir = null,

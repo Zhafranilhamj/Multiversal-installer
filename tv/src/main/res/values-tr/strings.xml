@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">Telefondan al</string>
     <string name="tv_receive_starting">Alıcı başlatılıyor…</string>
     <string name="tv_receive_installing">%s yükleniyor…</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">Depolama alanında APK dosyası bulunamadı</string>
     <string name="tv_settings_title">Ayarlar</string>
     <string name="tv_settings_section_about">Hakkında</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">Her şeyi, her yere yükleyin</string>
     <string name="tv_settings_version">Sürüm %s</string>
     <string name="tv_settings_section_install">Yükleme</string>

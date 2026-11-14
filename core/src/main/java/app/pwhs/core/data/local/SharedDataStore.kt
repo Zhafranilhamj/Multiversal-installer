@@ -61,7 +61,7 @@ object SharedPrefsKeys {
     /** Comma-separated SHA-256 hashes scanned today using Remote Config fallback keys. */
     val VT_TRIAL_SCANNED_HASHES = stringPreferencesKey("vt_trial_scanned_hashes")
 
-    /** Whether the user has unlocked Universal Installer Pro (unlimited built-in VirusTotal). */
+    /** Whether the user has unlocked Multiversal-installer Pro (unlimited built-in VirusTotal). */
     val IS_PRO_USER = booleanPreferencesKey("is_pro_user")
 
     /**

@@ -202,7 +202,7 @@ class BackupRestoreManager(
             }
         }
 
-        // 2. Try parsing Universal Installer Backup v2
+        // 2. Try parsing Multiversal-installer Backup v2
         runCatching {
             val backup = json.decodeFromString(UniversalInstallerBackup.serializer(), trimmed)
             if (backup.version >= 2 || backup.settings != null || backup.trackedApps != null || backup.sourceTokens != null || backup.uninstallLogs != null) {

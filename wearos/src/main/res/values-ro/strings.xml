@@ -8,13 +8,13 @@
     <string name="install_failed">Instalare eșuată</string>
     <string name="loading">Se încarcă…</string>
     <string name="install_anyway">Instalează oricum</string>
-    <string name="unknown_sources_msg">Activează Instalarea aplicațiilor necunoscute pentru Universal Installer în setările ceasului.</string>
+    <string name="unknown_sources_msg">Activează Instalarea aplicațiilor necunoscute pentru Multiversal-installer în setările ceasului.</string>
     <string name="unknown_sources_open_settings">Deschide setările</string>
     <string name="incompatible_min_sdk">Necesită Android API %1$d, acest ceas are API %2$d.</string>
     <string name="incompatible_not_a_watch_app">Aceasta este o aplicație pentru telefon, nu una Wear OS.</string>
     <string name="apk_received_title">APK primit</string>
     <string name="home_empty_title">Încă nu e nimic aici</string>
-    <string name="home_empty_hint">Deschide Universal Installer pe telefon și trimite un pachet către acest ceas.</string>
+    <string name="home_empty_hint">Deschide Multiversal-installer pe telefon și trimite un pachet către acest ceas.</string>
     <string name="receiving">Se primește %1$s…</string>
     <string name="receive_failed">Transfer eșuat</string>
     <string name="badge_phone_app">Aplicație de telefon</string>

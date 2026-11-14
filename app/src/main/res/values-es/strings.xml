@@ -17,7 +17,7 @@
     <string name="txt_manage">Administrar</string>
     <string name="edit">Editar</string>
     <string name="more_actions_cd">Más acciones</string>
-    <string name="app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
     <string name="file_size_gb">%1$.1f GB</string>
     <string name="file_size_mb">%1$.1f MB</string>
     <string name="file_size_kb">%1$.0f KB</string>
@@ -29,7 +29,7 @@
     <string name="dir_picker_folder_name">Nombre de carpeta</string>
     <string name="dir_picker_empty">No hay subcarpetas aquí</string>
     <string name="dir_picker_grant_title">Acceso al almacenamiento necesario</string>
-    <string name="dir_picker_grant_message">Para guardar en carpetas como Descargas, Universal Installer necesita acceso a todos los archivos. Concede el permiso e inténtalo de nuevo.</string>
+    <string name="dir_picker_grant_message">Para guardar en carpetas como Descargas, Multiversal-installer necesita acceso a todos los archivos. Concede el permiso e inténtalo de nuevo.</string>
     <string name="dir_picker_grant_action">Conceder acceso</string>
     <string name="error_cannot_open_app">No se puede abrir la aplicación</string>
     <string name="error_no_file_picker">No se encontró ninguna aplicación de administración de archivos para seleccionar archivos</string>

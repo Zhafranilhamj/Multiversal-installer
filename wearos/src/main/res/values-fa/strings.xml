@@ -8,7 +8,7 @@
     <string name="install_failed">نصب ناموفق بود</string>
     <string name="loading">در حال بارگیری…</string>
     <string name="install_anyway">نصب در هر صورت</string>
-    <string name="unknown_sources_msg">گزینه \"نصب برنامه‌های ناشناخته\" را برای Universal Installer در تنظیمات ساعت روشن کنید.</string>
+    <string name="unknown_sources_msg">گزینه \"نصب برنامه‌های ناشناخته\" را برای Multiversal-installer در تنظیمات ساعت روشن کنید.</string>
     <string name="unknown_sources_open_settings">باز کردن تنظیمات</string>
     <string name="unknown_sources_hidden">این ساعت این تنظیم را پنهان کرده است. آن را از طریق عیب‌یابی بی‌سیم اعطا کنید:\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="incompatible_min_sdk">به Android API %1$d نیاز دارد، این ساعت API %2$d است.</string>
@@ -16,7 +16,7 @@
     <string name="apk_received_title">APK دریافت شد</string>
     <string name="receive_channel_name">در حال دریافت یک بسته</string>
     <string name="home_empty_title">هنوز چیزی اینجا نیست</string>
-    <string name="home_empty_hint">برنامه Universal Installer را در گوشی خود باز کرده و یک بسته به این ساعت ارسال کنید.</string>
+    <string name="home_empty_hint">برنامه Multiversal-installer را در گوشی خود باز کرده و یک بسته به این ساعت ارسال کنید.</string>
     <string name="receiving">در حال دریافت %1$s…</string>
     <string name="receive_failed">انتقال ناموفق بود</string>
     <string name="badge_phone_app">برنامه گوشی</string>

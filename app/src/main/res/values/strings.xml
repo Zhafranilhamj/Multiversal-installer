@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Universal Installer</string>
+    <string name="app_name" translatable="false">Multiversal-installer</string>
     <string name="txt_install">Install</string>
     <string name="txt_updates">Updates</string>
     <string name="txt_manage">Manage</string>
@@ -31,7 +31,7 @@
     <string name="dir_picker_folder_name">Folder name</string>
     <string name="dir_picker_empty">No subfolders here</string>
     <string name="dir_picker_grant_title">Storage access needed</string>
-    <string name="dir_picker_grant_message">To save into folders like Download, Universal Installer needs All files access. Grant it, then try again.</string>
+    <string name="dir_picker_grant_message">To save into folders like Download, Multiversal-installer needs All files access. Grant it, then try again.</string>
     <string name="dir_picker_grant_action">Grant access</string>
     <string name="error_cannot_open_app">Unable to open app</string>
     <string name="error_no_file_picker">No file manager app found to select files</string>
@@ -50,7 +50,7 @@
     <string name="stats_rank_privileged_pro">Privileged Pro</string>
     <string name="stats_rank_privileged_pro_sub">Mastering advanced install tools and security checks</string>
     <string name="stats_rank_sideload_master">Sideload Master</string>
-    <string name="stats_rank_sideload_master_sub">Top-tier Universal Installer veteran</string>
+    <string name="stats_rank_sideload_master_sub">Top-tier Multiversal-installer veteran</string>
     <string name="stats_next_rank_progress">%1$d / %2$d milestones unlocked</string>
     <string name="stats_next_rank_hint">Unlock %1$d more for %2$s</string>
     <string name="stats_max_rank_reached">Maximum rank achieved!</string>
@@ -127,7 +127,7 @@
     <string name="milestone_security_guardian_title">Security Guardian</string>
     <string name="milestone_security_guardian_desc">Scan 5 packages with VirusDetec or Tracker Scanner</string>
     <string name="milestone_pro_supporter_title">Pro Supporter</string>
-    <string name="milestone_pro_supporter_desc">Unlock Universal Installer Pro and support open-source development</string>
+    <string name="milestone_pro_supporter_desc">Unlock Multiversal-installer Pro and support open-source development</string>
     <string name="milestone_pro_vt_guardian_title">Pro VirusDetec Guardian</string>
     <string name="milestone_pro_vt_guardian_desc">Perform 20 VirusDetec security scans with Pro features</string>
     <string name="milestone_pro_unlimited_champion_title">Pro VirusDetec Champion</string>

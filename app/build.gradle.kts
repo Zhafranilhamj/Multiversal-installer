@@ -60,8 +60,8 @@ android {
         applicationId = "com.github.zhafranilhamj.multiversalinstaller"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 50
-        versionName = "1.23.2"
+        versionCode = 51
+        versionName = "1.23.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

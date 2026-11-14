@@ -104,9 +104,9 @@
     <string name="setting_shizuku_install_hint">قم بتثبيت Shizuku من متجر Play لاستخدام هذه الواجهة الخلفية</string>
     <string name="setting_auto_confirm_title">تأكيد التثبيتات الخارجية تلقائيًا</string>
     <string name="setting_default_installer_title">تعيين كمثبت افتراضي</string>
-    <string name="setting_default_installer_subtitle">قم بتعطيل مثبت النظام لاستخدام Universal Installer دائمًا لملفات APK (يتطلب Shizuku أو Root)</string>
+    <string name="setting_default_installer_subtitle">قم بتعطيل مثبت النظام لاستخدام Multiversal-installer دائمًا لملفات APK (يتطلب Shizuku أو Root)</string>
     <string name="setting_default_installer_needs_backend">قم بتمكين Shizuku أو Root أولاً لتغيير المثبت الافتراضي</string>
-    <string name="setting_default_installer_enabled">Universal Installer هو المثبت الافتراضي الآن</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer هو المثبت الافتراضي الآن</string>
     <string name="setting_default_installer_disabled">تم استعادة مثبت النظام</string>
     <string name="setting_default_installer_failed">فشل تغيير المثبت الافتراضي</string>
     <string name="setting_section_profiles">ملفات تعريف المثبت</string>
@@ -276,7 +276,7 @@
     <string name="setting_pin_lock_uninstall_title">طلب رمز PIN لإلغاء التثبيت</string>
     <string name="setting_pin_lock_uninstall_subtitle">طلب رمز PIN قبل إزالة أي حزمة</string>
     <string name="setting_pin_lock_app_open_title">قفل التطبيق عند الفتح</string>
-    <string name="setting_pin_lock_app_open_subtitle">طلب رمز PIN في كل مرة يتم فيها فتح Universal Installer</string>
+    <string name="setting_pin_lock_app_open_subtitle">طلب رمز PIN في كل مرة يتم فيها فتح Multiversal-installer</string>
     <string name="setting_pin_lock_protect_settings_title">حماية إعدادات الأمان</string>
     <string name="setting_pin_lock_protect_settings_subtitle">طلب رمز PIN عند فتح إعدادات الأمان</string>
     <string name="setting_security_group_biometric">المصادقة البيومترية</string>
@@ -286,7 +286,7 @@
     <string name="pin_dialog_title_confirm">تأكيد رمز PIN</string>
     <string name="pin_dialog_desc_confirm">أعد إدخال رمز PIN المكوّن من 4 أرقام للتأكيد</string>
     <string name="pin_dialog_title_verify">أدخل رمز PIN</string>
-    <string name="pin_dialog_desc_app_open">أدخل رمز PIN لفتح Universal Installer</string>
+    <string name="pin_dialog_desc_app_open">أدخل رمز PIN لفتح Multiversal-installer</string>
     <string name="pin_dialog_desc_install">أدخل رمز PIN للسماح بالتثبيت</string>
     <string name="pin_dialog_desc_uninstall">أدخل رمز PIN للسماح بإلغاء التثبيت</string>
     <string name="pin_dialog_desc_settings">أدخل رمز PIN للوصول إلى إعدادات الأمان</string>
@@ -300,7 +300,7 @@
     <string name="parental_guidance_card_subtitle">كيفية منع الأطفال من إلغاء تثبيت التطبيق أو تجاوز الأمان</string>
     <string name="parental_guidance_card_btn">عرض الدليل</string>
     <string name="parental_guidance_dialog_title">حماية أبوية شاملة</string>
-    <string name="parental_guidance_dialog_content">لضمان عدم تمكن الأطفال من تجاوز Universal Installer:\n\n1. منع إلغاء التثبيت:\nيتيح Android إلغاء التثبيت عبر إعدادات النظام. استخدم ميزة قفل التطبيقات المدمجة بجهازك أو Google Family Link لقفل تطبيق «الإعدادات».\n\n2. منع أدوات التثبيت البديلة:\nاستخدم خيار «تجميد مثبت حزم النظام» أدناه (يتطلب Shizuku أو Root) حتى لا تتمكن التطبيقات الأخرى من تشغيل مثبت النظام.\n\n3. إلغاء الأذونات:\nاستخدم «إلغاء أذونات التثبيت من التطبيقات الأخرى» لضمان أن Universal Installer هو المثبت الوحيد المسموح له.</string>
+    <string name="parental_guidance_dialog_content">لضمان عدم تمكن الأطفال من تجاوز Multiversal-installer:\n\n1. منع إلغاء التثبيت:\nيتيح Android إلغاء التثبيت عبر إعدادات النظام. استخدم ميزة قفل التطبيقات المدمجة بجهازك أو Google Family Link لقفل تطبيق «الإعدادات».\n\n2. منع أدوات التثبيت البديلة:\nاستخدم خيار «تجميد مثبت حزم النظام» أدناه (يتطلب Shizuku أو Root) حتى لا تتمكن التطبيقات الأخرى من تشغيل مثبت النظام.\n\n3. إلغاء الأذونات:\nاستخدم «إلغاء أذونات التثبيت من التطبيقات الأخرى» لضمان أن Multiversal-installer هو المثبت الوحيد المسموح له.</string>
     <string name="setting_security_group_privileged">حماية متقدمة (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">يلزم توفر Shizuku أو Root لتفعيل هذه الخيارات</string>
     <string name="setting_disable_system_installer_title">تجميد مثبت حزم النظام</string>
@@ -313,7 +313,7 @@
     <string name="setting_revoke_other_installers_title">إلغاء أذونات التثبيت من التطبيقات الأخرى</string>
     <string name="setting_revoke_other_installers_subtitle">يلغي أذونات تثبيت APK من Chrome ومديري الملفات والتطبيقات الأخرى</string>
     <string name="setting_revoke_other_installers_dialog_title">إلغاء أذونات التثبيت؟</string>
-    <string name="setting_revoke_other_installers_dialog_desc">سيؤدي هذا إلى تعطيل قدرة التطبيقات الأخرى على تثبيت ملفات APK، مما يبقي Universal Installer كمثبت وحيد.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">سيؤدي هذا إلى تعطيل قدرة التطبيقات الأخرى على تثبيت ملفات APK، مما يبقي Multiversal-installer كمثبت وحيد.</string>
     <string name="setting_revoke_other_installers_toast_success">تم إلغاء أذونات التثبيت من %1$d تطبيقًا</string>
     <string name="setting_revoke_other_installers_toast_none">لا توجد تطبيقات أخرى تملك أذونات التثبيت</string>
     <string name="setting_install_options_subtitle">أعلام الامتيازات، الرجوع إلى إصدار أقدم، الأذونات، مصدر التثبيت</string>
@@ -335,9 +335,9 @@
     <string name="setting_porter_not_running">Porter مثبت ولكنه لا يعمل</string>
     <string name="setting_porter_start_service_hint">افتح Porter وابدأ الخدمة أولاً</string>
     <string name="setting_default_uninstaller_title">تعيين كأداة إلغاء التثبيت الافتراضية</string>
-    <string name="setting_default_uninstaller_subtitle">تعيين Universal Installer كمعالج افتراضي لإلغاء التثبيت (يتطلب Shizuku أو Porter أو Root)</string>
+    <string name="setting_default_uninstaller_subtitle">تعيين Multiversal-installer كمعالج افتراضي لإلغاء التثبيت (يتطلب Shizuku أو Porter أو Root)</string>
     <string name="setting_default_uninstaller_needs_backend">قم بتمكين Shizuku أو Root أولاً لتغيير الأداة الافتراضية</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer هو الآن أداة إلغاء التثبيت الافتراضية</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer هو الآن أداة إلغاء التثبيت الافتراضية</string>
     <string name="setting_default_uninstaller_disabled">تم مسح تفضيل أداة إلغاء التثبيت الافتراضية</string>
     <string name="setting_default_uninstaller_failed">فشل تغيير أداة إلغاء التثبيت الافتراضية</string>
     <string name="about_section_more_apps">تطبيقاتنا</string>

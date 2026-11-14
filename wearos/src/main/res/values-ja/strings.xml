@@ -8,13 +8,13 @@
     <string name="install_failed">インストールに失敗しました</string>
     <string name="loading">読み込み中…</string>
     <string name="install_anyway">それでもインストール</string>
-    <string name="unknown_sources_msg">ウォッチの設定で Universal Installer の「提供元不明のアプリのインストール」をオンにしてください。</string>
+    <string name="unknown_sources_msg">ウォッチの設定で Multiversal-installer の「提供元不明のアプリのインストール」をオンにしてください。</string>
     <string name="unknown_sources_open_settings">設定を開く</string>
     <string name="incompatible_min_sdk">Android API %1$d が必要ですが、このウォッチは API %2$d です。</string>
     <string name="incompatible_not_a_watch_app">これはスマートフォン用アプリで、Wear OS アプリではありません。</string>
     <string name="apk_received_title">APK を受信しました</string>
     <string name="home_empty_title">まだ何もありません</string>
-    <string name="home_empty_hint">スマートフォンで Universal Installer を開き、このウォッチにパッケージを送信してください。</string>
+    <string name="home_empty_hint">スマートフォンで Multiversal-installer を開き、このウォッチにパッケージを送信してください。</string>
     <string name="receiving">%1$s を受信中…</string>
     <string name="receive_failed">転送に失敗しました</string>
     <string name="badge_phone_app">スマホ用アプリ</string>

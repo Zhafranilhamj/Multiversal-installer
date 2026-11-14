@@ -28,9 +28,9 @@
     <string name="setting_auto_open_subtitle">Lansează aplicația instalată de pe ecranul de succes — cu o numărătoare inversă de 3 secunde anulabilă</string>
     <string name="setting_auto_confirm_title">Auto-confirmă instalările externe</string>
     <string name="setting_default_installer_title">Setează ca instalator implicit</string>
-    <string name="setting_default_installer_subtitle">Dezactivează instalatorul sistemului pentru a folosi întotdeauna Universal Installer pentru fișierele APK (necesită Shizuku sau Root)</string>
+    <string name="setting_default_installer_subtitle">Dezactivează instalatorul sistemului pentru a folosi întotdeauna Multiversal-installer pentru fișierele APK (necesită Shizuku sau Root)</string>
     <string name="setting_default_installer_needs_backend">Activează Shizuku sau Root mai întâi pentru a schimba instalatorul implicit</string>
-    <string name="setting_default_installer_enabled">Universal Installer este acum instalatorul implicit</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer este acum instalatorul implicit</string>
     <string name="setting_default_installer_disabled">Instalatorul sistemului a fost restabilit</string>
     <string name="setting_default_installer_failed">Schimbarea instalatorului implicit a eșuat</string>
     <string name="setting_shizuku_options_install_group">Instalare</string>
@@ -65,7 +65,7 @@
     <string name="setting_language_subtitle">Schimbă limba aplicației</string>
     <string name="language_screen_title">Limbă</string>
     <string name="setting_section_about">Despre</string>
-    <string name="setting_about_app_name" translatable="false">Universal Installer</string>
+    <string name="setting_about_app_name" translatable="false">Multiversal-installer</string>
     <string name="setting_github_title" translatable="false">GitHub</string>
     <string name="setting_github_subtitle">Cod sursă și contribuții</string>
     <string name="setting_telegram_title" translatable="false">Telegram</string>
@@ -276,7 +276,7 @@
     <string name="setting_pin_lock_uninstall_title">Solicită PIN la dezinstalare</string>
     <string name="setting_pin_lock_uninstall_subtitle">Cereți PIN-ul înainte de eliminarea oricărui pachet</string>
     <string name="setting_pin_lock_app_open_title">Blocare la deschiderea aplicației</string>
-    <string name="setting_pin_lock_app_open_subtitle">Solicită PIN-ul la fiecare deschidere a Universal Installer</string>
+    <string name="setting_pin_lock_app_open_subtitle">Solicită PIN-ul la fiecare deschidere a Multiversal-installer</string>
     <string name="setting_pin_lock_protect_settings_title">Protejați setările de securitate</string>
     <string name="setting_pin_lock_protect_settings_subtitle">Cereți PIN-ul la deschiderea setărilor de securitate</string>
     <string name="setting_security_group_biometric">Autentificare biometrică</string>
@@ -286,7 +286,7 @@
     <string name="pin_dialog_title_confirm">Confirmare PIN</string>
     <string name="pin_dialog_desc_confirm">Reintroduceți PIN-ul din 4 cifre pentru a confirma</string>
     <string name="pin_dialog_title_verify">Introduceți PIN-ul</string>
-    <string name="pin_dialog_desc_app_open">Introduceți PIN-ul pentru a deschide Universal Installer</string>
+    <string name="pin_dialog_desc_app_open">Introduceți PIN-ul pentru a deschide Multiversal-installer</string>
     <string name="pin_dialog_desc_install">Introduceți PIN-ul pentru a autoriza instalarea</string>
     <string name="pin_dialog_desc_uninstall">Introduceți PIN-ul pentru a autoriza dezinstalarea</string>
     <string name="pin_dialog_desc_settings">Introduceți PIN-ul pentru a accesa setările de securitate</string>
@@ -300,7 +300,7 @@
     <string name="parental_guidance_card_subtitle">Cum să împiedicați copiii să dezinstaleze aplicația sau să ocolească securitatea</string>
     <string name="parental_guidance_card_btn">Vezi ghidul</string>
     <string name="parental_guidance_dialog_title">Protecție parentală completă</string>
-    <string name="parental_guidance_dialog_content">Pentru a vă asigura că Universal Installer nu poate fi ocolit de copii:\n\n1. Preveniți dezinstalarea:\nAndroid permite dezinstalarea din Setările de sistem. Utilizați funcția de blocare a aplicațiilor sau Google Family Link pentru a bloca aplicația «Setări».\n\n2. Blocați instalatoarele alternative:\nUtilizați opțiunea «Înghețați instalatorul de pachete al sistemului» (necesită Shizuku sau Root) pentru a împiedica alte aplicații să îl pornească.\n\n3. Revocați permisiunile:\nUtilizați «Revocați permisiunile de instalare pentru alte aplicații» pentru a lăsa Universal Installer ca unic instalator.</string>
+    <string name="parental_guidance_dialog_content">Pentru a vă asigura că Multiversal-installer nu poate fi ocolit de copii:\n\n1. Preveniți dezinstalarea:\nAndroid permite dezinstalarea din Setările de sistem. Utilizați funcția de blocare a aplicațiilor sau Google Family Link pentru a bloca aplicația «Setări».\n\n2. Blocați instalatoarele alternative:\nUtilizați opțiunea «Înghețați instalatorul de pachete al sistemului» (necesită Shizuku sau Root) pentru a împiedica alte aplicații să îl pornească.\n\n3. Revocați permisiunile:\nUtilizați «Revocați permisiunile de instalare pentru alte aplicații» pentru a lăsa Multiversal-installer ca unic instalator.</string>
     <string name="setting_security_group_privileged">Protecție avansată (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">Este necesar Shizuku sau Root pentru a activa aceste opțiuni</string>
     <string name="setting_disable_system_installer_title">Îngheață instalatorul de pachete de sistem</string>
@@ -313,7 +313,7 @@
     <string name="setting_revoke_other_installers_title">Revocați permisiunile de instalare ale altor aplicații</string>
     <string name="setting_revoke_other_installers_subtitle">Revocă permisiunile de instalare APK pentru Chrome, manageri de fișiere și alte aplicații</string>
     <string name="setting_revoke_other_installers_dialog_title">Revocați permisiunile de instalare?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">Aceasta va dezactiva capacitatea altor aplicații de a instala fișiere APK, lăsând Universal Installer ca unic instalator.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">Aceasta va dezactiva capacitatea altor aplicații de a instala fișiere APK, lăsând Multiversal-installer ca unic instalator.</string>
     <string name="setting_revoke_other_installers_toast_success">S-au revocat permisiunile de instalare pentru %1$d aplicații</string>
     <string name="setting_revoke_other_installers_toast_none">Nicio altă aplicație nu deține permisiuni de instalare</string>
     <string name="setting_install_options_subtitle">Opțiuni cu privilegii, downgrade, permisiuni, sursă de instalare</string>
@@ -335,9 +335,9 @@
     <string name="setting_porter_not_running">Porter este instalat, dar nu rulează</string>
     <string name="setting_porter_start_service_hint">Deschideți Porter și porniți mai întâi serviciul</string>
     <string name="setting_default_uninstaller_title">Setează ca dezinstalator prestabilit</string>
-    <string name="setting_default_uninstaller_subtitle">Setează Universal Installer ca gestionare prestabilită a dezinstalărilor (necesită Shizuku, Porter sau Root)</string>
+    <string name="setting_default_uninstaller_subtitle">Setează Multiversal-installer ca gestionare prestabilită a dezinstalărilor (necesită Shizuku, Porter sau Root)</string>
     <string name="setting_default_uninstaller_needs_backend">Activați mai întâi Shizuku sau Root pentru a schimba dezinstalatorul prestabilit</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer este acum dezinstalatorul prestabilit</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer este acum dezinstalatorul prestabilit</string>
     <string name="setting_default_uninstaller_disabled">Preferința de dezinstalator prestabilit a fost ștearsă</string>
     <string name="setting_default_uninstaller_failed">Nu s-a putut schimba dezinstalatorul prestabilit</string>
     <string name="about_section_more_apps">Aplicațiile noastre</string>

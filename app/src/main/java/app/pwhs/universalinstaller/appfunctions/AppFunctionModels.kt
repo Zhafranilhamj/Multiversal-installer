@@ -29,7 +29,7 @@ data class InstalledAppRecord(
     val isAndroidAutoSupported: Boolean,
 )
 
-/** Record of a past package installation attempt in Universal Installer. */
+/** Record of a past package installation attempt in Multiversal-installer. */
 @AppFunctionSerializable(isDescribedByKDoc = true)
 data class InstallHistoryRecord(
     /** The unique database row ID of the history entry. */
@@ -58,7 +58,7 @@ data class InstallHistoryRecord(
     val operationType: String?,
 )
 
-/** Record of a past application uninstallation attempt in Universal Installer. */
+/** Record of a past application uninstallation attempt in Multiversal-installer. */
 @AppFunctionSerializable(isDescribedByKDoc = true)
 data class UninstallLogRecord(
     /** The unique database row ID of the uninstall log entry. */
@@ -75,7 +75,7 @@ data class UninstallLogRecord(
     val uninstalledAtEpochMillis: Long,
 )
 
-/** Record of a package file downloaded via URL in Universal Installer. */
+/** Record of a package file downloaded via URL in Multiversal-installer. */
 @AppFunctionSerializable(isDescribedByKDoc = true)
 data class DownloadHistoryRecord(
     /** The unique database row ID of the download entry. */
@@ -92,7 +92,7 @@ data class DownloadHistoryRecord(
     val downloadedAtEpochMillis: Long,
 )
 
-/** Lifetime statistics and milestones summary for Universal Installer. */
+/** Lifetime statistics and milestones summary for Multiversal-installer. */
 @AppFunctionSerializable(isDescribedByKDoc = true)
 data class InstallerStatsRecord(
     /** Total number of successful package installations. */
@@ -107,7 +107,7 @@ data class InstallerStatsRecord(
     val updateCount: Int,
     /** Number of package downgrades performed. */
     val downgradeCount: Int,
-    /** Total number of applications uninstalled through Universal Installer. */
+    /** Total number of applications uninstalled through Multiversal-installer. */
     val totalUninstalls: Int,
     /** Total number of packages downloaded via URL. */
     val totalDownloads: Int,

@@ -8,13 +8,13 @@
     <string name="install_failed">Не вдалося встановити</string>
     <string name="loading">Завантаження…</string>
     <string name="install_anyway">Усе одно встановити</string>
-    <string name="unknown_sources_msg">Увімкніть Установлення невідомих застосунків для Universal Installer у налаштуваннях годинника.</string>
+    <string name="unknown_sources_msg">Увімкніть Установлення невідомих застосунків для Multiversal-installer у налаштуваннях годинника.</string>
     <string name="unknown_sources_open_settings">Відкрити налаштування</string>
     <string name="incompatible_min_sdk">Потрібен Android API %1$d, на цьому годиннику API %2$d.</string>
     <string name="incompatible_not_a_watch_app">Це застосунок для телефона, а не для Wear OS.</string>
     <string name="apk_received_title">APK отримано</string>
     <string name="home_empty_title">Тут поки що порожньо</string>
-    <string name="home_empty_hint">Відкрийте Universal Installer на телефоні й надішліть пакет на цей годинник.</string>
+    <string name="home_empty_hint">Відкрийте Multiversal-installer на телефоні й надішліть пакет на цей годинник.</string>
     <string name="receiving">Отримання %1$s…</string>
     <string name="receive_failed">Не вдалося передати</string>
     <string name="badge_phone_app">Застосунок для телефона</string>

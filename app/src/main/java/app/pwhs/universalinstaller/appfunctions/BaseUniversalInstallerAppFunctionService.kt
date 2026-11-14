@@ -97,7 +97,7 @@ abstract class BaseUniversalInstallerAppFunctionService : AppFunctionService() {
     }
 
     /**
-     * Retrieves recent package installation history entries recorded by Universal Installer.
+     * Retrieves recent package installation history entries recorded by Multiversal-installer.
      * If packageQuery is null, returns the most recent installation attempts across all packages.
      *
      * @param packageQuery Optional substring filter for app name or package name.
@@ -141,7 +141,7 @@ abstract class BaseUniversalInstallerAppFunctionService : AppFunctionService() {
     }
 
     /**
-     * Retrieves recent application uninstallation log entries recorded by Universal Installer.
+     * Retrieves recent application uninstallation log entries recorded by Multiversal-installer.
      *
      * @param maxResults Maximum number of uninstall log entries to return (1 to 100, defaults to 20).
      * @return List of recent uninstallation records ordered from newest to oldest.
@@ -193,7 +193,7 @@ abstract class BaseUniversalInstallerAppFunctionService : AppFunctionService() {
     /**
      * Retrieves lifetime installation, uninstallation, storage cleanup, security scan statistics, and milestone rank.
      *
-     * @return Summary of lifetime statistics and achievement progress in Universal Installer.
+     * @return Summary of lifetime statistics and achievement progress in Multiversal-installer.
      */
     @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun getInstallerStats(): InstallerStatsRecord = withContext(Dispatchers.IO) {
@@ -274,7 +274,7 @@ abstract class BaseUniversalInstallerAppFunctionService : AppFunctionService() {
     }
 
     /**
-     * Creates a PendingIntent that opens the Universal Installer uninstallation confirmation dialog for a specific app.
+     * Creates a PendingIntent that opens the Multiversal-installer uninstallation confirmation dialog for a specific app.
      *
      * @param packageName Exact Android package name of the installed application to uninstall.
      * @return PendingIntent that launches the uninstall confirmation dialog when triggered.
@@ -308,10 +308,10 @@ abstract class BaseUniversalInstallerAppFunctionService : AppFunctionService() {
     }
 
     /**
-     * Creates a PendingIntent to open a specific screen inside Universal Installer.
+     * Creates a PendingIntent to open a specific screen inside Multiversal-installer.
      *
      * @param screenName Target screen identifier: "install", "manage", "stats", "downloads", "uninstall_logs", "sync", or "settings".
-     * @return PendingIntent that opens the requested screen in Universal Installer.
+     * @return PendingIntent that opens the requested screen in Multiversal-installer.
      */
     @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun openAppScreen(

@@ -104,9 +104,9 @@
     <string name="setting_shizuku_install_hint">이 백엔드를 사용하려면 Play 스토어에서 Shizuku를 설치하세요</string>
     <string name="setting_auto_confirm_title">외부 설치 자동 확인</string>
     <string name="setting_default_installer_title">기본 설치 프로그램으로 설정</string>
-    <string name="setting_default_installer_subtitle">시스템 설치 프로그램을 비활성화하여 APK 파일에 항상 Universal Installer를 사용합니다(Shizuku 또는 Root 필요)</string>
+    <string name="setting_default_installer_subtitle">시스템 설치 프로그램을 비활성화하여 APK 파일에 항상 Multiversal-installer를 사용합니다(Shizuku 또는 Root 필요)</string>
     <string name="setting_default_installer_needs_backend">기본 설치 프로그램을 변경하려면 먼저 Shizuku 또는 Root를 활성화하세요</string>
-    <string name="setting_default_installer_enabled">이제 Universal Installer가 기본값입니다</string>
+    <string name="setting_default_installer_enabled">이제 Multiversal-installer가 기본값입니다</string>
     <string name="setting_default_installer_disabled">시스템 설치 프로그램이 복원되었습니다</string>
     <string name="setting_default_installer_failed">기본 설치 프로그램을 변경하지 못했습니다</string>
     <string name="setting_section_profiles">설치 프로그램 프로필</string>
@@ -134,7 +134,7 @@
     <string name="setting_shizuku_installer_preset_samsung">Samsung Galaxy Store</string>
     <string name="setting_shizuku_installer_preset_huawei">Huawei AppGallery</string>
     <string name="setting_shizuku_installer_preset_xiaomi">Xiaomi GetApps</string>
-    <string name="setting_about_app_name">Universal Installer</string>
+    <string name="setting_about_app_name">Multiversal-installer</string>
     <string name="setting_github_title">GitHub</string>
     <string name="setting_telegram_title">Telegram</string>
     <string name="setting_website_subtitle">universal-installer.pwhs.app</string>
@@ -276,7 +276,7 @@
     <string name="setting_pin_lock_uninstall_title">삭제 시 PIN 요구</string>
     <string name="setting_pin_lock_uninstall_subtitle">패키지를 제거하기 전에 PIN 확인</string>
     <string name="setting_pin_lock_app_open_title">앱 실행 시 잠금</string>
-    <string name="setting_pin_lock_app_open_subtitle">Universal Installer를 열 때마다 PIN 요구</string>
+    <string name="setting_pin_lock_app_open_subtitle">Multiversal-installer를 열 때마다 PIN 요구</string>
     <string name="setting_pin_lock_protect_settings_title">보안 설정 보호</string>
     <string name="setting_pin_lock_protect_settings_subtitle">보안 설정을 열 때 PIN 요구</string>
     <string name="setting_security_group_biometric">생체 인식 인증</string>
@@ -286,7 +286,7 @@
     <string name="pin_dialog_title_confirm">PIN 확인</string>
     <string name="pin_dialog_desc_confirm">확인을 위해 4자리 PIN을 다시 입력하세요</string>
     <string name="pin_dialog_title_verify">PIN 입력</string>
-    <string name="pin_dialog_desc_app_open">Universal Installer를 열려면 PIN을 입력하세요</string>
+    <string name="pin_dialog_desc_app_open">Multiversal-installer를 열려면 PIN을 입력하세요</string>
     <string name="pin_dialog_desc_install">설치를 승인하려면 PIN을 입력하세요</string>
     <string name="pin_dialog_desc_uninstall">삭제를 승인하려면 PIN을 입력하세요</string>
     <string name="pin_dialog_desc_settings">보안 설정에 접근하려면 PIN을 입력하세요</string>
@@ -300,7 +300,7 @@
     <string name="parental_guidance_card_subtitle">자녀가 앱을 삭제하거나 보안을 우회하지 못하도록 하는 방법</string>
     <string name="parental_guidance_card_btn">가이드 보기</string>
     <string name="parental_guidance_dialog_title">종합 자녀 보호 안내</string>
-    <string name="parental_guidance_dialog_content">자녀가 Universal Installer를 우회할 수 없도록 설정하는 방법:\n\n1. 앱 삭제 방지:\nAndroid는 시스템 설정을 통해 앱을 삭제할 수 있습니다. 기기 기본 앱 잠금 기능(삼성 보안 폴더/앱 잠금, 샤오미 앱 잠금) 또는 Google Family Link를 사용하여 \"설정\" 앱을 잠그세요.\n\n2. 대체 설치 프로그램 차단:\n아래의 \"시스템 패키지 설치 프로그램 동결\" 옵션을 사용(Shizuku 또는 Root 필요)하여 다른 앱(브라우저, 파일 탐색기)이 시스템 설치 프로그램을 실행하지 못하도록 하세요.\n\n3. 권한 취소:\n아래의 \"다른 앱의 설치 권한 취소\"를 사용하여 Universal Installer만 앱을 설치할 수 있도록 설정하세요.</string>
+    <string name="parental_guidance_dialog_content">자녀가 Multiversal-installer를 우회할 수 없도록 설정하는 방법:\n\n1. 앱 삭제 방지:\nAndroid는 시스템 설정을 통해 앱을 삭제할 수 있습니다. 기기 기본 앱 잠금 기능(삼성 보안 폴더/앱 잠금, 샤오미 앱 잠금) 또는 Google Family Link를 사용하여 \"설정\" 앱을 잠그세요.\n\n2. 대체 설치 프로그램 차단:\n아래의 \"시스템 패키지 설치 프로그램 동결\" 옵션을 사용(Shizuku 또는 Root 필요)하여 다른 앱(브라우저, 파일 탐색기)이 시스템 설치 프로그램을 실행하지 못하도록 하세요.\n\n3. 권한 취소:\n아래의 \"다른 앱의 설치 권한 취소\"를 사용하여 Multiversal-installer만 앱을 설치할 수 있도록 설정하세요.</string>
     <string name="setting_security_group_privileged">고급 보호 (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">이 옵션을 활성화하려면 Shizuku 또는 Root가 필요합니다</string>
     <string name="setting_disable_system_installer_title">시스템 패키지 설치 프로그램 동결</string>
@@ -313,7 +313,7 @@
     <string name="setting_revoke_other_installers_title">다른 앱의 설치 권한 취소</string>
     <string name="setting_revoke_other_installers_subtitle">Chrome, 파일 탐색기 및 기타 앱의 APK 설치 권한을 취소합니다</string>
     <string name="setting_revoke_other_installers_dialog_title">설치 권한을 취소하시겠습니까?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">다른 앱에서 APK를 설치하는 기능이 비활성화되며, Universal Installer만 유일한 설치 프로그램으로 남습니다.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">다른 앱에서 APK를 설치하는 기능이 비활성화되며, Multiversal-installer만 유일한 설치 프로그램으로 남습니다.</string>
     <string name="setting_revoke_other_installers_toast_success">%1$d개 앱의 설치 권한이 취소되었습니다</string>
     <string name="setting_revoke_other_installers_toast_none">설치 권한을 가진 다른 앱이 없습니다</string>
     <string name="setting_install_options_subtitle">권한 플래그, 다운그레이드, 권한, 설치 소스</string>
@@ -335,9 +335,9 @@
     <string name="setting_porter_not_running">Porter가 설치되어 있으나 실행되지 않았습니다</string>
     <string name="setting_porter_start_service_hint">먼저 Porter를 열고 서비스를 시작해 주세요</string>
     <string name="setting_default_uninstaller_title">기본 제거 프로그램으로 설정</string>
-    <string name="setting_default_uninstaller_subtitle">Universal Installer를 기본 제거 프로그램으로 설정 (Shizuku, Porter 또는 Root 필요)</string>
+    <string name="setting_default_uninstaller_subtitle">Multiversal-installer를 기본 제거 프로그램으로 설정 (Shizuku, Porter 또는 Root 필요)</string>
     <string name="setting_default_uninstaller_needs_backend">기본 제거 프로그램을 변경하려면 먼저 Shizuku 또는 Root를 활성화하세요</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer가 기본 제거 프로그램으로 설정되었습니다</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer가 기본 제거 프로그램으로 설정되었습니다</string>
     <string name="setting_default_uninstaller_disabled">기본 제거 프로그램 설정이 해제되었습니다</string>
     <string name="setting_default_uninstaller_failed">기본 제거 프로그램 변경 실패</string>
     <string name="about_section_more_apps">추천 앱</string>

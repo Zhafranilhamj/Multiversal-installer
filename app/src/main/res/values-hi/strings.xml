@@ -17,7 +17,7 @@
     <string name="txt_manage">प्रबंधित करें</string>
     <string name="edit">संपादित करें</string>
     <string name="more_actions_cd">अधिक क्रियाएं</string>
-    <string name="app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
     <string name="file_size_gb">%1$.1f GB</string>
     <string name="file_size_mb">%1$.1f MB</string>
     <string name="file_size_kb">%1$.0f KB</string>
@@ -29,7 +29,7 @@
     <string name="dir_picker_folder_name">फ़ोल्डर का नाम</string>
     <string name="dir_picker_empty">यहाँ कोई सबफ़ोल्डर नहीं</string>
     <string name="dir_picker_grant_title">स्टोरेज एक्सेस आवश्यक</string>
-    <string name="dir_picker_grant_message">डाउनलोड जैसे फ़ोल्डर में सेव करने के लिए, Universal Installer को सभी फ़ाइलों की एक्सेस चाहिए। अनुमति दें, फिर पुनः प्रयास करें।</string>
+    <string name="dir_picker_grant_message">डाउनलोड जैसे फ़ोल्डर में सेव करने के लिए, Multiversal-installer को सभी फ़ाइलों की एक्सेस चाहिए। अनुमति दें, फिर पुनः प्रयास करें।</string>
     <string name="dir_picker_grant_action">एक्सेस दें</string>
     <string name="error_cannot_open_app">ऐप खोलने में असमर्थ</string>
     <string name="error_no_file_picker">फ़ाइलें चुनने के लिए कोई फ़ाइल प्रबंधक ऐप नहीं मिला</string>

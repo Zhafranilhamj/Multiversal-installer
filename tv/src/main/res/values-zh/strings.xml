@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">从手机接收</string>
     <string name="tv_receive_starting">启动接收器...</string>
     <string name="tv_receive_installing">正在安装 %s...</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">存储中未找到 APK 文件</string>
     <string name="tv_settings_title">设置</string>
     <string name="tv_settings_section_about">关于应用</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">随时随地安装任何东西</string>
     <string name="tv_settings_version">版本 %s</string>
     <string name="tv_settings_section_install">安装</string>

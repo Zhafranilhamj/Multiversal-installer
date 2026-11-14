@@ -12,7 +12,7 @@
     <string name="permission_return_channel_name">Повернутися до програми</string>
     <string name="permission_return_channel_desc">Сповіщення про повернення до програми після надання дозволу в налаштуваннях системи.</string>
     <string name="permission_return_title">Дозвіл надано</string>
-    <string name="permission_return_body">Натисніть, щоб повернутися до Universal Installer.</string>
+    <string name="permission_return_body">Натисніть, щоб повернутися до Multiversal-installer.</string>
     <string name="onboarding_analytics_title">Допоможіть виправити збої</string>
     <string name="onboarding_analytics_desc">Встановлення застосунків працює по-різному на кожному телефоні, і ми дізнаємося про збої, лише якщо застосунок повідомляє про них. Він надсилає, чи вдалося встановлення і що пішло не так, — але ніколи не надсилає, який застосунок ви встановили.</string>
     <string name="onboarding_analytics_switch">Надсилати анонімну діагностику</string>
@@ -117,6 +117,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">Статистика</string>
-    <string name="error_cannot_open_settings">Не вдалося відкрити системні налаштування. Відкрийте Налаштування вручну &gt; Програми &gt; Universal Installer, щоб надати дозвіл.</string>
+    <string name="error_cannot_open_settings">Не вдалося відкрити системні налаштування. Відкрийте Налаштування вручну &gt; Програми &gt; Multiversal-installer, щоб надати дозвіл.</string>
     <string name="onboarding_xiaomi_dev_options_hint">Параметри розробника не ввімкнено. Відкрийте Налаштування &gt; Про телефон і торкніться 7 разів Номер збірки.</string>
 </resources>

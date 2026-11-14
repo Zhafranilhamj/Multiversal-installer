@@ -71,7 +71,7 @@
     <string name="install_error_internal_title">Lỗi trình cài đặt hệ thống</string>
     <string name="install_error_internal_guidance">Trình cài đặt của Android gặp sự cố nội bộ. Hãy thử lại hoặc chuyển sang chế độ Shizuku trong Cài đặt để khắc phục.</string>
     <string name="install_error_suggest_shizuku_action">Thử cài bằng Shizuku</string>
-    <string name="install_delete_source_failed">Đã cài đặt, nhưng không xoá được file APK. Ứng dụng chia sẻ file cho Universal Installer thường không cho phép xoá — hãy xoá trong trình quản lý file bạn đã mở nó.</string>
+    <string name="install_delete_source_failed">Đã cài đặt, nhưng không xoá được file APK. Ứng dụng chia sẻ file cho Multiversal-installer thường không cho phép xoá — hãy xoá trong trình quản lý file bạn đã mở nó.</string>
     <string name="install_error_miui_hint">Trên thiết bị Xiaomi, Redmi và POCO, tính năng tối ưu hóa MIUI/HyperOS thường âm thầm chặn việc cài đặt. Hãy mở Cài đặt &gt; Cài đặt bổ sung &gt; Tùy chọn nhà phát triển, tắt \"Tối ưu hóa MIUI\", cài đặt ứng dụng rồi bật lại. Khi đang tắt, giao diện hệ thống có thể bị lỗi hiển thị — khởi động lại điện thoại sẽ khắc phục.</string>
     <string name="install_error_miui_shizuku_hint">Trên thiết bị Xiaomi/HyperOS dùng Shizuku, hãy bật \"Cài đặt qua USB\" và \"Gỡ lỗi USB (Cài đặt bảo mật)\" trong Tùy chọn nhà phát triển (cần SIM và tài khoản Mi). Nếu vẫn lỗi, hãy thử đổi Chế độ cài đặt sang Mặc định trong Cài đặt.</string>
     <string name="apk_info_vt_uploading">Đang tải lên phân tích… %d%%</string>
@@ -168,7 +168,7 @@
     <string name="virustotal_story_step1_desc">Các file APK tải từ Internet tiềm ẩn nhiều rủi ro khôn lường: mã độc, đánh cắp mật khẩu, theo dõi ngầm mà bạn không hề hay biết.</string>
     <string name="virustotal_story_step2_badge">Giải pháp an toàn</string>
     <string name="virustotal_story_step2_title">Quét mã độc miễn phí cùng VirusTotal</string>
-    <string name="virustotal_story_step2_desc">Universal Installer tích hợp giải pháp phân tích tập tin với VirusTotal — kiểm tra bảo mật qua hơn 70 engine diệt virus hàng đầu thế giới hoàn toàn miễn phí.</string>
+    <string name="virustotal_story_step2_desc">Multiversal-installer tích hợp giải pháp phân tích tập tin với VirusTotal — kiểm tra bảo mật qua hơn 70 engine diệt virus hàng đầu thế giới hoàn toàn miễn phí.</string>
     <string name="virustotal_story_step3_badge">Thiết lập 1 lần</string>
     <string name="virustotal_story_step3_title">Thêm API Key VirusTotal miễn phí</string>
     <string name="virustotal_story_step3_desc">Chỉ cần 1 API key miễn phí từ VirusTotal để bảo vệ thiết bị trước khi cài đặt. Bạn có thể bỏ qua để cài đặt ngay, hoặc thêm key bất kỳ lúc nào.</string>

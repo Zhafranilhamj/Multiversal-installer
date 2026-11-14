@@ -88,7 +88,7 @@
     <string name="setting_shizuku_permission_denied">Shizuku permission was denied</string>
     <string name="setting_shizuku_start_service_hint">Open the Shizuku app and start the service first</string>
     <string name="setting_porter_start_service_hint">Open Porter and start its service first</string>
-    <string name="setting_shevery_grant_permission_hint">Please grant permission for Universal Installer inside Shevery</string>
+    <string name="setting_shevery_grant_permission_hint">Please grant permission for Multiversal-installer inside Shevery</string>
     <string name="setting_shizuku_install_hint">Install Shizuku from Play Store to use this backend</string>
     <string name="setting_delete_apk_title">Delete APK after install</string>
     <string name="setting_auto_open_title">Open app after install</string>
@@ -97,15 +97,15 @@
     <string name="setting_show_download_tab_title">Show Download Tab</string>
     <string name="setting_show_download_tab_subtitle">Show the Download tab on the main screen for remote APK installs</string>
     <string name="setting_default_installer_title">Set as default installer</string>
-    <string name="setting_default_installer_subtitle">Disable system installer to always use Universal Installer for APK files (requires Shizuku, Porter, or Root)</string>
+    <string name="setting_default_installer_subtitle">Disable system installer to always use Multiversal-installer for APK files (requires Shizuku, Porter, or Root)</string>
     <string name="setting_default_installer_needs_backend">Enable Shizuku, Porter, or Root first to change the default installer</string>
-    <string name="setting_default_installer_enabled">Universal Installer is now the default</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer is now the default</string>
     <string name="setting_default_installer_disabled">System installer restored</string>
     <string name="setting_default_installer_failed">Failed to change default installer</string>
     <string name="setting_default_uninstaller_title">Set as default uninstaller</string>
-    <string name="setting_default_uninstaller_subtitle">Set Universal Installer as default handler for uninstalls (requires Shizuku, Porter, or Root)</string>
+    <string name="setting_default_uninstaller_subtitle">Set Multiversal-installer as default handler for uninstalls (requires Shizuku, Porter, or Root)</string>
     <string name="setting_default_uninstaller_needs_backend">Enable Shizuku or Root first to change the default uninstaller</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer is now the default uninstaller</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer is now the default uninstaller</string>
     <string name="setting_default_uninstaller_disabled">Default uninstaller preference cleared</string>
     <string name="setting_default_uninstaller_failed">Failed to change default uninstaller</string>
     <string name="setting_shizuku_options_install_group">Install</string>
@@ -168,7 +168,7 @@
     <string name="help_source_title">Changing the installation source</string>
     <string name="help_source_body">Needs Shizuku, Porter, or Root; on Package Installer the setting is ignored. It changes the installer this app is recorded under, which is what most app-info screens show. It cannot change who started the install, and it does not make the Play Store treat an app as installed from Play.</string>
     <string name="setting_section_about">About</string>
-    <string name="setting_about_app_name" translatable="false">Universal Installer</string>
+    <string name="setting_about_app_name" translatable="false">Multiversal-installer</string>
     <string name="setting_github_title" translatable="false">GitHub</string>
     <string name="setting_github_subtitle">Source code &amp; contributions</string>
     <string name="setting_telegram_title" translatable="false">Telegram</string>
@@ -295,7 +295,7 @@
     <string name="setting_pin_lock_uninstall_title">Require PIN to Uninstall</string>
     <string name="setting_pin_lock_uninstall_subtitle">Ask for PIN before removing any package</string>
     <string name="setting_pin_lock_app_open_title">Lock App on Open</string>
-    <string name="setting_pin_lock_app_open_subtitle">Require PIN whenever Universal Installer is opened</string>
+    <string name="setting_pin_lock_app_open_subtitle">Require PIN whenever Multiversal-installer is opened</string>
     <string name="setting_pin_lock_protect_settings_title">Protect Security Settings</string>
     <string name="setting_pin_lock_protect_settings_subtitle">Ask for PIN when opening security settings</string>
     <string name="setting_security_group_biometric">Biometric Authentication</string>
@@ -305,7 +305,7 @@
     <string name="pin_dialog_title_confirm">Confirm PIN</string>
     <string name="pin_dialog_desc_confirm">Re-enter your 4-digit PIN to confirm</string>
     <string name="pin_dialog_title_verify">Enter PIN</string>
-    <string name="pin_dialog_desc_app_open">Enter PIN to open Universal Installer</string>
+    <string name="pin_dialog_desc_app_open">Enter PIN to open Multiversal-installer</string>
     <string name="pin_dialog_desc_install">Enter PIN to authorize installation</string>
     <string name="pin_dialog_desc_uninstall">Enter PIN to authorize uninstallation</string>
     <string name="pin_dialog_desc_settings">Enter PIN to access security settings</string>
@@ -320,7 +320,7 @@
     <string name="parental_guidance_card_subtitle">How to prevent children from uninstalling the app or bypassing security</string>
     <string name="parental_guidance_card_btn">View Guide</string>
     <string name="parental_guidance_dialog_title">Comprehensive Parental Protection</string>
-    <string name="parental_guidance_dialog_content">To ensure children cannot bypass Universal Installer:\n\n1. Prevent Uninstallation:\nAndroid allows uninstallation via system Settings. Use your phone\'s built-in App Lock (Samsung Secure Folder / App Lock, Xiaomi App Lock) or Google Family Link to lock the \"Settings\" app.\n\n2. Prevent Alternate Installers:\nUse the \"Freeze System Package Installer\" option below (requires Shizuku, Porter, or Root) so that other apps (browsers, file managers) cannot trigger the system installer.\n\n3. Revoke Permissions:\nUse \"Revoke other apps\' install permissions\" below to ensure only Universal Installer can install packages.</string>
+    <string name="parental_guidance_dialog_content">To ensure children cannot bypass Multiversal-installer:\n\n1. Prevent Uninstallation:\nAndroid allows uninstallation via system Settings. Use your phone\'s built-in App Lock (Samsung Secure Folder / App Lock, Xiaomi App Lock) or Google Family Link to lock the \"Settings\" app.\n\n2. Prevent Alternate Installers:\nUse the \"Freeze System Package Installer\" option below (requires Shizuku, Porter, or Root) so that other apps (browsers, file managers) cannot trigger the system installer.\n\n3. Revoke Permissions:\nUse \"Revoke other apps\' install permissions\" below to ensure only Multiversal-installer can install packages.</string>
     <string name="setting_security_group_privileged">Advanced Protection (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">Shizuku, Porter, or Root is required to enable these options</string>
     <string name="setting_disable_system_installer_title">Freeze System Package Installer</string>
@@ -333,7 +333,7 @@
     <string name="setting_revoke_other_installers_title">Revoke Install Permissions from Other Apps</string>
     <string name="setting_revoke_other_installers_subtitle">Revokes APK installation permissions from Chrome, file managers, and other apps</string>
     <string name="setting_revoke_other_installers_dialog_title">Revoke Install Permissions?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">This will disable the ability of other apps to install APKs, leaving Universal Installer as the only installer.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">This will disable the ability of other apps to install APKs, leaving Multiversal-installer as the only installer.</string>
     <string name="setting_revoke_other_installers_toast_success">Revoked install permissions from %1$d apps</string>
     <string name="setting_revoke_other_installers_toast_none">No other apps have install permissions</string>
     <string name="setting_lock_install_title">Lock Installations</string>

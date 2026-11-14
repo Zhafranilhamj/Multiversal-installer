@@ -17,7 +17,7 @@
     <string name="done_cd">Fatto</string>
     <string name="edit">Modifica</string>
     <string name="more_actions_cd">Altre azioni</string>
-    <string name="app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
     <string name="file_size_gb">%1$.1f GB</string>
     <string name="file_size_mb">%1$.1f MB</string>
     <string name="file_size_kb">%1$.0f KB</string>
@@ -29,7 +29,7 @@
     <string name="dir_picker_folder_name">Nome cartella</string>
     <string name="dir_picker_empty">Nessuna sottocartella qui</string>
     <string name="dir_picker_grant_title">Accesso all\'archivio necessario</string>
-    <string name="dir_picker_grant_message">Per salvare in cartelle come Download, Universal Installer necessita dell\'accesso a tutti i file. Concedilo, poi riprova.</string>
+    <string name="dir_picker_grant_message">Per salvare in cartelle come Download, Multiversal-installer necessita dell\'accesso a tutti i file. Concedilo, poi riprova.</string>
     <string name="dir_picker_grant_action">Concedi accesso</string>
     <string name="error_cannot_open_app">Impossibile aprire l\'applicazione</string>
     <string name="error_no_file_picker">Nessuna app di gestione file trovata per selezionare i file</string>

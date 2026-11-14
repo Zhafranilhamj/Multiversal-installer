@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Universal Installer</string>
+    <string name="app_name" translatable="false">Multiversal-installer</string>
 
     <!-- Home screen -->
     <string name="home_title">APK Queue</string>
@@ -13,7 +13,7 @@
     <string name="loading">Loading…</string>
 
     <string name="install_anyway">Install anyway</string>
-    <string name="unknown_sources_msg">Turn on \"Install unknown apps\" for Universal Installer in watch settings.</string>
+    <string name="unknown_sources_msg">Turn on \"Install unknown apps\" for Multiversal-installer in watch settings.</string>
     <string name="unknown_sources_open_settings">Open settings</string>
     <string name="unknown_sources_hidden">This watch hides the setting. Grant it over wireless debugging:\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="incompatible_min_sdk">Needs Android API %1$d, this watch is API %2$d.</string>
@@ -24,7 +24,7 @@
     <string name="receive_channel_name">Receiving a package</string>
 
     <string name="home_empty_title">Nothing here yet</string>
-    <string name="home_empty_hint">Open Universal Installer on your phone and send a package to this watch.</string>
+    <string name="home_empty_hint">Open Multiversal-installer on your phone and send a package to this watch.</string>
     <string name="receiving">Receiving %1$s…</string>
     <string name="receive_failed">Transfer failed</string>
     <string name="badge_phone_app">Phone app</string>

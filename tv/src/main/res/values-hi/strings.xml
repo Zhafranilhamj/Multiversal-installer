@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">फ़ोन से प्राप्त करें</string>
     <string name="tv_receive_starting">रिसीवर प्रारंभ हो रहा है…</string>
     <string name="tv_receive_installing">%s स्थापित किया जा रहा है...</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">स्टोरेज में कोई APK फ़ाइल नहीं मिली</string>
     <string name="tv_settings_title">सेटिंग्स</string>
     <string name="tv_settings_section_about">ऐप के बारे में</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">कहीं भी, कुछ भी स्थापित करें</string>
     <string name="tv_settings_version">संस्करण %s</string>
     <string name="tv_settings_section_install">इंस्टॉलेशन</string>

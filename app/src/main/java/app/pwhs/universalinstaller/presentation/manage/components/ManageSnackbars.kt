@@ -109,7 +109,7 @@ internal fun ManageSnackbars(
                         }
                         runCatching { context.startActivity(intent) }.onFailure {
                             snackbarHostState.showSnackbar(
-                                message = "Couldn't launch Universal Installer",
+                                message = "Couldn't launch Multiversal-installer",
                                 withDismissAction = true,
                             )
                         }

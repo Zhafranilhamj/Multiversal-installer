@@ -12,7 +12,7 @@
     <string name="permission_return_channel_name">العودة إلى التطبيق</string>
     <string name="permission_return_channel_desc">إشعار بالعودة إلى التطبيق بعد منح الإذن في إعدادات النظام.</string>
     <string name="permission_return_title">تم منح الإذن</string>
-    <string name="permission_return_body">انقر للعودة إلى Universal Installer.</string>
+    <string name="permission_return_body">انقر للعودة إلى Multiversal-installer.</string>
     <string name="onboarding_analytics_title">ساعدنا في إصلاح ما يتعطل</string>
     <string name="onboarding_analytics_desc">يعمل تثبيت التطبيقات بشكل مختلف على كل هاتف، ولا نعرف ما الذي يفشل إلا إذا أبلغنا التطبيق. يُبلغ عمّا إذا نجح التثبيت وما الذي أخفق — ولا يُبلغ أبدًا عن التطبيق الذي ثبّته.</string>
     <string name="onboarding_analytics_switch">مشاركة تشخيصات مجهولة الهوية</string>
@@ -117,6 +117,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">الإحصائيات</string>
-    <string name="error_cannot_open_settings">تعذر فتح إعدادات النظام. يرجى فتح الإعدادات يدويًا &gt; التطبيقات &gt; Universal Installer لمنح الإذن.</string>
+    <string name="error_cannot_open_settings">تعذر فتح إعدادات النظام. يرجى فتح الإعدادات يدويًا &gt; التطبيقات &gt; Multiversal-installer لمنح الإذن.</string>
     <string name="onboarding_xiaomi_dev_options_hint">خيارات المطور غير مفعلة. يرجى فتح الإعدادات &gt; لمحة عن الهاتف، والنقر على رقم الإصدار 7 مرات.</string>
 </resources>

@@ -23,7 +23,7 @@
     <string name="file_size_kb">%1$.0f KB</string>
     <string name="file_size_b">%1$d B</string>
     <string name="permission_install_prompt_required">Vui lòng cấp quyền \"Cài đặt ứng dụng không xác định\" để sử dụng Trình cài đặt gói.</string>
-    <string name="app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
     <string name="dir_picker_browse_action">Duyệt thư mục</string>
     <string name="dir_picker_use_folder">Dùng thư mục này</string>
     <string name="dir_picker_new_folder">Thư mục mới</string>
@@ -31,7 +31,7 @@
     <string name="dir_picker_folder_name">Tên thư mục</string>
     <string name="dir_picker_empty">Không có thư mục con nào</string>
     <string name="dir_picker_grant_title">Cần quyền truy cập bộ nhớ</string>
-    <string name="dir_picker_grant_message">Để lưu vào các thư mục như Tải xuống, Universal Installer cần quyền truy cập tất cả tệp. Hãy cấp quyền rồi thử lại.</string>
+    <string name="dir_picker_grant_message">Để lưu vào các thư mục như Tải xuống, Multiversal-installer cần quyền truy cập tất cả tệp. Hãy cấp quyền rồi thử lại.</string>
     <string name="dir_picker_grant_action">Cấp quyền</string>
     <string name="error_cannot_open_app">Không thể mở ứng dụng</string>
     <string name="error_no_file_picker">Không tìm thấy ứng dụng quản lý tệp để chọn file</string>
@@ -50,7 +50,7 @@
     <string name="stats_rank_privileged_pro">Chuyên gia Quyền năng</string>
     <string name="stats_rank_privileged_pro_sub">Làm chủ công cụ nâng cao và kiểm tra bảo mật</string>
     <string name="stats_rank_sideload_master">Bậc thầy Sideload</string>
-    <string name="stats_rank_sideload_master_sub">Kỳ cựu đỉnh cao của Universal Installer</string>
+    <string name="stats_rank_sideload_master_sub">Kỳ cựu đỉnh cao của Multiversal-installer</string>
     <string name="stats_next_rank_progress">Đã mở khóa %1$d / %2$d cột mốc</string>
     <string name="stats_next_rank_hint">Mở thêm %1$d cột mốc để đạt %2$s</string>
     <string name="stats_max_rank_reached">Đã đạt danh hiệu tối đa!</string>
@@ -127,7 +127,7 @@
     <string name="milestone_security_guardian_title">Lá chắn Bảo mật</string>
     <string name="milestone_security_guardian_desc">Quét bảo mật 5 gói bằng VirusDetec hoặc trình quét Tracker</string>
     <string name="milestone_pro_supporter_title">Thành viên Pro</string>
-    <string name="milestone_pro_supporter_desc">Kích hoạt Universal Installer Pro và ủng hộ dự án mã nguồn mở</string>
+    <string name="milestone_pro_supporter_desc">Kích hoạt Multiversal-installer Pro và ủng hộ dự án mã nguồn mở</string>
     <string name="milestone_pro_vt_guardian_title">Vệ binh VirusDetec Pro</string>
     <string name="milestone_pro_vt_guardian_desc">Thực hiện 20 lần quét bảo mật VirusDetec với gói Pro</string>
     <string name="milestone_pro_unlimited_champion_title">Chiến binh VirusDetec Pro</string>

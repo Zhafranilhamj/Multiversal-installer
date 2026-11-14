@@ -8,13 +8,13 @@
     <string name="install_failed">इंस्टॉल विफल</string>
     <string name="loading">लोड हो रहा है…</string>
     <string name="install_anyway">फिर भी इंस्टॉल करें</string>
-    <string name="unknown_sources_msg">घड़ी की सेटिंग में Universal Installer के लिए अनजान ऐप्स इंस्टॉल करें चालू करें।</string>
+    <string name="unknown_sources_msg">घड़ी की सेटिंग में Multiversal-installer के लिए अनजान ऐप्स इंस्टॉल करें चालू करें।</string>
     <string name="unknown_sources_open_settings">सेटिंग खोलें</string>
     <string name="incompatible_min_sdk">Android API %1$d चाहिए, यह घड़ी API %2$d है।</string>
     <string name="incompatible_not_a_watch_app">यह फ़ोन का ऐप है, Wear OS का नहीं।</string>
     <string name="apk_received_title">APK मिला</string>
     <string name="home_empty_title">यहाँ अभी कुछ नहीं है</string>
-    <string name="home_empty_hint">अपने फ़ोन पर Universal Installer खोलें और इस घड़ी पर कोई पैकेज भेजें।</string>
+    <string name="home_empty_hint">अपने फ़ोन पर Multiversal-installer खोलें और इस घड़ी पर कोई पैकेज भेजें।</string>
     <string name="receiving">%1$s मिल रहा है…</string>
     <string name="receive_failed">ट्रांसफ़र विफल</string>
     <string name="badge_phone_app">फ़ोन ऐप</string>

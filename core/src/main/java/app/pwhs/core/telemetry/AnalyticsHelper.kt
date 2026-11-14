@@ -4,7 +4,7 @@ import java.util.Locale
 import kotlin.math.round
 
 /**
- * Type-safe analytics logging helpers conforming to the Universal Installer Tracking Plan.
+ * Type-safe analytics logging helpers conforming to the Multiversal-installer Tracking Plan.
  */
 object AnalyticsHelper {
 

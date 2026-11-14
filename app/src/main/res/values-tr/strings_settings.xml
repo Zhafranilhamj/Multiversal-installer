@@ -104,9 +104,9 @@
     <string name="setting_shizuku_install_hint">Bu arka ucu kullanmak için Play Store\'dan Shizuku\'yu yükleyin</string>
     <string name="setting_auto_confirm_title">Harici yüklemeleri otomatik onayla</string>
     <string name="setting_default_installer_title">Varsayılan yükleyici olarak ayarla</string>
-    <string name="setting_default_installer_subtitle">APK dosyaları için her zaman Universal Installer\'ı kullanmak üzere sistem yükleyicisini devre dışı bırakın (Shizuku veya Root gerektirir)</string>
+    <string name="setting_default_installer_subtitle">APK dosyaları için her zaman Multiversal-installer\'ı kullanmak üzere sistem yükleyicisini devre dışı bırakın (Shizuku veya Root gerektirir)</string>
     <string name="setting_default_installer_needs_backend">Varsayılan yükleyiciyi değiştirmek için önce Shizuku veya Root\'u etkinleştirin</string>
-    <string name="setting_default_installer_enabled">Universal Installer artık varsayılan</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer artık varsayılan</string>
     <string name="setting_default_installer_disabled">Sistem yükleyicisi geri yüklendi</string>
     <string name="setting_default_installer_failed">Varsayılan yükleyici değiştirilemedi</string>
     <string name="setting_section_profiles">Yükleyici Profilleri</string>
@@ -134,7 +134,7 @@
     <string name="setting_shizuku_installer_preset_samsung">Samsung Galaxy Store</string>
     <string name="setting_shizuku_installer_preset_huawei">Huawei AppGallery</string>
     <string name="setting_shizuku_installer_preset_xiaomi">Xiaomi GetApps</string>
-    <string name="setting_about_app_name">Universal Installer</string>
+    <string name="setting_about_app_name">Multiversal-installer</string>
     <string name="setting_github_title">GitHub</string>
     <string name="setting_telegram_title">Telegram</string>
     <string name="setting_website_subtitle">universal-installer.pwhs.app</string>
@@ -276,7 +276,7 @@
     <string name="setting_pin_lock_uninstall_title">Kaldırma için PIN iste</string>
     <string name="setting_pin_lock_uninstall_subtitle">Herhangi bir paket kaldırılmadan önce PIN sor</string>
     <string name="setting_pin_lock_app_open_title">Uygulama açılışında kilitle</string>
-    <string name="setting_pin_lock_app_open_subtitle">Universal Installer her açıldığında PIN iste</string>
+    <string name="setting_pin_lock_app_open_subtitle">Multiversal-installer her açıldığında PIN iste</string>
     <string name="setting_pin_lock_protect_settings_title">Güvenlik ayarlarını koru</string>
     <string name="setting_pin_lock_protect_settings_subtitle">Güvenlik ayarları açılırken PIN sor</string>
     <string name="setting_security_group_biometric">Biyometrik Kimlik Doğrulama</string>
@@ -286,7 +286,7 @@
     <string name="pin_dialog_title_confirm">PIN\'i Onayla</string>
     <string name="pin_dialog_desc_confirm">Onaylamak için 4 haneli PIN\'i tekrar girin</string>
     <string name="pin_dialog_title_verify">PIN\'i Girin</string>
-    <string name="pin_dialog_desc_app_open">Universal Installer\'ı açmak için PIN girin</string>
+    <string name="pin_dialog_desc_app_open">Multiversal-installer\'ı açmak için PIN girin</string>
     <string name="pin_dialog_desc_install">Yüklemeyi yetkilendirmek için PIN girin</string>
     <string name="pin_dialog_desc_uninstall">Kaldırmayı yetkilendirmek için PIN girin</string>
     <string name="pin_dialog_desc_settings">Güvenlik ayarlarına erişmek için PIN girin</string>
@@ -300,7 +300,7 @@
     <string name="parental_guidance_card_subtitle">Çocukların uygulamayı kaldırmasını veya güvenliği atlamasını önleme</string>
     <string name="parental_guidance_card_btn">Kılavuzu Gör</string>
     <string name="parental_guidance_dialog_title">Kapsamlı Ebeveyn Koruması</string>
-    <string name="parental_guidance_dialog_content">Çocukların Universal Installer\'ı atlatmasını önlemek için:\n\n1. Kaldırmayı Engelleme:\nAndroid, Sistem Ayarlarından kaldırmaya izin verir. Cihazınızın yerleşik uygulama kilidini veya Google Family Link\'i kullanarak «Ayarlar» uygulamasını kilitleyin.\n\n2. Alternatif Yükleyicileri Engelleme:\nAşağıdaki «Sistem Paket Yükleyicisini Dondur» seçeneğini kullanarak (Shizuku veya Root gerekir) diğer uygulamaların sistem yükleyicisini açmasını önleyin.\n\n3. İzinleri İptal Etme:\nAşağıdaki «Diğer uygulamaların yükleme izinlerini iptal et» seçeneğini kullanarak yalnızca Universal Installer\'ın paket yükleyebilmesini sağlayın.</string>
+    <string name="parental_guidance_dialog_content">Çocukların Multiversal-installer\'ı atlatmasını önlemek için:\n\n1. Kaldırmayı Engelleme:\nAndroid, Sistem Ayarlarından kaldırmaya izin verir. Cihazınızın yerleşik uygulama kilidini veya Google Family Link\'i kullanarak «Ayarlar» uygulamasını kilitleyin.\n\n2. Alternatif Yükleyicileri Engelleme:\nAşağıdaki «Sistem Paket Yükleyicisini Dondur» seçeneğini kullanarak (Shizuku veya Root gerekir) diğer uygulamaların sistem yükleyicisini açmasını önleyin.\n\n3. İzinleri İptal Etme:\nAşağıdaki «Diğer uygulamaların yükleme izinlerini iptal et» seçeneğini kullanarak yalnızca Multiversal-installer\'ın paket yükleyebilmesini sağlayın.</string>
     <string name="setting_security_group_privileged">Gelişmiş Koruma (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">Bu seçenekleri etkinleştirmek için Shizuku veya Root gereklidir</string>
     <string name="setting_disable_system_installer_title">Sistem Paket Yükleyicisini Dondur</string>
@@ -313,7 +313,7 @@
     <string name="setting_revoke_other_installers_title">Diğer uygulamaların yükleme izinlerini iptal et</string>
     <string name="setting_revoke_other_installers_subtitle">Chrome, dosya yöneticileri ve diğer uygulamaların APK yükleme izinlerini iptal eder</string>
     <string name="setting_revoke_other_installers_dialog_title">Yükleme izinleri iptal edilsin mi?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">Bu işlem diğer uygulamaların APK yükleme yeteneğini devre dışı bırakacak ve Universal Installer\'ı tek yükleyici yapacaktır.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">Bu işlem diğer uygulamaların APK yükleme yeteneğini devre dışı bırakacak ve Multiversal-installer\'ı tek yükleyici yapacaktır.</string>
     <string name="setting_revoke_other_installers_toast_success">%1$d uygulamanın yükleme izinleri iptal edildi</string>
     <string name="setting_revoke_other_installers_toast_none">Yükleme iznine sahip başka uygulama yok</string>
     <string name="setting_install_options_subtitle">Ayrıcalıklı bayraklar, sürüm düşürme, izinler, yükleme kaynağı</string>
@@ -335,9 +335,9 @@
     <string name="setting_porter_not_running">Porter yüklü ancak çalışmıyor</string>
     <string name="setting_porter_start_service_hint">Önce Porter\'ı açın ve hizmetini başlatın</string>
     <string name="setting_default_uninstaller_title">Varsayılan kaldırıcı olarak ayarla</string>
-    <string name="setting_default_uninstaller_subtitle">Universal Installer\'ı kaldırma işlemleri için varsayılan yapın (Shizuku, Porter veya Root gerektirir)</string>
+    <string name="setting_default_uninstaller_subtitle">Multiversal-installer\'ı kaldırma işlemleri için varsayılan yapın (Shizuku, Porter veya Root gerektirir)</string>
     <string name="setting_default_uninstaller_needs_backend">Varsayılan kaldırıcıyı değiştirmek için önce Shizuku veya Root\'u etkinleştirin</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer artık varsayılan kaldırıcı</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer artık varsayılan kaldırıcı</string>
     <string name="setting_default_uninstaller_disabled">Varsayılan kaldırıcı tercihi temizlendi</string>
     <string name="setting_default_uninstaller_failed">Varsayılan kaldırıcı değiştirilemedi</string>
     <string name="about_section_more_apps">Uygulamalarımız</string>

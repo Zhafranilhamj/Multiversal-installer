@@ -183,8 +183,8 @@
     <string name="tv_updates_add_url_hint">GitHub / GitLab / সরাসরি APK URL</string>
     <string name="tv_updates_add_submit">যোগ করুন</string>
     <string name="tv_updates_add_cancel">বাতিল</string>
-    <string name="app_name">Universal Installer</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_error_cannot_open_settings">এই ডিভাইসে সিস্টেম সেটিংস খুলতে অক্ষম</string>
     <string name="found_chip_older">পুরানো</string>
     <string name="found_chip_update">আপডেট</string>

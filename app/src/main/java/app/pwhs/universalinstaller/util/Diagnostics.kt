@@ -74,7 +74,7 @@ object Diagnostics {
     suspend fun buildFullReport(context: Context, sessionLogs: String): String = buildString {
         val ts = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Date())
         appendLine("=".repeat(60))
-        appendLine("UNIVERSAL INSTALLER DIAGNOSTICS REPORT")
+        appendLine("MULTIVERSAL-INSTALLER DIAGNOSTICS REPORT")
         appendLine("Generated: $ts (${TimeZone.getDefault().id})")
         appendLine("=".repeat(60))
         appendLine()
@@ -181,10 +181,10 @@ object Diagnostics {
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
                 putExtra(Intent.EXTRA_STREAM, uri)
-                putExtra(Intent.EXTRA_SUBJECT, "Universal Installer Diagnostics Report")
+                putExtra(Intent.EXTRA_SUBJECT, "Multiversal-installer Diagnostics Report")
                 putExtra(
                     Intent.EXTRA_TEXT,
-                    "Universal Installer Diagnostics Report (${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE})"
+                    "Multiversal-installer Diagnostics Report (${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE})"
                 )
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
@@ -200,7 +200,7 @@ object Diagnostics {
             val report = buildFullReport(context, sessionLogs)
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                putExtra(Intent.EXTRA_SUBJECT, "Universal Installer Diagnostics Report")
+                putExtra(Intent.EXTRA_SUBJECT, "Multiversal-installer Diagnostics Report")
                 putExtra(Intent.EXTRA_TEXT, report)
             }
             withContext(Dispatchers.Main) {

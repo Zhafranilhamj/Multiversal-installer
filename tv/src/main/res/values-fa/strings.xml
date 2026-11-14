@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">دریافت از گوشی</string>
     <string name="tv_receive_code_label">کد:</string>
     <string name="tv_receive_step_app">📱 برنامه اندروید: برای اتصال فوری برنامه را باز کنید</string>
@@ -27,7 +27,7 @@
     <string name="tv_receive_btn_disconnect">قطع اتصال</string>
     <string name="tv_settings_title">تنظیمات</string>
     <string name="tv_settings_section_about">درباره</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">نصب هر چیزی، در هر کجا</string>
     <string name="tv_settings_version">نسخه %s</string>
     <string name="tv_settings_section_install">نصب</string>

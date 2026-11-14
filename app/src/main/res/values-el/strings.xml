@@ -17,7 +17,7 @@
     <string name="done_cd">Τέλος</string>
     <string name="edit">Επεξεργασία</string>
     <string name="more_actions_cd">Περισσότερες ενέργειες</string>
-    <string name="app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
     <string name="file_size_gb">%1$.1f GB</string>
     <string name="file_size_mb">%1$.1f MB</string>
     <string name="file_size_kb">%1$.0f KB</string>
@@ -29,7 +29,7 @@
     <string name="dir_picker_folder_name">Όνομα φακέλου</string>
     <string name="dir_picker_empty">Δεν υπάρχουν υποφάκελοι εδώ</string>
     <string name="dir_picker_grant_title">Απαιτείται πρόσβαση αποθήκευσης</string>
-    <string name="dir_picker_grant_message">Για αποθήκευση σε φακέλους όπως οι Λήψεις, το Universal Installer χρειάζεται πρόσβαση σε όλα τα αρχεία. Δώστε πρόσβαση και δοκιμάστε ξανά.</string>
+    <string name="dir_picker_grant_message">Για αποθήκευση σε φακέλους όπως οι Λήψεις, το Multiversal-installer χρειάζεται πρόσβαση σε όλα τα αρχεία. Δώστε πρόσβαση και δοκιμάστε ξανά.</string>
     <string name="dir_picker_grant_action">Παραχώρηση πρόσβασης</string>
     <string name="error_cannot_open_app">Δεν είναι δυνατό το άνοιγμα της εφαρμογής</string>
     <string name="error_no_file_picker">Δεν βρέθηκε εφαρμογή διαχείρισης αρχείων για την επιλογή αρχείων</string>

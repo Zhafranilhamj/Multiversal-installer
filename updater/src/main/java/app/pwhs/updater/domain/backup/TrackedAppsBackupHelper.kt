@@ -70,7 +70,7 @@ object TrackedAppsBackupHelper {
         val trimmed = jsonString.trim()
         if (trimmed.isEmpty()) return emptyList()
 
-        // 1. Try parsing Universal Installer container
+        // 1. Try parsing Multiversal-installer container
         runCatching {
             val container = json.decodeFromString(UniversalInstallerBackupContainer.serializer(), trimmed)
             if (container.apps.isNotEmpty()) {
@@ -93,7 +93,7 @@ object TrackedAppsBackupHelper {
                     )
                 }
             }
-        }.onFailure { Timber.d(it, "Not a standard Universal Installer backup format") }
+        }.onFailure { Timber.d(it, "Not a standard Multiversal-installer backup format") }
 
         // 2. Try parsing Obtainium export format or raw array/map
         val results = mutableListOf<TrackedApp>()

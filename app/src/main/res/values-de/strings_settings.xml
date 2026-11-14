@@ -104,9 +104,9 @@
     <string name="setting_shizuku_install_hint">Installiere Shizuku aus dem Play Store</string>
     <string name="setting_auto_confirm_title">Externe Installationen automatisch bestätigen</string>
     <string name="setting_default_installer_title">Als Standard-Installer festlegen</string>
-    <string name="setting_default_installer_subtitle">System-Installer deaktivieren, um für APK-Dateien immer Universal Installer zu verwenden (erfordert Shizuku oder Root)</string>
+    <string name="setting_default_installer_subtitle">System-Installer deaktivieren, um für APK-Dateien immer Multiversal-installer zu verwenden (erfordert Shizuku oder Root)</string>
     <string name="setting_default_installer_needs_backend">Aktiviere zuerst Shizuku oder Root</string>
-    <string name="setting_default_installer_enabled">Universal Installer ist jetzt der Standard</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer ist jetzt der Standard</string>
     <string name="setting_default_installer_disabled">System-Installer wiederhergestellt</string>
     <string name="setting_default_installer_failed">Fehler beim Ändern des Standard-Installers</string>
     <string name="setting_section_profiles">Installer-Profile</string>
@@ -134,7 +134,7 @@
     <string name="setting_shizuku_installer_preset_samsung">Samsung Galaxy Store</string>
     <string name="setting_shizuku_installer_preset_huawei">Huawei AppGallery</string>
     <string name="setting_shizuku_installer_preset_xiaomi">Xiaomi GetApps</string>
-    <string name="setting_about_app_name">Universal Installer</string>
+    <string name="setting_about_app_name">Multiversal-installer</string>
     <string name="setting_github_title">GitHub</string>
     <string name="setting_telegram_title">Telegram</string>
     <string name="setting_website_subtitle">universal-installer.pwhs.app</string>
@@ -276,7 +276,7 @@
     <string name="setting_pin_lock_uninstall_title">PIN bei Deinstallation anfordern</string>
     <string name="setting_pin_lock_uninstall_subtitle">Vor dem Entfernen eines Pakets nach der PIN fragen</string>
     <string name="setting_pin_lock_app_open_title">App beim Öffnen sperren</string>
-    <string name="setting_pin_lock_app_open_subtitle">PIN beim jedem Öffnen von Universal Installer abfragen</string>
+    <string name="setting_pin_lock_app_open_subtitle">PIN beim jedem Öffnen von Multiversal-installer abfragen</string>
     <string name="setting_pin_lock_protect_settings_title">Sicherheitseinstellungen schützen</string>
     <string name="setting_pin_lock_protect_settings_subtitle">Beim Öffnen der Sicherheitseinstellungen nach der PIN fragen</string>
     <string name="setting_security_group_biometric">Biometrische Authentifizierung</string>
@@ -286,7 +286,7 @@
     <string name="pin_dialog_title_confirm">PIN bestätigen</string>
     <string name="pin_dialog_desc_confirm">Geben Sie Ihre 4-stellige PIN zur Bestätigung erneut ein</string>
     <string name="pin_dialog_title_verify">PIN eingeben</string>
-    <string name="pin_dialog_desc_app_open">PIN eingeben, um Universal Installer zu öffnen</string>
+    <string name="pin_dialog_desc_app_open">PIN eingeben, um Multiversal-installer zu öffnen</string>
     <string name="pin_dialog_desc_install">PIN eingeben, um die Installation zu autorisieren</string>
     <string name="pin_dialog_desc_uninstall">PIN eingeben, um die Deinstallation zu autorisieren</string>
     <string name="pin_dialog_desc_settings">PIN eingeben, um auf die Sicherheitseinstellungen zuzugreifen</string>
@@ -300,7 +300,7 @@
     <string name="parental_guidance_card_subtitle">So verhindern Sie die Deinstallation oder Umgehung der Sicherheit durch Kinder</string>
     <string name="parental_guidance_card_btn">Leitfaden ansehen</string>
     <string name="parental_guidance_dialog_title">Umfassender Schutz durch Kindersicherung</string>
-    <string name="parental_guidance_dialog_content">Damit Kinder Universal Installer nicht umgehen können:\n\n1. Deinstallation verhindern:\nAndroid erlaubt die Deinstallation über die Systemeinstellungen. Verwenden Sie die integrierte App-Sperre Ihres Geräts oder Google Family Link, um die App „Einstellungen“ zu sperren.\n\n2. Alternative Installer blockieren:\nNutzen Sie unten die Option „System-Paket-Installer einfrieren“ (erfordert Shizuku oder Root), damit andere Apps nicht auf den Standard-Installer zugreifen können.\n\n3. Berechtigungen entziehen:\nNutzen Sie unten „Installationsberechtigungen anderer Apps entziehen“, damit ausschließlich Universal Installer Pakete installieren kann.</string>
+    <string name="parental_guidance_dialog_content">Damit Kinder Multiversal-installer nicht umgehen können:\n\n1. Deinstallation verhindern:\nAndroid erlaubt die Deinstallation über die Systemeinstellungen. Verwenden Sie die integrierte App-Sperre Ihres Geräts oder Google Family Link, um die App „Einstellungen“ zu sperren.\n\n2. Alternative Installer blockieren:\nNutzen Sie unten die Option „System-Paket-Installer einfrieren“ (erfordert Shizuku oder Root), damit andere Apps nicht auf den Standard-Installer zugreifen können.\n\n3. Berechtigungen entziehen:\nNutzen Sie unten „Installationsberechtigungen anderer Apps entziehen“, damit ausschließlich Multiversal-installer Pakete installieren kann.</string>
     <string name="setting_security_group_privileged">Erweiterter Schutz (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">Shizuku oder Root ist erforderlich, um diese Optionen zu aktivieren</string>
     <string name="setting_disable_system_installer_title">System-Paket-Installer einfrieren</string>
@@ -313,7 +313,7 @@
     <string name="setting_revoke_other_installers_title">Installationsrechte anderer Apps entziehen</string>
     <string name="setting_revoke_other_installers_subtitle">Entzieht Chrome, Dateimanagern und weiteren Apps die Berechtigung zur APK-Installation</string>
     <string name="setting_revoke_other_installers_dialog_title">Installationsberechtigungen entziehen?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">Dies verhindert, dass andere Apps APKs installieren können, sodass Universal Installer der einzige Installer bleibt.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">Dies verhindert, dass andere Apps APKs installieren können, sodass Multiversal-installer der einzige Installer bleibt.</string>
     <string name="setting_revoke_other_installers_toast_success">Installationsberechtigungen von %1$d Apps entzogen</string>
     <string name="setting_revoke_other_installers_toast_none">Keine anderen Apps besitzen Installationsberechtigungen</string>
     <string name="setting_install_options_subtitle">Privilegierte Flags, Downgrade, Berechtigungen, Installationsquelle</string>
@@ -335,9 +335,9 @@
     <string name="setting_porter_not_running">Porter ist installiert, läuft aber nicht</string>
     <string name="setting_porter_start_service_hint">Öffnen Sie Porter und starten Sie zuerst den Dienst</string>
     <string name="setting_default_uninstaller_title">Als Standard-Deinstallationsprogramm festlegen</string>
-    <string name="setting_default_uninstaller_subtitle">Universal Installer als Standard für Deinstallationen festlegen (erfordert Shizuku, Porter oder Root)</string>
+    <string name="setting_default_uninstaller_subtitle">Multiversal-installer als Standard für Deinstallationen festlegen (erfordert Shizuku, Porter oder Root)</string>
     <string name="setting_default_uninstaller_needs_backend">Aktivieren Sie zuerst Shizuku oder Root, um das Standard-Deinstallationsprogramm zu ändern</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer ist jetzt das Standard-Deinstallationsprogramm</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer ist jetzt das Standard-Deinstallationsprogramm</string>
     <string name="setting_default_uninstaller_disabled">Standard-Deinstallationsprogramm zurückgesetzt</string>
     <string name="setting_default_uninstaller_failed">Änderung des Standard-Deinstallationsprogramms fehlgeschlagen</string>
     <string name="about_section_more_apps">Unsere Apps</string>
