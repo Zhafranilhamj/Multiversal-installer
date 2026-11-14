@@ -105,7 +105,7 @@ class ApkHttpServer(
         val body = """
             <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Universal Installer — Try again later</title></head>
+            <title>Multiversal-installer — Try again later</title></head>
             <body style="font-family:system-ui,sans-serif;background:#0f0f13;color:#e4e4e7;
                  display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0">
             <div style="text-align:center;padding:32px">
@@ -196,7 +196,7 @@ class ApkHttpServer(
         }?.sortedBy { it.name } ?: emptyList()
 
         val listHtml = if (files.isEmpty()) {
-            """<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">No packages found.<br>Add files via Universal Installer app.</div></div>"""
+            """<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">No packages found.<br>Add files via Multiversal-installer app.</div></div>"""
         } else {
             files.joinToString("\n") { file -> fileItemHtml(file) }
         }

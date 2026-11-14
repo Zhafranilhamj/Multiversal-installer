@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="fastlane/metadata/android/en-US/images/icon.png" width="128" height="128" alt="Universal Installer Icon">
-  <h1>Universal Installer</h1>
+  <img src="fastlane/metadata/android/en-US/images/icon.png" width="128" height="128" alt="Multiversal-installer Icon">
+  <h1>Multiversal-installer</h1>
   <p>A modern, powerful Android package manager and sideloading tool for Phones, Android TV, and Wear OS.</p>
 
   <p>

@@ -32,7 +32,7 @@
     <string name="permission_return_channel_name">بازگشت به برنامه</string>
     <string name="permission_return_channel_desc">اعلان بازگشت به برنامه پس از اعطای مجوز در تنظیمات سیستم.</string>
     <string name="permission_return_title">مجوز اعطا شد</string>
-    <string name="permission_return_body">برای بازگشت به Universal Installer ضربه بزنید.</string>
+    <string name="permission_return_body">برای بازگشت به Multiversal-installer ضربه بزنید.</string>
     <string name="onboarding_analytics_title">به رفع مشکلات کمک کنید</string>
     <string name="onboarding_analytics_desc">نصب برنامه‌ها در هر گوشی رفتار متفاوتی دارد و ما فقط زمانی از مشکلات باخبر می‌شویم که برنامه گزارش دهد. این کار تنها موفق بودن نصب یا نوع خطا را گزارش می‌کند — نه اینکه چه برنامه‌ای نصب کرده‌اید.</string>
     <string name="onboarding_analytics_switch">اشتراک‌گذاری گزارش‌های ناشناس تشخیص خطا</string>
@@ -119,6 +119,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">آمار</string>
-    <string name="error_cannot_open_settings">امکان باز کردن تنظیمات سیستم وجود ندارد. لطفاً تنظیمات را به صورت دستی باز کنید &gt; برنامه‌ها &gt; Universal Installer تا مجوز را اعطا کنید.</string>
+    <string name="error_cannot_open_settings">امکان باز کردن تنظیمات سیستم وجود ندارد. لطفاً تنظیمات را به صورت دستی باز کنید &gt; برنامه‌ها &gt; Multiversal-installer تا مجوز را اعطا کنید.</string>
     <string name="onboarding_xiaomi_dev_options_hint">گزینه‌های برنامه‌نویس باز نشده است. لطفاً تنظیمات &gt; درباره تلفن را باز کرده و ۷ بار روی شماره ساخت ضربه بزنید.</string>
 </resources>

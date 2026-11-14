@@ -35,7 +35,7 @@
     <string name="permission_return_channel_name">অ্যাপে ফিরে যান</string>
     <string name="permission_return_channel_desc">সিস্টেম সেটিংসে অনুমতি দেওয়ার পরে অ্যাপে ফিরে আসার বিজ্ঞপ্তি।</string>
     <string name="permission_return_title">অনুমতি দেওয়া হয়েছে</string>
-    <string name="permission_return_body">Universal Installer-এ ফিরে যেতে ট্যাপ করুন।</string>
+    <string name="permission_return_body">Multiversal-installer-এ ফিরে যেতে ট্যাপ করুন।</string>
     <!-- Onboarding: anonymous reporting. Shown only on the Play build, opted in. -->
     <string name="onboarding_analytics_title">ত্রুটি সমাধানে সাহায্য করুন</string>
     <string name="onboarding_analytics_desc">প্রতিটি ফোনে অ্যাপ ইনস্টলেশন ভিন্নভাবে কাজ করে, এবং অ্যাপটি জানালেই কেবল আমরা ব্যর্থতার কারণ জানতে পারি। এটি শুধুমাত্র ইনস্টলেশন কাজ করেছে কিনা এবং কী ভুল হয়েছে তা জানায় — আপনি কোন অ্যাপ ইনস্টল করেছেন তা কখনোই প্রকাশ করে না।</string>
@@ -128,6 +128,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">পরিসংখ্যান</string>
-    <string name="error_cannot_open_settings">সিস্টেম সেটিংস খুলতে ব্যর্থ হয়েছে। অনুমতি দিতে অনুগ্রহ করে ম্যানুয়ালি সেটিংস &gt; অ্যাপস &gt; Universal Installer খুলুন।</string>
+    <string name="error_cannot_open_settings">সিস্টেম সেটিংস খুলতে ব্যর্থ হয়েছে। অনুমতি দিতে অনুগ্রহ করে ম্যানুয়ালি সেটিংস &gt; অ্যাপস &gt; Multiversal-installer খুলুন।</string>
     <string name="onboarding_xiaomi_dev_options_hint">বিকাশকারী বিকল্পগুলি আনলক করা নেই। অনুগ্রহ করে সেটিংস &gt; ফোন সম্পর্কিত খুলুন এবং বিল্ড নম্বরে ৭ বার ট্যাপ করুন।</string>
 </resources>

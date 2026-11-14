@@ -28,7 +28,7 @@ data class DiscoveredTv(
 
 /**
  * Uses Android NSD (Network Service Discovery / mDNS) to find TVs running
- * Universal Installer receiver on the local network.
+ * Multiversal-installer receiver on the local network.
  */
 object TvDiscovery {
 

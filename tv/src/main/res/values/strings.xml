@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
 
     <!-- TV Receive Screen -->
     <string name="tv_receive_from_phone">Receive from phone</string>
@@ -44,7 +44,7 @@
     <!-- TV Settings Screen -->
     <string name="tv_settings_title">Settings</string>
     <string name="tv_settings_section_about">About</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">Install anything, anywhere</string>
     <string name="tv_settings_version">Version %s</string>
     <string name="tv_settings_section_install">Install</string>

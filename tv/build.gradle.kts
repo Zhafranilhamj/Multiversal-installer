@@ -49,8 +49,8 @@ android {
         applicationId = "com.github.zhafranilhamj.multiversalinstaller"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 2037
-        versionName = "1.23.2"
+        versionCode = 2038
+        versionName = "1.23.3"
 
     }
 

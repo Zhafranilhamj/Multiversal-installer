@@ -12,7 +12,7 @@
     <string name="permission_return_channel_name">Uygulamaya dön</string>
     <string name="permission_return_channel_desc">Sistem ayarlarında izin verildikten sonra uygulamaya dönme bildirimi.</string>
     <string name="permission_return_title">İzin verildi</string>
-    <string name="permission_return_body">Universal Installer\'a dönmek için dokunun.</string>
+    <string name="permission_return_body">Multiversal-installer\'a dönmek için dokunun.</string>
     <string name="onboarding_analytics_title">Bozulanları düzeltmeye yardım edin</string>
     <string name="onboarding_analytics_desc">Uygulama yükleme her telefonda farklı çalışır ve neyin başarısız olduğunu ancak uygulama bildirdiğinde öğreniriz. Bir yüklemenin başarılı olup olmadığını ve neyin ters gittiğini bildirir — hangi uygulamayı yüklediğinizi asla bildirmez.</string>
     <string name="onboarding_analytics_switch">Anonim tanılama verilerini paylaş</string>
@@ -117,6 +117,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">İstatistikler</string>
-    <string name="error_cannot_open_settings">Sistem ayarları açılamıyor. İzin vermek için lütfen Ayarlar\'ı manuel olarak açın &gt; Uygulamalar &gt; Universal Installer.</string>
+    <string name="error_cannot_open_settings">Sistem ayarları açılamıyor. İzin vermek için lütfen Ayarlar\'ı manuel olarak açın &gt; Uygulamalar &gt; Multiversal-installer.</string>
     <string name="onboarding_xiaomi_dev_options_hint">Geliştirici seçeneklerinin kilidi açılmadı. Lütfen Ayarlar &gt; Telefon hakkında bölümünü açın ve Derleme numarasına 7 kez dokunun.</string>
 </resources>

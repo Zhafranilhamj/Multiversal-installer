@@ -94,15 +94,15 @@
     <string name="setting_show_download_tab_title">نمایش برگه بارگیری</string>
     <string name="setting_show_download_tab_subtitle">نمایش برگه بارگیری در صفحه اصلی برای نصب راه دور فایل‌های APK</string>
     <string name="setting_default_installer_title">تنظیم به‌عنوان نصب‌کننده پیش‌فرض</string>
-    <string name="setting_default_installer_subtitle">غیرفعال کردن نصب‌کننده سیستم تا همیشه از Universal Installer برای فایل‌های APK استفاده شود (نیازمند Shizuku، Porter یا Root)</string>
+    <string name="setting_default_installer_subtitle">غیرفعال کردن نصب‌کننده سیستم تا همیشه از Multiversal-installer برای فایل‌های APK استفاده شود (نیازمند Shizuku، Porter یا Root)</string>
     <string name="setting_default_installer_needs_backend">ابتدا Shizuku، Porter یا Root را فعال کنید تا نصب‌کننده پیش‌فرض را تغییر دهید</string>
-    <string name="setting_default_installer_enabled">اکنون Universal Installer نصب‌کننده پیش‌فرض است</string>
+    <string name="setting_default_installer_enabled">اکنون Multiversal-installer نصب‌کننده پیش‌فرض است</string>
     <string name="setting_default_installer_disabled">نصب‌کننده سیستم بازیابی شد</string>
     <string name="setting_default_installer_failed">تغییر نصب‌کننده پیش‌فرض ناموفق بود</string>
     <string name="setting_default_uninstaller_title">تنظیم به‌عنوان لغو نصب‌کننده پیش‌فرض</string>
-    <string name="setting_default_uninstaller_subtitle">تنظیم Universal Installer به‌عنوان مدیر پیش‌فرض لغو نصب (نیازمند Shizuku، Porter یا Root)</string>
+    <string name="setting_default_uninstaller_subtitle">تنظیم Multiversal-installer به‌عنوان مدیر پیش‌فرض لغو نصب (نیازمند Shizuku، Porter یا Root)</string>
     <string name="setting_default_uninstaller_needs_backend">ابتدا Shizuku یا Root را فعال کنید تا لغو نصب‌کننده پیش‌فرض را تغییر دهید</string>
-    <string name="setting_default_uninstaller_enabled">اکنون Universal Installer لغو نصب‌کننده پیش‌فرض است</string>
+    <string name="setting_default_uninstaller_enabled">اکنون Multiversal-installer لغو نصب‌کننده پیش‌فرض است</string>
     <string name="setting_default_uninstaller_disabled">تنظیم لغو نصب‌کننده پیش‌فرض پاک شد</string>
     <string name="setting_default_uninstaller_failed">تغییر لغو نصب‌کننده پیش‌فرض ناموفق بود</string>
     <string name="setting_shizuku_options_install_group">نصب</string>
@@ -277,7 +277,7 @@
     <string name="setting_pin_lock_uninstall_title">نیاز به PIN برای لغو نصب</string>
     <string name="setting_pin_lock_uninstall_subtitle">درخواست PIN قبل از حذف هر بسته</string>
     <string name="setting_pin_lock_app_open_title">قفل برنامه هنگام باز شدن</string>
-    <string name="setting_pin_lock_app_open_subtitle">درخواست PIN هر زمان که Universal Installer باز شود</string>
+    <string name="setting_pin_lock_app_open_subtitle">درخواست PIN هر زمان که Multiversal-installer باز شود</string>
     <string name="setting_pin_lock_protect_settings_title">محافظت از تنظیمات امنیتی</string>
     <string name="setting_pin_lock_protect_settings_subtitle">درخواست PIN هنگام باز کردن تنظیمات امنیتی</string>
     <string name="setting_security_group_biometric">احراز هویت زیست‌سنجی (بیومتریک)</string>
@@ -287,7 +287,7 @@
     <string name="pin_dialog_title_confirm">تأیید PIN</string>
     <string name="pin_dialog_desc_confirm">کد ۴ رقمی PIN خود را برای تأیید دوباره وارد کنید</string>
     <string name="pin_dialog_title_verify">ورود PIN</string>
-    <string name="pin_dialog_desc_app_open">برای باز کردن Universal Installer کد PIN را وارد کنید</string>
+    <string name="pin_dialog_desc_app_open">برای باز کردن Multiversal-installer کد PIN را وارد کنید</string>
     <string name="pin_dialog_desc_install">برای تأیید نصب کد PIN را وارد کنید</string>
     <string name="pin_dialog_desc_uninstall">برای تأیید لغو نصب کد PIN را وارد کنید</string>
     <string name="pin_dialog_desc_settings">برای دسترسی به تنظیمات امنیتی کد PIN را وارد کنید</string>
@@ -301,7 +301,7 @@
     <string name="parental_guidance_card_subtitle">نحوه جلوگیری از لغو نصب برنامه توسط کودکان یا دور زدن امنیت</string>
     <string name="parental_guidance_card_btn">مشاهده راهنما</string>
     <string name="parental_guidance_dialog_title">محافظت جامع والدین</string>
-    <string name="parental_guidance_dialog_content">برای اطمینان از اینکه کودکان نمی‌توانند Universal Installer را دور بزنند:\n\n۱. جلوگیری از لغو نصب:\nاندروید امکان لغو نصب را از طریق تنظیمات سیستم فراهم می‌کند. از قفل برنامه پیش‌فرض گوشی خود (مانند Secure Folder / App Lock سامسونگ، App Lock شیائومی) یا Google Family Link برای قفل کردن برنامه \"Settings\" استفاده کنید.\n\n۲. جلوگیری از نصب‌کننده‌های جایگزین:\nاز گزینه \"انجماد نصب‌کننده بسته سیستم\" در زیر استفاده کنید (نیازمند Shizuku، Porter یا Root) تا برنامه‌های دیگر (مرورگرها، مدیران فایل) نتوانند نصب‌کننده سیستم را فراخوانی کنند.\n\n۳. لغو مجوزها:\nاز گزینه \"لغو مجوزهای نصب سایر برنامه‌ها\" در زیر استفاده کنید تا اطمینان حاصل شود فقط Universal Installer می‌تواند بسته‌ها را نصب کند.</string>
+    <string name="parental_guidance_dialog_content">برای اطمینان از اینکه کودکان نمی‌توانند Multiversal-installer را دور بزنند:\n\n۱. جلوگیری از لغو نصب:\nاندروید امکان لغو نصب را از طریق تنظیمات سیستم فراهم می‌کند. از قفل برنامه پیش‌فرض گوشی خود (مانند Secure Folder / App Lock سامسونگ، App Lock شیائومی) یا Google Family Link برای قفل کردن برنامه \"Settings\" استفاده کنید.\n\n۲. جلوگیری از نصب‌کننده‌های جایگزین:\nاز گزینه \"انجماد نصب‌کننده بسته سیستم\" در زیر استفاده کنید (نیازمند Shizuku، Porter یا Root) تا برنامه‌های دیگر (مرورگرها، مدیران فایل) نتوانند نصب‌کننده سیستم را فراخوانی کنند.\n\n۳. لغو مجوزها:\nاز گزینه \"لغو مجوزهای نصب سایر برنامه‌ها\" در زیر استفاده کنید تا اطمینان حاصل شود فقط Multiversal-installer می‌تواند بسته‌ها را نصب کند.</string>
     <string name="setting_security_group_privileged">محافظت پیشرفته (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">برای فعال‌سازی این گزینه‌ها Shizuku، Porter یا Root لازم است</string>
     <string name="setting_disable_system_installer_title">انجماد نصب‌کننده بسته سیستم</string>
@@ -314,7 +314,7 @@
     <string name="setting_revoke_other_installers_title">لغو مجوزهای نصب از سایر برنامه‌ها</string>
     <string name="setting_revoke_other_installers_subtitle">مجوزهای نصب APK را از مرورگر کروم، مدیران فایل و سایر برنامه‌ها لغو می‌کند</string>
     <string name="setting_revoke_other_installers_dialog_title">لغو مجوزهای نصب؟</string>
-    <string name="setting_revoke_other_installers_dialog_desc">این کار توانایی نصب APK توسط سایر برنامه‌ها را غیرفعال کرده و Universal Installer را تنها نصب‌کننده قرار می‌دهد.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">این کار توانایی نصب APK توسط سایر برنامه‌ها را غیرفعال کرده و Multiversal-installer را تنها نصب‌کننده قرار می‌دهد.</string>
     <string name="setting_revoke_other_installers_toast_success">مجوزهای نصب از %1$d برنامه لغو شد</string>
     <string name="setting_revoke_other_installers_toast_none">هیچ برنامه دیگری مجوز نصب ندارد</string>
     <string name="setting_lock_install_title">قفل نصب‌ها</string>

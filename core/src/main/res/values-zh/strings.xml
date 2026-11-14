@@ -117,6 +117,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">统计</string>
-    <string name="error_cannot_open_settings">无法打开系统设置。请手动打开设置 &gt; 应用 &gt; Universal Installer 以授予权限。</string>
+    <string name="error_cannot_open_settings">无法打开系统设置。请手动打开设置 &gt; 应用 &gt; Multiversal-installer 以授予权限。</string>
     <string name="onboarding_xiaomi_dev_options_hint">开发者选项未解锁。请打开设置 &gt; 关于手机，然后连续点击“版本号”7 次。</string>
 </resources>

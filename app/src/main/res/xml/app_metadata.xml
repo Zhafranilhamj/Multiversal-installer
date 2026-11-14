@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AppFunctionAppMetadata xmlns:appfn="http://schemas.android.com/apk/androidx.appfunctions"
     appfn:displayDescription="@string/app_functions_display_description"
-    appfn:instructions="Universal Installer is a package installer and app management utility for Android supporting APK, APKS, XAPK, and APKM packages.
+    appfn:instructions="Multiversal-installer is a package installer and app management utility for Android supporting APK, APKS, XAPK, and APKM packages.
 Operational Patterns:
 - Use 'searchInstalledApps' to find installed apps by name or package name before calling 'getInstalledAppDetails' or 'openUninstallDialog'.
 - Use 'getRecentInstallHistory' and 'getRecentUninstallLogs' to inspect recent package installation and uninstallation outcomes.

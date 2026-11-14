@@ -12,7 +12,7 @@
     <string name="permission_return_channel_name">Вернуться в приложение</string>
     <string name="permission_return_channel_desc">Уведомление о возврате в приложение после предоставления разрешения в настройках системы.</string>
     <string name="permission_return_title">Разрешение получено</string>
-    <string name="permission_return_body">Нажмите, чтобы вернуться в Universal Installer.</string>
+    <string name="permission_return_body">Нажмите, чтобы вернуться в Multiversal-installer.</string>
     <string name="onboarding_analytics_title">Помогите исправить сбои</string>
     <string name="onboarding_analytics_desc">Установка приложений работает по-разному на каждом телефоне, и мы узнаём о сбоях, только если приложение сообщает о них. Оно передаёт, удалась ли установка и что пошло не так, — но никогда не передаёт, какое приложение вы установили.</string>
     <string name="onboarding_analytics_switch">Отправлять анонимную диагностику</string>
@@ -117,6 +117,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">Статистика</string>
-    <string name="error_cannot_open_settings">Не удалось открыть системные настройки. Откройте Настройки вручную &gt; Приложения &gt; Universal Installer, чтобы предоставить разрешение.</string>
+    <string name="error_cannot_open_settings">Не удалось открыть системные настройки. Откройте Настройки вручную &gt; Приложения &gt; Multiversal-installer, чтобы предоставить разрешение.</string>
     <string name="onboarding_xiaomi_dev_options_hint">Параметры разработчика не включены. Откройте Настройки &gt; О телефоне и нажмите 7 раз на Номер сборки.</string>
 </resources>

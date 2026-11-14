@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">전화로 받기</string>
     <string name="tv_receive_starting">수신기 시작 중…</string>
     <string name="tv_receive_installing">%s 설치 중…</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">저장소에 APK 파일이 없습니다.</string>
     <string name="tv_settings_title">설정</string>
     <string name="tv_settings_section_about">앱 정보</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">어디서나 무엇이든 설치하세요</string>
     <string name="tv_settings_version">버전 %s</string>
     <string name="tv_settings_section_install">설치</string>

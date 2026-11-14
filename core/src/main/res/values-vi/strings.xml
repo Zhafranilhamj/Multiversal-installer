@@ -37,7 +37,7 @@
     <string name="permission_return_channel_name">Quay lại ứng dụng</string>
     <string name="permission_return_channel_desc">Thông báo quay lại ứng dụng sau khi cấp quyền trong cài đặt hệ thống.</string>
     <string name="permission_return_title">Đã cấp quyền</string>
-    <string name="permission_return_body">Nhấn để quay lại Universal Installer.</string>
+    <string name="permission_return_body">Nhấn để quay lại Multiversal-installer.</string>
     <string name="onboarding_analytics_title">Giúp sửa những chỗ hỏng</string>
     <string name="onboarding_analytics_desc">Việc cài ứng dụng chạy khác nhau trên mỗi máy, và chỉ khi ứng dụng báo về thì mới biết chỗ nào hỏng. Nó gửi kết quả cài đặt thành công hay thất bại và lỗi gì — không bao giờ gửi bạn đã cài ứng dụng nào.</string>
     <string name="onboarding_analytics_switch">Chia sẻ chẩn đoán ẩn danh</string>
@@ -127,7 +127,7 @@
     <string name="error_cannot_open_link_copied">Không thể mở liên kết. Đã sao chép vào bộ nhớ tạm</string>
 
     <!-- Permission Settings Fallback -->
-    <string name="error_cannot_open_settings">Không thể tự động mở Cài đặt. Vui lòng mở Cài đặt trên máy &gt; Ứng dụng &gt; Universal Installer để cấp quyền.</string>
+    <string name="error_cannot_open_settings">Không thể tự động mở Cài đặt. Vui lòng mở Cài đặt trên máy &gt; Ứng dụng &gt; Multiversal-installer để cấp quyền.</string>
     <string name="onboarding_xiaomi_dev_options_hint">Tùy chọn nhà phát triển chưa được mở khóa. Vui lòng vào Cài đặt &gt; Giới thiệu điện thoại và nhấn 7 lần vào Số hiệu bản dựng.</string>
 
     <!-- VirusTotal Daily Quota & Unlimited Options -->
@@ -142,10 +142,10 @@
     <string name="vt_unlock_option2_desc">Quét tự động ngay lập tức qua hệ thống key tốc độ cao của ứng dụng mà không cần tự tạo API key, kèm mọi quyền lợi Pro.</string>
     <string name="vt_unlock_pro_badge">PRO</string>
     <string name="vt_unlock_pro_btn">Nâng cấp Pro</string>
-    <string name="vt_unlock_pro_coming_soon">Gói Universal Installer Pro sẽ sớm mở bán trên Google Play! Hiện tại bạn có thể nhập API Key VirusTotal cá nhân (miễn phí) để quét không giới hạn ngay lập tức.</string>
+    <string name="vt_unlock_pro_coming_soon">Gói Multiversal-installer Pro sẽ sớm mở bán trên Google Play! Hiện tại bạn có thể nhập API Key VirusTotal cá nhân (miễn phí) để quét không giới hạn ngay lập tức.</string>
 
     <!-- Pro Upgrade Sheet -->
-    <string name="pro_upgrade_sheet_title">Universal Installer Pro</string>
+    <string name="pro_upgrade_sheet_title">Multiversal-installer Pro</string>
     <string name="pro_upgrade_sheet_subtitle">Mở khóa bảo mật toàn diện và trải nghiệm cài đặt không giới hạn</string>
     <string name="pro_benefit_vt_title">Tự Động Quét VirusTotal Tức Thì</string>
     <string name="pro_benefit_vt_desc">Tự động kiểm tra mã độc ngay giây đầu tiên mở file APK — không cần bấm nút, không cần tạo API Key và không giới hạn lượt</string>
@@ -167,7 +167,7 @@
     <string name="pro_restore_success">Đã khôi phục gói Pro thành công!</string>
     <string name="pro_restore_not_found">Không tìm thấy giao dịch Pro nào trên tài khoản Google này.</string>
     <string name="pro_thank_you_title">Cảm ơn bạn đã nâng cấp!</string>
-    <string name="pro_thank_you_subtitle">Universal Installer Pro đã được kích hoạt toàn diện trên thiết bị của bạn.</string>
+    <string name="pro_thank_you_subtitle">Multiversal-installer Pro đã được kích hoạt toàn diện trên thiết bị của bạn.</string>
     <string name="pro_thank_you_perk1">Quét mã độc đám mây VirusTotal không giới hạn</string>
     <string name="pro_thank_you_perk2">Kiểm tra an toàn tự động, không cần nhập API Key</string>
     <string name="pro_thank_you_perk3">Ưu tiên xử lý bảo mật &amp; tiếp sức dự án mã nguồn mở</string>
@@ -185,12 +185,12 @@
     <string name="pro_issue_pending_desc">Google Play đang xử lý thanh toán của bạn. Gói Pro sẽ tự động kích hoạt ngay khi hoàn tất.</string>
     <string name="pro_issue_already_owned_title">Đã sở hữu gói Pro</string>
     <string name="pro_issue_already_owned_desc">Tài khoản Google này đã sở hữu gói Pro! Chúng tôi đã tự động khôi phục và kích hoạt lại cho bạn.</string>
-    <string name="pro_supporter_active_title">Universal Installer Pro</string>
+    <string name="pro_supporter_active_title">Multiversal-installer Pro</string>
     <string name="pro_supporter_active_desc">Gói Pro đang hoạt động trên thiết bị này. Cảm ơn bạn đã đồng hành cùng dự án!</string>
     <string name="pro_manage_subscription">Quản lý gói đăng ký trên Google Play</string>
 
     <!-- Pro Banner & VirusTotal Settings -->
-    <string name="setting_pro_banner_title">Universal Installer Pro</string>
+    <string name="setting_pro_banner_title">Multiversal-installer Pro</string>
     <string name="setting_pro_banner_desc_inactive">Quét VirusTotal không giới hạn, bảo mật ưu tiên &amp; ủng hộ nhà phát triển</string>
     <string name="setting_pro_banner_desc_active">Cảm ơn bạn đã đồng hành cùng dự án!</string>
     <string name="setting_pro_banner_badge_active">Đã kích hoạt</string>

@@ -1,6 +1,6 @@
 # What this module is
 
-Wear OS smartwatch companion for Universal Installer.
+Wear OS smartwatch companion for Multiversal-installer.
 Handles sideloading APKs directly to the watch, viewing installation queue,
 and communicating with the phone application.
 
@@ -17,7 +17,7 @@ Use direct register: `vi` uses "bạn", `pt-BR` uses "você".
 - API
 - Wi-Fi
 - Wear OS
-- Universal Installer
+- Multiversal-installer
 
 ## Glossary
 

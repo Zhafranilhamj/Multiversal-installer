@@ -12,7 +12,7 @@
     <string name="permission_return_channel_name">Zurück zur App</string>
     <string name="permission_return_channel_desc">Benachrichtigung, zur App zurückzukehren, nachdem in den Systemeinstellungen eine Berechtigung erteilt wurde.</string>
     <string name="permission_return_title">Erlaubnis erteilt</string>
-    <string name="permission_return_body">Tippen Sie hier, um zum Universal Installer zurückzukehren.</string>
+    <string name="permission_return_body">Tippen Sie hier, um zum Multiversal-installer zurückzukehren.</string>
     <string name="onboarding_analytics_title">Hilf mit, Fehler zu beheben</string>
     <string name="onboarding_analytics_desc">Das Installieren von Apps funktioniert auf jedem Gerät anders, und was fehlschlägt, erfahren wir nur, wenn die App es meldet. Sie meldet, ob eine Installation geklappt hat und was schiefging — nie, welche App du installiert hast.</string>
     <string name="onboarding_analytics_switch">Anonyme Diagnosedaten teilen</string>
@@ -117,6 +117,6 @@
     <string name="onboarding_device_auto">Android Auto</string>
     <string name="onboarding_device_wearos">Wear OS</string>
     <string name="nav_stats">Statistiken</string>
-    <string name="error_cannot_open_settings">Systemeinstellungen können nicht geöffnet werden. Bitte öffnen Sie Einstellungen manuell &gt; Apps &gt; Universal Installer, um die Berechtigung zu erteilen.</string>
+    <string name="error_cannot_open_settings">Systemeinstellungen können nicht geöffnet werden. Bitte öffnen Sie Einstellungen manuell &gt; Apps &gt; Multiversal-installer, um die Berechtigung zu erteilen.</string>
     <string name="onboarding_xiaomi_dev_options_hint">Entwickleroptionen nicht freigeschaltet. Bitte öffnen Sie Einstellungen &gt; Über das Telefon und tippen Sie 7 Mal auf die Build-Nummer.</string>
 </resources>

@@ -1,4 +1,4 @@
-Universal Installer is a modern Android package manager and Split APK Installer built to sideload split APKs, bundled archives with OBB data, and install silently with Material 3 UI.
+Multiversal-installer is a modern Android package manager and Split APK Installer built to sideload split APKs, bundled archives with OBB data, and install silently with Material 3 UI.
 
 Expressive & Customizable
 - Fluid animations: Living dialogs with bouncy spring physics.

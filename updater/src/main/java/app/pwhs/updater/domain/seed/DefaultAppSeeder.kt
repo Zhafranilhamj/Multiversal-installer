@@ -9,7 +9,7 @@ import app.pwhs.updater.domain.model.UpdateSourceType
 import kotlinx.coroutines.flow.firstOrNull
 
 /**
- * Seeds the default tracked app (Universal Installer itself) on first launch
+ * Seeds the default tracked app (Multiversal-installer itself) on first launch
  * so users get a self-update mechanism out of the box.
  */
 object DefaultAppSeeder {
@@ -18,7 +18,7 @@ object DefaultAppSeeder {
 
     private const val DEFAULT_SOURCE_URL = "https://github.com/Zhafranilhamj/Multiversal-installer"
     private const val DEFAULT_PACKAGE_NAME = "com.github.zhafranilhamj.multiversalinstaller"
-    private const val DEFAULT_APP_NAME = "Universal Installer"
+    private const val DEFAULT_APP_NAME = "Multiversal-installer"
 
     /**
      * Returns true if seeding has already been performed.
@@ -36,7 +36,7 @@ object DefaultAppSeeder {
     }
 
     /**
-     * Returns the default seed app entry for Universal Installer.
+     * Returns the default seed app entry for Multiversal-installer.
      */
     fun defaultSeedApp(): TrackedApp {
         return TrackedApp(

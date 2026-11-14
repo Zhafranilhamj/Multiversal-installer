@@ -1,0 +1,1 @@
+• The app is now called Multiversal-installer, matching its GitHub project — same app, just the new name on your watch and in the watch's app list. Updating from 1.23.2 is seamless and your settings stay.

@@ -79,9 +79,9 @@
     <string name="setting_show_download_tab_title">ডাউনলোড ট্যাব দেখান</string>
     <string name="setting_show_download_tab_subtitle">দূরবর্তী APK ইনস্টলেশনের জন্য প্রধান স্ক্রিনে ডাউনলোড ট্যাব দেখান</string>
     <string name="setting_default_installer_title">ডিফল্ট ইনস্টলার হিসেবে সেট করুন</string>
-    <string name="setting_default_installer_subtitle">APK ফাইলের জন্য সর্বদা Universal Installer ব্যবহার করতে সিস্টেম ইনস্টলার নিষ্ক্রিয় করুন (Shizuku বা Root প্রয়োজন)</string>
+    <string name="setting_default_installer_subtitle">APK ফাইলের জন্য সর্বদা Multiversal-installer ব্যবহার করতে সিস্টেম ইনস্টলার নিষ্ক্রিয় করুন (Shizuku বা Root প্রয়োজন)</string>
     <string name="setting_default_installer_needs_backend">ডিফল্ট ইনস্টলার পরিবর্তন করতে প্রথমে Shizuku বা Root সক্ষম করুন</string>
-    <string name="setting_default_installer_enabled">Universal Installer এখন ডিফল্ট ইনস্টলার</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer এখন ডিফল্ট ইনস্টলার</string>
     <string name="setting_default_installer_disabled">সিস্টেম ইনস্টলার পুনরুদ্ধার করা হয়েছে</string>
     <string name="setting_default_installer_failed">ডিফল্ট ইনস্টলার পরিবর্তন করতে ব্যর্থ হয়েছে</string>
     <string name="setting_shizuku_options_install_group">ইনস্টল</string>
@@ -240,7 +240,7 @@
     <string name="setting_pin_lock_uninstall_title">আনইনস্টল করার জন্য পিন প্রয়োজন</string>
     <string name="setting_pin_lock_uninstall_subtitle">যেকোনো প্যাকেজ সরানোর আগে পিন জিজ্ঞাসা করুন</string>
     <string name="setting_pin_lock_app_open_title">খোলার সময় অ্যাপ লক করুন</string>
-    <string name="setting_pin_lock_app_open_subtitle">Universal Installer খোলার সময় সর্বদা পিন প্রয়োজন</string>
+    <string name="setting_pin_lock_app_open_subtitle">Multiversal-installer খোলার সময় সর্বদা পিন প্রয়োজন</string>
     <string name="setting_pin_lock_protect_settings_title">নিরাপত্তা সেটিংস সুরক্ষিত করুন</string>
     <string name="setting_pin_lock_protect_settings_subtitle">নিরাপত্তা সেটিংস খোলার সময় পিন জিজ্ঞাসা করুন</string>
     <string name="setting_security_group_biometric">বায়োমেট্রিক প্রমাণীকরণ</string>
@@ -250,7 +250,7 @@
     <string name="pin_dialog_title_confirm">পিন নিশ্চিত করুন</string>
     <string name="pin_dialog_desc_confirm">নিশ্চিত করতে আপনার ৪-সংখ্যার পিনটি পুনরায় লিখুন</string>
     <string name="pin_dialog_title_verify">পিন লিখুন</string>
-    <string name="pin_dialog_desc_app_open">Universal Installer খুলতে পিন লিখুন</string>
+    <string name="pin_dialog_desc_app_open">Multiversal-installer খুলতে পিন লিখুন</string>
     <string name="pin_dialog_desc_install">ইনস্টলেশন অনুমোদন করতে পিন লিখুন</string>
     <string name="pin_dialog_desc_uninstall">আনইনস্টলেশন অনুমোদন করতে পিন লিখুন</string>
     <string name="pin_dialog_desc_settings">নিরাপত্তা সেটিংসে অ্যাক্সেস করতে পিন লিখুন</string>
@@ -265,7 +265,7 @@
     <string name="parental_guidance_card_subtitle">শিশুরা যাতে অ্যাপটি আনইনস্টল করতে বা নিরাপত্তা বাইপাস করতে না পারে</string>
     <string name="parental_guidance_card_btn">নির্দেশিকা দেখুন</string>
     <string name="parental_guidance_dialog_title">ব্যাপক অভিভাবকীয় সুরক্ষা</string>
-    <string name="parental_guidance_dialog_content">শিশুরা যাতে Universal Installer বাইপাস করতে না পারে তা নিশ্চিত করতে:\n\n১. আনইনস্টলেশন প্রতিরোধ করুন:\nAndroid সিস্টেম সেটিংসের মাধ্যমে আনইনস্টল করার অনুমতি দেয়। \"Settings\" অ্যাপটি লক করতে আপনার ফোনের অন্তর্নির্মিত অ্যাপ লক (Samsung Secure Folder / App Lock, Xiaomi App Lock) বা Google Family Link ব্যবহার করুন।\n\n২. বিকল্প ইনস্টলার প্রতিরোধ করুন:\nনীচের \"সিস্টেম প্যাকেজ ইনস্টলার ফ্রিজ করুন\" বিকল্পটি ব্যবহার করুন (Shizuku বা Root প্রয়োজন) যাতে অন্যান্য অ্যাপ (ব্রাউজার, ফাইল ম্যানেজার) সিস্টেম ইনস্টলার চালু করতে না পারে।\n\n৩. অনুমতি প্রত্যাহার করুন:\nশুধুমাত্র Universal Installer যাতে প্যাকেজ ইনস্টল করতে পারে তা নিশ্চিত করতে নীচে \"অন্যান্য অ্যাপের ইনস্টল অনুমতি প্রত্যাহার করুন\" ব্যবহার করুন।</string>
+    <string name="parental_guidance_dialog_content">শিশুরা যাতে Multiversal-installer বাইপাস করতে না পারে তা নিশ্চিত করতে:\n\n১. আনইনস্টলেশন প্রতিরোধ করুন:\nAndroid সিস্টেম সেটিংসের মাধ্যমে আনইনস্টল করার অনুমতি দেয়। \"Settings\" অ্যাপটি লক করতে আপনার ফোনের অন্তর্নির্মিত অ্যাপ লক (Samsung Secure Folder / App Lock, Xiaomi App Lock) বা Google Family Link ব্যবহার করুন।\n\n২. বিকল্প ইনস্টলার প্রতিরোধ করুন:\nনীচের \"সিস্টেম প্যাকেজ ইনস্টলার ফ্রিজ করুন\" বিকল্পটি ব্যবহার করুন (Shizuku বা Root প্রয়োজন) যাতে অন্যান্য অ্যাপ (ব্রাউজার, ফাইল ম্যানেজার) সিস্টেম ইনস্টলার চালু করতে না পারে।\n\n৩. অনুমতি প্রত্যাহার করুন:\nশুধুমাত্র Multiversal-installer যাতে প্যাকেজ ইনস্টল করতে পারে তা নিশ্চিত করতে নীচে \"অন্যান্য অ্যাপের ইনস্টল অনুমতি প্রত্যাহার করুন\" ব্যবহার করুন।</string>
     <string name="setting_security_group_privileged">উন্নত সুরক্ষা (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">এই বিকল্পগুলো সক্ষম করতে Shizuku বা Root প্রয়োজন</string>
     <string name="setting_disable_system_installer_title">সিস্টেম প্যাকেজ ইনস্টলার ফ্রিজ করুন</string>
@@ -278,7 +278,7 @@
     <string name="setting_revoke_other_installers_title">অন্যান্য অ্যাপ থেকে ইনস্টল অনুমতি প্রত্যাহার করুন</string>
     <string name="setting_revoke_other_installers_subtitle">Chrome, ফাইল ম্যানেজার এবং অন্যান্য অ্যাপ থেকে APK ইনস্টলেশন অনুমতি প্রত্যাহার করে</string>
     <string name="setting_revoke_other_installers_dialog_title">ইনস্টল অনুমতি প্রত্যাহার করবেন?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">এটি অন্যান্য অ্যাপের APK ইনস্টল করার ক্ষমতা নিষ্ক্রিয় করবে, ফলে Universal Installer একমাত্র ইনস্টলার হিসেবে থাকবে।</string>
+    <string name="setting_revoke_other_installers_dialog_desc">এটি অন্যান্য অ্যাপের APK ইনস্টল করার ক্ষমতা নিষ্ক্রিয় করবে, ফলে Multiversal-installer একমাত্র ইনস্টলার হিসেবে থাকবে।</string>
     <string name="setting_revoke_other_installers_toast_success">%1$dটি অ্যাপ থেকে ইনস্টল অনুমতি প্রত্যাহার করা হয়েছে</string>
     <string name="setting_revoke_other_installers_toast_none">অন্য কোনো অ্যাপের ইনস্টল করার অনুমতি নেই</string>
     <string name="setting_lock_install_title">ইনস্টলেশন লক করুন</string>

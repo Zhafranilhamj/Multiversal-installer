@@ -1,6 +1,6 @@
 # What this module is
 
-Main Phone and Tablet application for Universal Installer.
+Main Phone and Tablet application for Multiversal-installer.
 An advanced package manager and APK sideloading tool supporting standard PackageInstaller,
 Shizuku, Dhizuku (Device Owner), and Root. Features include batch uninstallation, VirusTotal security analysis,
 split APK installation (APKS, XAPK, APKM), and TV/Watch sync.
@@ -25,7 +25,7 @@ Use direct register: `vi` uses "bạn" (never "quý khách"), `pt-BR` uses "voc�
 - Dhizuku
 - Dex2oat
 - VirusTotal
-- Universal Installer
+- Multiversal-installer
 - UniversalInstaller
 - Google Play
 - microG Companion

@@ -8,13 +8,13 @@
     <string name="install_failed">Échec de l\'installation</string>
     <string name="loading">Chargement…</string>
     <string name="install_anyway">Installer quand même</string>
-    <string name="unknown_sources_msg">Activez « Installer des applications inconnues » pour Universal Installer dans les paramètres de la montre.</string>
+    <string name="unknown_sources_msg">Activez « Installer des applications inconnues » pour Multiversal-installer dans les paramètres de la montre.</string>
     <string name="unknown_sources_open_settings">Ouvrir les paramètres</string>
     <string name="incompatible_min_sdk">Nécessite l\'API Android %1$d, cette montre est en API %2$d.</string>
     <string name="incompatible_not_a_watch_app">Il s\'agit d\'une application pour téléphone, pas d\'une application Wear OS.</string>
     <string name="apk_received_title">APK reçu</string>
     <string name="home_empty_title">Rien ici pour l\'instant</string>
-    <string name="home_empty_hint">Ouvrez Universal Installer sur votre téléphone et envoyez un paquet à cette montre.</string>
+    <string name="home_empty_hint">Ouvrez Multiversal-installer sur votre téléphone et envoyez un paquet à cette montre.</string>
     <string name="receiving">Réception de %1$s…</string>
     <string name="receive_failed">Échec du transfert</string>
     <string name="badge_phone_app">Application téléphone</string>

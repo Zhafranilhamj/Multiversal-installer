@@ -8,13 +8,13 @@
     <string name="install_failed">Error de instalación</string>
     <string name="loading">Cargando…</string>
     <string name="install_anyway">Instalar de todos modos</string>
-    <string name="unknown_sources_msg">Activa Instalar aplicaciones desconocidas para Universal Installer en los ajustes del reloj.</string>
+    <string name="unknown_sources_msg">Activa Instalar aplicaciones desconocidas para Multiversal-installer en los ajustes del reloj.</string>
     <string name="unknown_sources_open_settings">Abrir ajustes</string>
     <string name="incompatible_min_sdk">Requiere la API %1$d de Android; este reloj tiene la API %2$d.</string>
     <string name="incompatible_not_a_watch_app">Es una aplicación para teléfono, no una aplicación de Wear OS.</string>
     <string name="apk_received_title">APK recibido</string>
     <string name="home_empty_title">Aquí no hay nada todavía</string>
-    <string name="home_empty_hint">Abre Universal Installer en tu teléfono y envía un paquete a este reloj.</string>
+    <string name="home_empty_hint">Abre Multiversal-installer en tu teléfono y envía un paquete a este reloj.</string>
     <string name="receiving">Recibiendo %1$s…</string>
     <string name="receive_failed">Error de transferencia</string>
     <string name="badge_phone_app">App de teléfono</string>

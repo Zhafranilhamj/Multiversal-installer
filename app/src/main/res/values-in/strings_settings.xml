@@ -104,9 +104,9 @@
     <string name="setting_shizuku_install_hint">Instal Shizuku dari Play Store untuk menggunakan backend ini</string>
     <string name="setting_auto_confirm_title">Konfirmasi otomatis instalasi eksternal</string>
     <string name="setting_default_installer_title">Tetapkan sebagai penginstal default</string>
-    <string name="setting_default_installer_subtitle">Nonaktifkan penginstal sistem untuk selalu menggunakan Universal Installer untuk file APK (memerlukan Shizuku atau Root)</string>
+    <string name="setting_default_installer_subtitle">Nonaktifkan penginstal sistem untuk selalu menggunakan Multiversal-installer untuk file APK (memerlukan Shizuku atau Root)</string>
     <string name="setting_default_installer_needs_backend">Aktifkan Shizuku atau Root terlebih dahulu untuk mengubah penginstal default</string>
-    <string name="setting_default_installer_enabled">Universal Installer sekarang menjadi default</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer sekarang menjadi default</string>
     <string name="setting_default_installer_disabled">Penginstal sistem dipulihkan</string>
     <string name="setting_default_installer_failed">Gagal mengubah penginstal default</string>
     <string name="setting_section_profiles">Profil Penginstal</string>
@@ -134,7 +134,7 @@
     <string name="setting_shizuku_installer_preset_samsung">Samsung Galaxy Store</string>
     <string name="setting_shizuku_installer_preset_huawei">Huawei AppGallery</string>
     <string name="setting_shizuku_installer_preset_xiaomi">Xiaomi GetApps</string>
-    <string name="setting_about_app_name">Universal Installer</string>
+    <string name="setting_about_app_name">Multiversal-installer</string>
     <string name="setting_github_title">GitHub</string>
     <string name="setting_telegram_title">Telegram</string>
     <string name="setting_website_subtitle">universal-installer.pwhs.app</string>
@@ -276,7 +276,7 @@
     <string name="setting_pin_lock_uninstall_title">Wajibkan PIN untuk Menghapus</string>
     <string name="setting_pin_lock_uninstall_subtitle">Minta PIN sebelum menghapus paket apa pun</string>
     <string name="setting_pin_lock_app_open_title">Kunci Aplikasi saat Dibuka</string>
-    <string name="setting_pin_lock_app_open_subtitle">Minta PIN setiap kali Universal Installer dibuka</string>
+    <string name="setting_pin_lock_app_open_subtitle">Minta PIN setiap kali Multiversal-installer dibuka</string>
     <string name="setting_pin_lock_protect_settings_title">Lindungi Pengaturan Keamanan</string>
     <string name="setting_pin_lock_protect_settings_subtitle">Minta PIN saat membuka pengaturan keamanan</string>
     <string name="setting_security_group_biometric">Autentikasi Biometrik</string>
@@ -286,7 +286,7 @@
     <string name="pin_dialog_title_confirm">Konfirmasi PIN</string>
     <string name="pin_dialog_desc_confirm">Masukkan kembali 4 digit PIN untuk konfirmasi</string>
     <string name="pin_dialog_title_verify">Masukkan PIN</string>
-    <string name="pin_dialog_desc_app_open">Masukkan PIN untuk membuka Universal Installer</string>
+    <string name="pin_dialog_desc_app_open">Masukkan PIN untuk membuka Multiversal-installer</string>
     <string name="pin_dialog_desc_install">Masukkan PIN untuk mengotorisasi pemasangan</string>
     <string name="pin_dialog_desc_uninstall">Masukkan PIN untuk mengotorisasi penghapusan</string>
     <string name="pin_dialog_desc_settings">Masukkan PIN untuk mengakses pengaturan keamanan</string>
@@ -300,7 +300,7 @@
     <string name="parental_guidance_card_subtitle">Cara mencegah anak menghapus aplikasi atau melewati keamanan</string>
     <string name="parental_guidance_card_btn">Lihat Panduan</string>
     <string name="parental_guidance_dialog_title">Perlindungan Orang Tua Menyeluruh</string>
-    <string name="parental_guidance_dialog_content">Untuk memastikan anak tidak dapat melewati Universal Installer:\n\n1. Cegah Pencopotan:\nAndroid mengizinkan pencopotan melalui Pengaturan sistem. Gunakan kunci aplikasi bawaan ponsel atau Google Family Link untuk mengunci aplikasi «Pengaturan».\n\n2. Cegah Penginstal Alternatif:\nGunakan opsi «Bekukan Penginstal Paket Sistem» di bawah (memerlukan Shizuku atau Root) agar aplikasi lain tidak dapat memicu penginstal sistem.\n\n3. Cabut Izin:\nGunakan «Cabut izin instalasi dari aplikasi lain» untuk memastikan hanya Universal Installer yang dapat menginstal paket.</string>
+    <string name="parental_guidance_dialog_content">Untuk memastikan anak tidak dapat melewati Multiversal-installer:\n\n1. Cegah Pencopotan:\nAndroid mengizinkan pencopotan melalui Pengaturan sistem. Gunakan kunci aplikasi bawaan ponsel atau Google Family Link untuk mengunci aplikasi «Pengaturan».\n\n2. Cegah Penginstal Alternatif:\nGunakan opsi «Bekukan Penginstal Paket Sistem» di bawah (memerlukan Shizuku atau Root) agar aplikasi lain tidak dapat memicu penginstal sistem.\n\n3. Cabut Izin:\nGunakan «Cabut izin instalasi dari aplikasi lain» untuk memastikan hanya Multiversal-installer yang dapat menginstal paket.</string>
     <string name="setting_security_group_privileged">Perlindungan Tingkat Lanjut (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">Diperlukan Shizuku atau Root untuk mengaktifkan opsi ini</string>
     <string name="setting_disable_system_installer_title">Bekukan Penginstal Paket Sistem</string>
@@ -313,7 +313,7 @@
     <string name="setting_revoke_other_installers_title">Cabut Izin Instalasi dari Aplikasi Lain</string>
     <string name="setting_revoke_other_installers_subtitle">Mencabut izin penginstalan APK dari Chrome, pengelola file, dan aplikasi lainnya</string>
     <string name="setting_revoke_other_installers_dialog_title">Cabut Izin Instalasi?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">Ini akan menonaktifkan kemampuan aplikasi lain untuk menginstal APK, menjadikan Universal Installer sebagai satu-satunya penginstal.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">Ini akan menonaktifkan kemampuan aplikasi lain untuk menginstal APK, menjadikan Multiversal-installer sebagai satu-satunya penginstal.</string>
     <string name="setting_revoke_other_installers_toast_success">Izin instalasi dicabut dari %1$d aplikasi</string>
     <string name="setting_revoke_other_installers_toast_none">Tidak ada aplikasi lain yang memiliki izin instalasi</string>
     <string name="setting_install_options_subtitle">Opsi istimewa, downgrade, izin, sumber pemasangan</string>
@@ -335,9 +335,9 @@
     <string name="setting_porter_not_running">Porter terpasang tetapi tidak berjalan</string>
     <string name="setting_porter_start_service_hint">Buka Porter dan jalankan layanannya terlebih dahulu</string>
     <string name="setting_default_uninstaller_title">Tetapkan sebagai pencopot default</string>
-    <string name="setting_default_uninstaller_subtitle">Tetapkan Universal Installer sebagai penangan pencopotan default (perlu Shizuku, Porter, atau Root)</string>
+    <string name="setting_default_uninstaller_subtitle">Tetapkan Multiversal-installer sebagai penangan pencopotan default (perlu Shizuku, Porter, atau Root)</string>
     <string name="setting_default_uninstaller_needs_backend">Aktifkan Shizuku atau Root terlebih dahulu untuk mengubah pencopot default</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer sekarang menjadi pencopot default</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer sekarang menjadi pencopot default</string>
     <string name="setting_default_uninstaller_disabled">Preferensi pencopot default dibersihkan</string>
     <string name="setting_default_uninstaller_failed">Gagal mengubah pencopot default</string>
     <string name="about_section_more_apps">Aplikasi Kami</string>

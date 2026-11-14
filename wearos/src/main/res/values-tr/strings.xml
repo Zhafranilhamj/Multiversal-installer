@@ -8,13 +8,13 @@
     <string name="install_failed">Kurulum başarısız</string>
     <string name="loading">Yükleniyor…</string>
     <string name="install_anyway">Yine de kur</string>
-    <string name="unknown_sources_msg">Saat ayarlarında Universal Installer için Bilinmeyen uygulamaları kur seçeneğini açın.</string>
+    <string name="unknown_sources_msg">Saat ayarlarında Multiversal-installer için Bilinmeyen uygulamaları kur seçeneğini açın.</string>
     <string name="unknown_sources_open_settings">Ayarları aç</string>
     <string name="incompatible_min_sdk">Android API %1$d gerekiyor, bu saat API %2$d.</string>
     <string name="incompatible_not_a_watch_app">Bu bir telefon uygulaması, Wear OS uygulaması değil.</string>
     <string name="apk_received_title">APK alındı</string>
     <string name="home_empty_title">Burada henüz bir şey yok</string>
-    <string name="home_empty_hint">Telefonunuzda Universal Installer\'ı açın ve bu saate bir paket gönderin.</string>
+    <string name="home_empty_hint">Telefonunuzda Multiversal-installer\'ı açın ve bu saate bir paket gönderin.</string>
     <string name="receiving">%1$s alınıyor…</string>
     <string name="receive_failed">Aktarım başarısız</string>
     <string name="badge_phone_app">Telefon uygulaması</string>

@@ -28,7 +28,7 @@
     <string name="dir_picker_folder_name">Nazwa folderu</string>
     <string name="dir_picker_empty">Brak podfolderów</string>
     <string name="dir_picker_grant_title">Wymagany dostęp do pamięci</string>
-    <string name="dir_picker_grant_message">Aby zapisywać w folderach takich jak Pobrane, Universal Installer potrzebuje dostępu do wszystkich plików. Przyznaj go, a następnie spróbuj ponownie.</string>
+    <string name="dir_picker_grant_message">Aby zapisywać w folderach takich jak Pobrane, Multiversal-installer potrzebuje dostępu do wszystkich plików. Przyznaj go, a następnie spróbuj ponownie.</string>
     <string name="dir_picker_grant_action">Przyznaj dostęp</string>
     <string name="error_cannot_open_app">Nie można otworzyć aplikacji</string>
     <string name="error_no_file_picker">Nie znaleziono menedżera plików do wybrania plików</string>

@@ -131,7 +131,7 @@
     <string name="virustotal_story_step1_desc">Sideloaded APKs downloaded from the internet can hide serious hazards: trojans, ransomware, or stealthy data theft you won\'t notice until it\'s too late.</string>
     <string name="virustotal_story_step2_badge">Safe Solution</string>
     <string name="virustotal_story_step2_title">Scan with VirusTotal for Free</string>
-    <string name="virustotal_story_step2_desc">Universal Installer integrates directly with VirusTotal — inspecting packages against 70+ leading antivirus engines (Google, Kaspersky, Avast, Bitdefender, and more) at zero cost.</string>
+    <string name="virustotal_story_step2_desc">Multiversal-installer integrates directly with VirusTotal — inspecting packages against 70+ leading antivirus engines (Google, Kaspersky, Avast, Bitdefender, and more) at zero cost.</string>
     <string name="virustotal_story_step3_badge">One-Time Setup</string>
     <string name="virustotal_story_step3_title">Add Free VirusTotal API Key</string>
     <string name="virustotal_story_step3_desc">Enter a free personal API key from VirusTotal to scan APKs before installation. You can skip this and install right away, or add the key later.</string>
@@ -253,7 +253,7 @@
     <string name="install_error_internal_title">System installer error</string>
     <string name="install_error_internal_guidance">The Android system package installer encountered an internal error. Retrying or switching to Shizuku mode in Settings usually resolves this issue.</string>
     <string name="install_error_suggest_shizuku_action">Try with Shizuku</string>
-    <string name="install_delete_source_failed">Installed, but the APK file could not be deleted. Apps that share a file with Universal Installer often do not allow deleting it — remove it from the file manager you opened it with.</string>
+    <string name="install_delete_source_failed">Installed, but the APK file could not be deleted. Apps that share a file with Multiversal-installer often do not allow deleting it — remove it from the file manager you opened it with.</string>
     <string name="install_error_miui_hint">On Xiaomi, Redmi and POCO devices, MIUI/HyperOS optimization often blocks installs silently. Open Settings &gt; Additional settings &gt; Developer options, turn off \&quot;MIUI optimization\&quot;, install the app, then turn it back on. While it is off the system theme may look distorted — restarting the phone fixes that.</string>
     <string name="install_error_miui_shizuku_hint">On Xiaomi/HyperOS devices with Shizuku, enable \"Install via USB\" and \"USB debugging (Security settings)\" in Developer options (requires SIM and Mi Account). If issues persist, try switching Installer Mode to Default in Settings.</string>
     <string name="dialog_install_btn">Install</string>

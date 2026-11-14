@@ -22,7 +22,7 @@
     <string name="setting_shizuku_ready">Cài đặt ngầm không cần xác nhận</string>
     <string name="setting_shizuku_permission_denied">Quyền Shizuku đã bị từ chối</string>
     <string name="setting_shizuku_start_service_hint">Hãy mở ứng dụng Shizuku và bắt đầu dịch vụ trước</string>
-    <string name="setting_shevery_grant_permission_hint">Vui lòng cấp quyền cho Universal Installer trong Shevery</string>
+    <string name="setting_shevery_grant_permission_hint">Vui lòng cấp quyền cho Multiversal-installer trong Shevery</string>
     <string name="setting_shizuku_install_hint">Cài đặt Shizuku từ Play Store để sử dụng backend này</string>
     <string name="setting_delete_apk_title">Xóa APK sau khi cài đặt</string>
     <string name="setting_shizuku_replace">Thay thế bản hiện tại</string>
@@ -182,15 +182,15 @@
     <string name="diagnostics_cancel">Hủy</string>
     <string name="setting_auto_confirm_title">Tự động xác nhận cài đặt bên ngoài</string>
     <string name="setting_default_installer_title">Đặt làm trình cài đặt mặc định</string>
-    <string name="setting_default_installer_subtitle">Vô hiệu hóa trình cài đặt hệ thống để luôn sử dụng Universal Installer cho các tệp APK (yêu cầu Shizuku hoặc Root)</string>
+    <string name="setting_default_installer_subtitle">Vô hiệu hóa trình cài đặt hệ thống để luôn sử dụng Multiversal-installer cho các tệp APK (yêu cầu Shizuku hoặc Root)</string>
     <string name="setting_default_installer_needs_backend">Hãy bật Shizuku hoặc Root trước để thay đổi trình cài đặt mặc định</string>
-    <string name="setting_default_installer_enabled">Universal Installer hiện là trình cài đặt mặc định</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer hiện là trình cài đặt mặc định</string>
     <string name="setting_default_installer_disabled">Đã khôi phục trình cài đặt hệ thống</string>
     <string name="setting_default_installer_failed">Thay đổi trình cài đặt mặc định thất bại</string>
     <string name="setting_default_uninstaller_title">Đặt làm trình gỡ cài đặt mặc định</string>
-    <string name="setting_default_uninstaller_subtitle">Đặt Universal Installer làm trình xử lý gỡ cài đặt mặc định (yêu cầu Shizuku hoặc Root)</string>
+    <string name="setting_default_uninstaller_subtitle">Đặt Multiversal-installer làm trình xử lý gỡ cài đặt mặc định (yêu cầu Shizuku hoặc Root)</string>
     <string name="setting_default_uninstaller_needs_backend">Hãy bật Shizuku hoặc Root trước để thay đổi trình gỡ cài đặt mặc định</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer hiện là trình gỡ cài đặt mặc định</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer hiện là trình gỡ cài đặt mặc định</string>
     <string name="setting_default_uninstaller_disabled">Đã hủy ưu tiên trình gỡ cài đặt mặc định</string>
     <string name="setting_default_uninstaller_failed">Thay đổi trình gỡ cài đặt mặc định thất bại</string>
     <string name="setting_section_profiles">Hồ sơ trình cài đặt</string>
@@ -257,7 +257,7 @@
     <string name="setting_shizuku_installer_preset_samsung">Samsung Galaxy Store</string>
     <string name="setting_shizuku_installer_preset_huawei">Huawei AppGallery</string>
     <string name="setting_shizuku_installer_preset_xiaomi">Xiaomi GetApps</string>
-    <string name="setting_about_app_name">Universal Installer</string>
+    <string name="setting_about_app_name">Multiversal-installer</string>
     <string name="setting_github_title">GitHub</string>
     <string name="setting_telegram_title">Telegram</string>
     <string name="setting_website_subtitle">universal-installer.pwhs.app</string>
@@ -281,7 +281,7 @@
     <string name="setting_pin_lock_uninstall_title">Yêu cầu PIN khi gỡ cài đặt</string>
     <string name="setting_pin_lock_uninstall_subtitle">Yêu cầu nhập PIN trước khi gỡ bất kỳ ứng dụng nào</string>
     <string name="setting_pin_lock_app_open_title">Khóa khi mở ứng dụng</string>
-    <string name="setting_pin_lock_app_open_subtitle">Yêu cầu nhập PIN mỗi khi mở Universal Installer</string>
+    <string name="setting_pin_lock_app_open_subtitle">Yêu cầu nhập PIN mỗi khi mở Multiversal-installer</string>
     <string name="setting_pin_lock_protect_settings_title">Bảo vệ Cài đặt bảo mật</string>
     <string name="setting_pin_lock_protect_settings_subtitle">Yêu cầu nhập PIN khi mở màn hình cài đặt bảo mật</string>
     <string name="setting_security_group_biometric">Xác thực sinh trắc học</string>
@@ -291,7 +291,7 @@
     <string name="pin_dialog_title_confirm">Xác nhận mã PIN</string>
     <string name="pin_dialog_desc_confirm">Nhập lại mã PIN 4 chữ số để xác nhận</string>
     <string name="pin_dialog_title_verify">Nhập mã PIN</string>
-    <string name="pin_dialog_desc_app_open">Nhập mã PIN để mở Universal Installer</string>
+    <string name="pin_dialog_desc_app_open">Nhập mã PIN để mở Multiversal-installer</string>
     <string name="pin_dialog_desc_install">Nhập mã PIN để xác nhận cài đặt</string>
     <string name="pin_dialog_desc_uninstall">Nhập mã PIN để xác nhận gỡ cài đặt</string>
     <string name="pin_dialog_desc_settings">Nhập mã PIN để truy cập cài đặt bảo mật</string>
@@ -306,7 +306,7 @@
     <string name="parental_guidance_card_subtitle">Cách chống trẻ em gỡ app hoặc lách qua ứng dụng khác</string>
     <string name="parental_guidance_card_btn">Xem hướng dẫn</string>
     <string name="parental_guidance_dialog_title">Bảo vệ Toàn diện cho Phụ huynh</string>
-    <string name="parental_guidance_dialog_content">Để đảm bảo trẻ em không thể lách qua Universal Installer:\n\n1. Chống gỡ cài đặt app:\nAndroid cho phép gỡ ứng dụng qua Cài đặt hệ thống. Hãy dùng tính năng Khóa ứng dụng của máy (Samsung Thư mục bảo mật / Khóa ứng dụng, Xiaomi App Lock) hoặc Google Family Link để khóa app \"Cài đặt\" (Settings).\n\n2. Chặn trình cài đặt khác:\nBật tùy chọn \"Đóng băng trình cài đặt hệ thống\" bên dưới (yêu cầu Shizuku/Root) để các app khác (Chrome, Zalo, File Manager) không thể mở trình cài đặt mặc định của máy.\n\n3. Thu hồi quyền cài đặt:\nSử dụng nút \"Thu hồi quyền cài đặt của các app khác\" bên dưới để đảm bảo chỉ duy nhất Universal Installer được phép cài APK.</string>
+    <string name="parental_guidance_dialog_content">Để đảm bảo trẻ em không thể lách qua Multiversal-installer:\n\n1. Chống gỡ cài đặt app:\nAndroid cho phép gỡ ứng dụng qua Cài đặt hệ thống. Hãy dùng tính năng Khóa ứng dụng của máy (Samsung Thư mục bảo mật / Khóa ứng dụng, Xiaomi App Lock) hoặc Google Family Link để khóa app \"Cài đặt\" (Settings).\n\n2. Chặn trình cài đặt khác:\nBật tùy chọn \"Đóng băng trình cài đặt hệ thống\" bên dưới (yêu cầu Shizuku/Root) để các app khác (Chrome, Zalo, File Manager) không thể mở trình cài đặt mặc định của máy.\n\n3. Thu hồi quyền cài đặt:\nSử dụng nút \"Thu hồi quyền cài đặt của các app khác\" bên dưới để đảm bảo chỉ duy nhất Multiversal-installer được phép cài APK.</string>
     <string name="setting_security_group_privileged">Bảo vệ nâng cao (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">Cần chạy Shizuku hoặc cấp quyền Root để dùng các tùy chọn này</string>
     <string name="setting_disable_system_installer_title">Đóng băng trình cài đặt hệ thống</string>
@@ -319,7 +319,7 @@
     <string name="setting_revoke_other_installers_title">Thu hồi quyền cài đặt của các app khác</string>
     <string name="setting_revoke_other_installers_subtitle">Thu hồi quyền cài đặt APK từ Chrome, trình quản lý tệp và các ứng dụng khác</string>
     <string name="setting_revoke_other_installers_dialog_title">Thu hồi quyền cài đặt?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">Hành động này sẽ tắt quyền cài đặt APK của các ứng dụng khác, chỉ giữ lại Universal Installer.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">Hành động này sẽ tắt quyền cài đặt APK của các ứng dụng khác, chỉ giữ lại Multiversal-installer.</string>
     <string name="setting_revoke_other_installers_toast_success">Đã thu hồi quyền cài đặt của %1$d ứng dụng</string>
     <string name="setting_revoke_other_installers_toast_none">Không có ứng dụng nào khác đang giữ quyền cài đặt</string>
     <string name="setting_lock_install_title">Khóa Cài đặt</string>

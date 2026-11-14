@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">電話から受信</string>
     <string name="tv_receive_starting">受信機を起動中…</string>
     <string name="tv_receive_installing">%s をインストールしています…</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">ストレージに APK ファイルが見つかりません</string>
     <string name="tv_settings_title">設定</string>
     <string name="tv_settings_section_about">アプリについて</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">どこにでも何でもインストール</string>
     <string name="tv_settings_version">バージョン %s</string>
     <string name="tv_settings_section_install">インストール</string>

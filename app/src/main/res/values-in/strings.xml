@@ -17,7 +17,7 @@
     <string name="txt_manage">Kelola</string>
     <string name="edit">Edit</string>
     <string name="more_actions_cd">Tindakan lainnya</string>
-    <string name="app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
     <string name="file_size_gb">%1$.1f GB</string>
     <string name="file_size_mb">%1$.1f MB</string>
     <string name="file_size_kb">%1$.0f KB</string>
@@ -29,7 +29,7 @@
     <string name="dir_picker_folder_name">Nama folder</string>
     <string name="dir_picker_empty">Tidak ada subfolder di sini</string>
     <string name="dir_picker_grant_title">Akses penyimpanan diperlukan</string>
-    <string name="dir_picker_grant_message">Untuk menyimpan ke folder seperti Download, Universal Installer memerlukan akses semua file. Izinkan, lalu coba lagi.</string>
+    <string name="dir_picker_grant_message">Untuk menyimpan ke folder seperti Download, Multiversal-installer memerlukan akses semua file. Izinkan, lalu coba lagi.</string>
     <string name="dir_picker_grant_action">Izinkan akses</string>
     <string name="error_cannot_open_app">Tidak dapat membuka aplikasi</string>
     <string name="error_no_file_picker">Tidak ada aplikasi pengelola file yang ditemukan untuk memilih file</string>

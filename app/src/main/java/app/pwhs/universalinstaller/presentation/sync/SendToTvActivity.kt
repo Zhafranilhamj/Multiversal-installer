@@ -109,7 +109,7 @@ private fun SendToTvScreen(onBack: () -> Unit) {
                         val conn = URL(pingUrl).openConnection() as HttpURLConnection
                         conn.connectTimeout = 2500
                         conn.readTimeout = 2500
-                        conn.setRequestProperty("User-Agent", "${Build.MANUFACTURER} ${Build.MODEL} (Universal Installer App)")
+                        conn.setRequestProperty("User-Agent", "${Build.MANUFACTURER} ${Build.MODEL} (Multiversal-installer App)")
                         val code = conn.responseCode
                         val body = if (code == 200) conn.inputStream.bufferedReader().use { it.readText().trim() } else ""
                         conn.disconnect()
@@ -270,7 +270,7 @@ private fun SendToTvScreen(onBack: () -> Unit) {
                     val conn = URL(pingUrl).openConnection() as HttpURLConnection
                     conn.connectTimeout = 3000
                     conn.readTimeout = 3000
-                    conn.setRequestProperty("User-Agent", "${Build.MANUFACTURER} ${Build.MODEL} (Universal Installer App)")
+                    conn.setRequestProperty("User-Agent", "${Build.MANUFACTURER} ${Build.MODEL} (Multiversal-installer App)")
                     val code = conn.responseCode
                     if (code == 200) {
                         conn.inputStream.use { it.readBytes() }

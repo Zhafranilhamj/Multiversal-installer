@@ -1,7 +1,7 @@
 package app.pwhs.core.telemetry
 
 /**
- * Standard Firebase Analytics events and parameter names for Universal Installer.
+ * Standard Firebase Analytics events and parameter names for Multiversal-installer.
  *
  * All names follow Firebase conventions: <= 40 chars, snake_case, max 25 params per event.
  * Privacy rule: Never record PII or specific application identities (no app names, package names, or URLs).

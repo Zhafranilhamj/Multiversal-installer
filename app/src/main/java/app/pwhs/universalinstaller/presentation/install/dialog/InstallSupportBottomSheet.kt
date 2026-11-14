@@ -110,7 +110,7 @@ object InstallSupportHelper {
         val appName = target?.appName?.takeIf { it.isNotBlank() } ?: "Unknown App"
         val pkg = target?.packageName?.takeIf { it.isNotBlank() } ?: "Unknown"
         return buildString {
-            appendLine("=== Universal Installer Issue Report ===")
+            appendLine("=== Multiversal-installer Issue Report ===")
             appendLine("• App: $appName ($pkg)")
             appendLine("• App Version: ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
             appendLine("• Device: ${Build.MANUFACTURER} ${Build.MODEL}")
@@ -272,7 +272,7 @@ fun InstallSupportBottomSheet(
                     val sendIntent = Intent().apply {
                         action = Intent.ACTION_SEND
                         putExtra(Intent.EXTRA_TEXT, reportText)
-                        putExtra(Intent.EXTRA_SUBJECT, "Universal Installer Error Report")
+                        putExtra(Intent.EXTRA_SUBJECT, "Multiversal-installer Error Report")
                         type = "text/plain"
                     }
                     val shareIntent = Intent.createChooser(sendIntent, null)

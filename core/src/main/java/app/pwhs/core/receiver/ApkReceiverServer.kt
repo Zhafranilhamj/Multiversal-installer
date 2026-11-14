@@ -103,13 +103,13 @@ class ApkReceiverServer(
             val html = """
                 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <title>Universal Installer — Pairing required</title></head>
+                <title>Multiversal-installer — Pairing required</title></head>
                 <body style="font-family:system-ui,sans-serif;background:#0f0f13;color:#e4e4e7;
                      display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0">
                 <div style="text-align:center;padding:32px;max-width:420px">
                 <h2 style="margin-bottom:8px">Pairing required</h2>
                 <p style="line-height:1.6;color:#a1a1aa">Open the <strong>Receive</strong> screen on
-                your TV and scan its QR code with Universal Installer, or open the address shown
+                your TV and scan its QR code with Multiversal-installer, or open the address shown
                 under the QR code — it carries the pairing code this page needs.</p>
                 </div></body></html>
             """.trimIndent()
@@ -186,6 +186,10 @@ class ApkReceiverServer(
     private fun parseDeviceFromUserAgent(ua: String?): String? {
         if (ua == null) return null
         return when {
+            ua.contains("Multiversal-installer App", ignoreCase = true) -> {
+                ua.substringBefore(" (Multiversal-installer").trim()
+            }
+            // Older builds still send the pre-rename token; keep them working.
             ua.contains("Universal Installer App", ignoreCase = true) -> {
                 ua.substringBefore(" (Universal").trim()
             }

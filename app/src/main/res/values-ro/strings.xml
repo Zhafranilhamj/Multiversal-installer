@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Universal Installer</string>
+    <string name="app_name" translatable="false">Multiversal-installer</string>
     <string name="txt_install">Instalează</string>
     <string name="txt_manage">Gestionează</string>
     <string name="cancel">Anulează</string>
@@ -29,7 +29,7 @@
     <string name="dir_picker_folder_name">Numele dosarului</string>
     <string name="dir_picker_empty">Niciun subdosar aici</string>
     <string name="dir_picker_grant_title">Acces la stocare necesar</string>
-    <string name="dir_picker_grant_message">Pentru a salva în dosare precum Descărcări, Universal Installer are nevoie de acces la toate fișierele. Acordați permisiunea și încercați din nou.</string>
+    <string name="dir_picker_grant_message">Pentru a salva în dosare precum Descărcări, Multiversal-installer are nevoie de acces la toate fișierele. Acordați permisiunea și încercați din nou.</string>
     <string name="dir_picker_grant_action">Acordă acces</string>
     <string name="error_cannot_open_app">Nu se poate deschide aplicația</string>
     <string name="error_no_file_picker">Nu s-a găsit nicio aplicație de gestionare a fișierelor pentru a selecta fișiere</string>

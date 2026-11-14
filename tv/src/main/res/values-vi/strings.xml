@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Universal Installer</string>
+    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">Nhận từ điện thoại</string>
     <string name="tv_receive_code_label">Mã TV:</string>
     <string name="tv_receive_step_app">📱 App Android: Mở app để chạm kết nối ngay</string>
@@ -21,7 +21,7 @@
     <string name="tv_receive_btn_disconnect">Ngắt kết nối</string>
     <string name="tv_settings_title">Cài đặt</string>
     <string name="tv_settings_section_about">Giới thiệu</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">Cài đặt mọi thứ, mọi nơi</string>
     <string name="tv_settings_version">Phiên bản %s</string>
     <string name="tv_settings_section_install">Cài đặt</string>

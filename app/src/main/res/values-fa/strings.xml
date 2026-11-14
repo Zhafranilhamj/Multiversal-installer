@@ -30,7 +30,7 @@
     <string name="dir_picker_folder_name">نام پوشه</string>
     <string name="dir_picker_empty">هیچ زیرپوشه‌ای اینجا نیست</string>
     <string name="dir_picker_grant_title">نیاز به دسترسی به حافظه</string>
-    <string name="dir_picker_grant_message">برای ذخیره در پوشه‌هایی مانند Download، برنامه Universal Installer به دسترسی به همه فایل‌ها نیاز دارد. این مجوز را اعطا کرده و سپس دوباره امتحان کنید.</string>
+    <string name="dir_picker_grant_message">برای ذخیره در پوشه‌هایی مانند Download، برنامه Multiversal-installer به دسترسی به همه فایل‌ها نیاز دارد. این مجوز را اعطا کرده و سپس دوباره امتحان کنید.</string>
     <string name="dir_picker_grant_action">اعطای دسترسی</string>
     <string name="error_cannot_open_app">باز کردن برنامه امکان‌پذیر نیست</string>
     <string name="error_no_file_picker">هیچ برنامه مدیریت فایلی برای انتخاب فایل‌ها یافت نشد</string>

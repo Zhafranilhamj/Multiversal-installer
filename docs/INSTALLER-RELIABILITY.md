@@ -25,10 +25,10 @@ Local Gradle could not start in the Arena sandbox because Java/Android build too
 
 ## Device acceptance checklist (not yet executed)
 
-1. Enable Shizuku and grant Universal Installer permission. Enable default installer and ignore battery optimizations. Keep RedMagic background/autostart permissions enabled.
-2. Open an APK from a file manager, install, swipe Universal Installer away, dismiss completion notifications, then open another APK. Repeat after screen-off/Doze.
+1. Enable Shizuku and grant Multiversal-installer permission. Enable default installer and ignore battery optimizations. Keep RedMagic background/autostart permissions enabled.
+2. Open an APK from a file manager, install, swipe Multiversal-installer away, dismiss completion notifications, then open another APK. Repeat after screen-off/Doze.
 3. Kill the background process (not force-stop), then open an APK. Verify no premature backend-unavailable warning and that Shizuku is used.
-4. Stop/restart Shizuku, reopen Universal Installer, then open an APK. Verify reconnection and default-handler recovery. Deny permission and verify fallback remains available.
+4. Stop/restart Shizuku, reopen Multiversal-installer, then open an APK. Verify reconnection and default-handler recovery. Deny permission and verify fallback remains available.
 5. Stage a notification install with selected/unselected splits, kill the process, and tap the notification body. Verify split selection and warnings. Test Install, Cancel, expired cache, and denied notification permission.
 6. Enable both default installer and uninstaller. Verify both independently; retest after reconnect.
 7. On a rooted test device, verify persistent preferred registration and effective UID restoration after success/failure.

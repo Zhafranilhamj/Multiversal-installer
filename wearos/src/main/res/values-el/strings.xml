@@ -8,13 +8,13 @@
     <string name="install_failed">Η εγκατάσταση απέτυχε</string>
     <string name="loading">Φόρτωση…</string>
     <string name="install_anyway">Εγκατάσταση ούτως ή άλλως</string>
-    <string name="unknown_sources_msg">Ενεργοποιήστε την Εγκατάσταση άγνωστων εφαρμογών για το Universal Installer στις ρυθμίσεις του ρολογιού.</string>
+    <string name="unknown_sources_msg">Ενεργοποιήστε την Εγκατάσταση άγνωστων εφαρμογών για το Multiversal-installer στις ρυθμίσεις του ρολογιού.</string>
     <string name="unknown_sources_open_settings">Άνοιγμα ρυθμίσεων</string>
     <string name="incompatible_min_sdk">Απαιτεί Android API %1$d, αυτό το ρολόι έχει API %2$d.</string>
     <string name="incompatible_not_a_watch_app">Αυτή είναι εφαρμογή για κινητό, όχι εφαρμογή Wear OS.</string>
     <string name="apk_received_title">Ελήφθη APK</string>
     <string name="home_empty_title">Δεν υπάρχει τίποτα ακόμη</string>
-    <string name="home_empty_hint">Ανοίξτε το Universal Installer στο κινητό σας και στείλτε ένα πακέτο σε αυτό το ρολόι.</string>
+    <string name="home_empty_hint">Ανοίξτε το Multiversal-installer στο κινητό σας και στείλτε ένα πακέτο σε αυτό το ρολόι.</string>
     <string name="receiving">Λήψη %1$s…</string>
     <string name="receive_failed">Η μεταφορά απέτυχε</string>
     <string name="badge_phone_app">Εφαρμογή κινητού</string>

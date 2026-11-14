@@ -85,7 +85,7 @@ class UpdatesViewModel(
     }
 
     /**
-     * On first launch, seed the default tracked app (Universal Installer itself)
+     * On first launch, seed the default tracked app (Multiversal-installer itself)
      * so users get a self-update mechanism out of the box.
      */
     private fun seedDefaultApps() {

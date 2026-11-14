@@ -1,4 +1,4 @@
-<resources>    <string name="app_name">Universal Installer</string>
+<resources>    <string name="app_name">Multiversal-installer</string>
     <string name="tv_receive_from_phone">Primiti de la telefon</string>
     <string name="tv_receive_starting">Se pornește receptorul...</string>
     <string name="tv_receive_installing">Se instalează %s...</string>
@@ -12,7 +12,7 @@
     <string name="tv_receive_no_apks">Nu s-au găsit fișiere APK în stocare</string>
     <string name="tv_settings_title">Setări</string>
     <string name="tv_settings_section_about">Despre aplicație</string>
-    <string name="tv_settings_app_name">Universal Installer</string>
+    <string name="tv_settings_app_name">Multiversal-installer</string>
     <string name="tv_settings_app_tagline">Instalați orice, oriunde</string>
     <string name="tv_settings_version">Versiunea %s</string>
     <string name="tv_settings_section_install">Instalare</string>

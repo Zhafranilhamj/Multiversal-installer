@@ -104,9 +104,9 @@
     <string name="setting_shizuku_install_hint">Встановіть Shizuku з Play Store</string>
     <string name="setting_auto_confirm_title">Автопідтвердження зовнішніх встановлень</string>
     <string name="setting_default_installer_title">Встановити як інсталятор за замовчуванням</string>
-    <string name="setting_default_installer_subtitle">Вимкніть системний інсталятор, щоб завжди використовувати Universal Installer для файлів APK (потрібно Shizuku або Root)</string>
+    <string name="setting_default_installer_subtitle">Вимкніть системний інсталятор, щоб завжди використовувати Multiversal-installer для файлів APK (потрібно Shizuku або Root)</string>
     <string name="setting_default_installer_needs_backend">Спочатку увімкніть Shizuku або Root</string>
-    <string name="setting_default_installer_enabled">Universal Installer тепер є інсталятором за замовчуванням</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer тепер є інсталятором за замовчуванням</string>
     <string name="setting_default_installer_disabled">Системний інсталятор відновлено</string>
     <string name="setting_default_installer_failed">Не вдалося змінити інсталятор за замовчуванням</string>
     <string name="setting_section_profiles">Профілі інсталятора</string>
@@ -134,7 +134,7 @@
     <string name="setting_shizuku_installer_preset_samsung">Samsung Galaxy Store</string>
     <string name="setting_shizuku_installer_preset_huawei">Huawei AppGallery</string>
     <string name="setting_shizuku_installer_preset_xiaomi">Xiaomi GetApps</string>
-    <string name="setting_about_app_name">Universal Installer</string>
+    <string name="setting_about_app_name">Multiversal-installer</string>
     <string name="setting_github_title">GitHub</string>
     <string name="setting_telegram_title">Telegram</string>
     <string name="setting_website_subtitle">universal-installer.pwhs.app</string>
@@ -276,7 +276,7 @@
     <string name="setting_pin_lock_uninstall_title">Вимагати PIN для видалення</string>
     <string name="setting_pin_lock_uninstall_subtitle">Запитувати PIN перед видаленням будь-якого пакета</string>
     <string name="setting_pin_lock_app_open_title">Блокування під час запуску</string>
-    <string name="setting_pin_lock_app_open_subtitle">Вимагати PIN щоразу під час відкриття Universal Installer</string>
+    <string name="setting_pin_lock_app_open_subtitle">Вимагати PIN щоразу під час відкриття Multiversal-installer</string>
     <string name="setting_pin_lock_protect_settings_title">Захист налаштувань безпеки</string>
     <string name="setting_pin_lock_protect_settings_subtitle">Запитувати PIN під час відкриття налаштувань безпеки</string>
     <string name="setting_security_group_biometric">Біометрична автентифікація</string>
@@ -286,7 +286,7 @@
     <string name="pin_dialog_title_confirm">Підтвердження PIN-коду</string>
     <string name="pin_dialog_desc_confirm">Введіть 4-значний PIN-код ще раз для підтвердження</string>
     <string name="pin_dialog_title_verify">Введіть PIN-код</string>
-    <string name="pin_dialog_desc_app_open">Введіть PIN-код для відкриття Universal Installer</string>
+    <string name="pin_dialog_desc_app_open">Введіть PIN-код для відкриття Multiversal-installer</string>
     <string name="pin_dialog_desc_install">Введіть PIN-код для підтвердження встановлення</string>
     <string name="pin_dialog_desc_uninstall">Введіть PIN-код для підтвердження видалення</string>
     <string name="pin_dialog_desc_settings">Введіть PIN-код для доступу до налаштувань безпеки</string>
@@ -300,7 +300,7 @@
     <string name="parental_guidance_card_subtitle">Як запобігти видаленню додатка або обходу захисту дітьми</string>
     <string name="parental_guidance_card_btn">Переглянути посібник</string>
     <string name="parental_guidance_dialog_title">Комплексний батьківський захист</string>
-    <string name="parental_guidance_dialog_content">Щоб діти не могли обійти Universal Installer:\n\n1. Запобігайте видаленню:\nAndroid дозволяє видаляти додатки через Налаштування. Використовуйте вбудоване блокування додатків або Google Family Link, щоб заблокувати «Налаштування».\n\n2. Блокуйте альтернативні інсталятори:\nУвімкніть «Заморозити системний інсталятор пакетів» нижче (потрібен Shizuku або Root), щоб інші додатки не запускали системний інсталятор.\n\n3. Скасуйте дозволи:\nСкористайтеся опцією «Скасувати дозволи на встановлення в інших додатків», щоб лише Universal Installer мав права встановлювати пакети.</string>
+    <string name="parental_guidance_dialog_content">Щоб діти не могли обійти Multiversal-installer:\n\n1. Запобігайте видаленню:\nAndroid дозволяє видаляти додатки через Налаштування. Використовуйте вбудоване блокування додатків або Google Family Link, щоб заблокувати «Налаштування».\n\n2. Блокуйте альтернативні інсталятори:\nУвімкніть «Заморозити системний інсталятор пакетів» нижче (потрібен Shizuku або Root), щоб інші додатки не запускали системний інсталятор.\n\n3. Скасуйте дозволи:\nСкористайтеся опцією «Скасувати дозволи на встановлення в інших додатків», щоб лише Multiversal-installer мав права встановлювати пакети.</string>
     <string name="setting_security_group_privileged">Розширений захист (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">Для активації цих параметрів потрібен Shizuku або Root</string>
     <string name="setting_disable_system_installer_title">Заморозити системний інсталятор пакетів</string>
@@ -313,7 +313,7 @@
     <string name="setting_revoke_other_installers_title">Скасувати дозволи на встановлення в інших додатків</string>
     <string name="setting_revoke_other_installers_subtitle">Скасовує дозволи на встановлення APK у Chrome, файлових менеджерів та інших додатків</string>
     <string name="setting_revoke_other_installers_dialog_title">Скасувати дозволи на встановлення?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">Це вимкне можливість встановлювати APK іншими додатками, залишивши Universal Installer єдиним інсталятором.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">Це вимкне можливість встановлювати APK іншими додатками, залишивши Multiversal-installer єдиним інсталятором.</string>
     <string name="setting_revoke_other_installers_toast_success">Скасовано дозволи на встановлення у %1$d додатків</string>
     <string name="setting_revoke_other_installers_toast_none">Інші додатки не мають дозволів на встановлення</string>
     <string name="setting_install_options_subtitle">Привілейовані параметри, пониження версії, дозволи, джерело встановлення</string>
@@ -335,9 +335,9 @@
     <string name="setting_porter_not_running">Porter встановлено, але не запущено</string>
     <string name="setting_porter_start_service_hint">Спочатку відкрийте Porter і запустіть службу</string>
     <string name="setting_default_uninstaller_title">Деінсталятор за замовчуванням</string>
-    <string name="setting_default_uninstaller_subtitle">Зробити Universal Installer деінсталятором за замовчуванням (потрібен Shizuku, Porter або Root)</string>
+    <string name="setting_default_uninstaller_subtitle">Зробити Multiversal-installer деінсталятором за замовчуванням (потрібен Shizuku, Porter або Root)</string>
     <string name="setting_default_uninstaller_needs_backend">Спочатку увімкніть Shizuku або Root для зміни деінсталятора</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer тепер деінсталятор за замовчуванням</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer тепер деінсталятор за замовчуванням</string>
     <string name="setting_default_uninstaller_disabled">Налаштування деінсталятора за замовчуванням скинуто</string>
     <string name="setting_default_uninstaller_failed">Не вдалося змінити деінсталятор за замовчуванням</string>
     <string name="about_section_more_apps">Наші програми</string>

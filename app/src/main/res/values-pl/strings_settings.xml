@@ -43,9 +43,9 @@
     <string name="setting_show_download_tab_title">Pokaż kartę pobierania</string>
     <string name="setting_show_download_tab_subtitle">Pokaż kartę pobierania na ekranie głównym dla zdalnych instalacji APK</string>
     <string name="setting_default_installer_title">Ustaw jako domyślny instalator</string>
-    <string name="setting_default_installer_subtitle">Wyłącz instalator systemowy, aby zawsze używać Universal Installer dla plików APK (wymaga Shizuku lub Root)</string>
+    <string name="setting_default_installer_subtitle">Wyłącz instalator systemowy, aby zawsze używać Multiversal-installer dla plików APK (wymaga Shizuku lub Root)</string>
     <string name="setting_default_installer_needs_backend">Najpierw włącz Shizuku lub Roota, aby zmienić domyślny instalator</string>
-    <string name="setting_default_installer_enabled">Universal Installer jest teraz domyślny</string>
+    <string name="setting_default_installer_enabled">Multiversal-installer jest teraz domyślny</string>
     <string name="setting_default_installer_disabled">Przywrócono instalator systemowy</string>
     <string name="setting_default_installer_failed">Nie udało się zmienić domyślnego instalatora</string>
     <string name="setting_shizuku_options_install_group">Instalacja</string>
@@ -261,7 +261,7 @@
     <string name="setting_pin_lock_uninstall_title">Wymagaj PIN-u przy odinstalowywaniu</string>
     <string name="setting_pin_lock_uninstall_subtitle">Pytaj o PIN przed usunięciem każdego pakietu</string>
     <string name="setting_pin_lock_app_open_title">Blokada przy uruchamianiu</string>
-    <string name="setting_pin_lock_app_open_subtitle">Wymagaj PIN-u przy każdym otwarciu Universal Installer</string>
+    <string name="setting_pin_lock_app_open_subtitle">Wymagaj PIN-u przy każdym otwarciu Multiversal-installer</string>
     <string name="setting_pin_lock_protect_settings_title">Chroń ustawienia bezpieczeństwa</string>
     <string name="setting_pin_lock_protect_settings_subtitle">Pytaj o PIN przy otwieraniu ustawień bezpieczeństwa</string>
     <string name="setting_security_group_biometric">Uwierzytelnianie biometryczne</string>
@@ -271,7 +271,7 @@
     <string name="pin_dialog_title_confirm">Potwierdź PIN</string>
     <string name="pin_dialog_desc_confirm">Wprowadź ponownie 4-cyfrowy PIN, aby potwierdzić</string>
     <string name="pin_dialog_title_verify">Wprowadź PIN</string>
-    <string name="pin_dialog_desc_app_open">Wprowadź PIN, aby otworzyć Universal Installer</string>
+    <string name="pin_dialog_desc_app_open">Wprowadź PIN, aby otworzyć Multiversal-installer</string>
     <string name="pin_dialog_desc_install">Wprowadź PIN, aby autoryzować instalację</string>
     <string name="pin_dialog_desc_uninstall">Wprowadź PIN, aby autoryzować odinstalowanie</string>
     <string name="pin_dialog_desc_settings">Wprowadź PIN, aby uzyskać dostęp do ustawień</string>
@@ -285,7 +285,7 @@
     <string name="parental_guidance_card_subtitle">Jak zapobiec odinstalowaniu aplikacji lub obejściu zabezpieczeń przez dzieci</string>
     <string name="parental_guidance_card_btn">Zobacz poradnik</string>
     <string name="parental_guidance_dialog_title">Kompleksowa ochrona rodzicielska</string>
-    <string name="parental_guidance_dialog_content">Aby upewnić się, że dzieci nie ominą Universal Installer:\n\n1. Zapobiegaj odinstalowaniu:\nAndroid pozwala na odinstalowanie przez Ustawienia. Użyj wbudowanej blokady aplikacji lub Google Family Link, aby zablokować aplikację „Ustawienia”.\n\n2. Zablokuj alternatywne instalatory:\nUżyj opcji „Zamroź systemowy instalator pakietów” poniżej (wymaga Shizuku lub Root), aby inne aplikacje nie mogły go uruchomić.\n\n3. Cofnij uprawnienia:\nUżyj opcji „Cofnij uprawnienia instalacji innym aplikacjom”, aby tylko Universal Installer mógł instalować pakiety.</string>
+    <string name="parental_guidance_dialog_content">Aby upewnić się, że dzieci nie ominą Multiversal-installer:\n\n1. Zapobiegaj odinstalowaniu:\nAndroid pozwala na odinstalowanie przez Ustawienia. Użyj wbudowanej blokady aplikacji lub Google Family Link, aby zablokować aplikację „Ustawienia”.\n\n2. Zablokuj alternatywne instalatory:\nUżyj opcji „Zamroź systemowy instalator pakietów” poniżej (wymaga Shizuku lub Root), aby inne aplikacje nie mogły go uruchomić.\n\n3. Cofnij uprawnienia:\nUżyj opcji „Cofnij uprawnienia instalacji innym aplikacjom”, aby tylko Multiversal-installer mógł instalować pakiety.</string>
     <string name="setting_security_group_privileged">Zaawansowana ochrona (Shizuku / Root)</string>
     <string name="setting_security_privileged_not_running">Wymagane jest Shizuku lub Root, aby włączyć te opcje</string>
     <string name="setting_disable_system_installer_title">Zamroź systemowy instalator pakietów</string>
@@ -298,7 +298,7 @@
     <string name="setting_revoke_other_installers_title">Cofnij uprawnienia instalacji innym aplikacjom</string>
     <string name="setting_revoke_other_installers_subtitle">Cofa uprawnienia instalacji plików APK aplikacjom Chrome, menedżerom plików i innym</string>
     <string name="setting_revoke_other_installers_dialog_title">Cofnąć uprawnienia instalacji?</string>
-    <string name="setting_revoke_other_installers_dialog_desc">Uniemożliwi to instalowanie plików APK innym aplikacjom, pozostawiając Universal Installer jako jedyny instalator.</string>
+    <string name="setting_revoke_other_installers_dialog_desc">Uniemożliwi to instalowanie plików APK innym aplikacjom, pozostawiając Multiversal-installer jako jedyny instalator.</string>
     <string name="setting_revoke_other_installers_toast_success">Cofnięto uprawnienia instalacji %1$d aplikacjom</string>
     <string name="setting_revoke_other_installers_toast_none">Żadna inna aplikacja nie ma uprawnień do instalacji</string>
     <string name="setting_install_options_subtitle">Flagi uprzywilejowane, obniżenie wersji, uprawnienia, źródło instalacji</string>
@@ -320,9 +320,9 @@
     <string name="setting_porter_not_running">Porter jest zainstalowany, ale nie działa</string>
     <string name="setting_porter_start_service_hint">Otwórz Porter i najpierw uruchom jego usługę</string>
     <string name="setting_default_uninstaller_title">Ustaw jako domyślny deinstalator</string>
-    <string name="setting_default_uninstaller_subtitle">Ustaw Universal Installer jako domyślny do deinstalacji (wymaga Shizuku, Porter lub Root)</string>
+    <string name="setting_default_uninstaller_subtitle">Ustaw Multiversal-installer jako domyślny do deinstalacji (wymaga Shizuku, Porter lub Root)</string>
     <string name="setting_default_uninstaller_needs_backend">Włącz najpierw Shizuku lub Root, aby zmienić domyślny deinstalator</string>
-    <string name="setting_default_uninstaller_enabled">Universal Installer jest teraz domyślnym deinstalatorem</string>
+    <string name="setting_default_uninstaller_enabled">Multiversal-installer jest teraz domyślnym deinstalatorem</string>
     <string name="setting_default_uninstaller_disabled">Preferencja domyślnego deinstalatora wyczyszczona</string>
     <string name="setting_default_uninstaller_failed">Nie udało się zmienić domyślnego deinstalatora</string>
     <string name="about_section_more_apps">Nasze aplikacje</string>
