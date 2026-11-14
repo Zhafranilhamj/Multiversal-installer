@@ -6,6 +6,7 @@ import android.content.IntentFilter
 import android.content.pm.IPackageManager
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.os.Build
 import android.os.Process
 import androidx.core.net.toUri
 import timber.log.Timber
@@ -14,6 +15,25 @@ import java.lang.reflect.InvocationTargetException
 /**
  * Toggles the system's preferred-activity registration so our `DialogUninstallActivity` becomes
  * the default handler for `android.intent.action.UNINSTALL_PACKAGE` and `android.intent.action.DELETE`.
+ * Ported the same way as [DefaultInstallerLogic], and subject to the same contract:
+ *
+ * **Everything here that has to work, throws when it doesn't.** Registering the preference used to
+ * fail two ways that both reported success to the user: the competitor query could return an empty
+ * set, in which case no preference was written at all (the caller still got a success toast and the
+ * Settings toggle snapped back off, because the write-time `resolveActivity` probe saw no match);
+ * and the `match` value was computed at runtime through a hidden `IntentFilter.match(...)` call,
+ * whose result PackageManagerService is not guaranteed to match against. The candidate set is now
+ * load-bearing and `match` is the fixed `MATCH_CATEGORY_SCHEME or MATCH_ADJUSTMENT_MASK` constant,
+ * exactly as the installer path uses `MATCH_CATEGORY_TYPE`.
+ *
+ * Registration goes through [MimePreferredActivity], the same routine the installer uses —
+ * `addPreferredActivity` with `removeExisting` on Android 12+, which replaces only this filter and
+ * preserves this package's unrelated defaults. It is used instead of `replacePreferredActivity`
+ * so the uninstaller path has exactly the registration behavior that is proven on-device.
+ *
+ * Caller must supply an [IPackageManager] obtained either via Shizuku binder wrapping (shell
+ * UID 2000) or from inside a libsu RootService (UID 0). [hasSystemLevelPermission] controls
+ * whether we also call the persistent variants — those require UID 0 and throw on shell.
  */
 object DefaultUninstallerLogic {
 
@@ -31,6 +51,8 @@ object DefaultUninstallerLogic {
         try {
             applyPreference(iPackageManager, component, lock, hasSystemLevelPermission)
         } catch (e: InvocationTargetException) {
+            // Reflection buries the real failure — a SecurityException from PackageManagerService
+            // reads as "InvocationTargetException" otherwise, in the log and in the toast.
             throw e.cause ?: e
         }
     }
@@ -77,17 +99,24 @@ object DefaultUninstallerLogic {
                 data = "package:com.example.placeholder".toUri()
             }
 
+            // Load-bearing, not informational: the candidate set is stored alongside the
+            // preference, and PackageManagerService drops a preference whose set no longer
+            // matches the activities that currently handle the intent. An empty set therefore
+            // registers a preference that is stale the moment it is written — accepted without
+            // error, and with no effect. Which is the failure the success-without-effect bug reports.
             val competitors = queryIntentActivities(iPackageManager, probeIntent, userId)
-            android.util.Log.i("DefaultUninstallerLogic", "action=$action competitors count=${competitors.size}")
-            if (competitors.isEmpty()) {
-                Timber.w("queryIntentActivities returned nothing for $action with package scheme")
-                continue
+            check(competitors.isNotEmpty()) {
+                "queryIntentActivities returned nothing for $action — cannot build the candidate " +
+                    "set a preferred activity is matched against"
             }
+            android.util.Log.i("DefaultUninstallerLogic", "action=$action competitors count=${competitors.size}")
             val names = mutableListOf<ComponentName>()
             for (info in competitors) {
                 val pkg = info.activityInfo.packageName
                 val cls = info.activityInfo.name
                 if (pkg != component.packageName && pkg != "android") {
+                    // Best effort: another app keeping its own preference does not stop ours
+                    // from being registered.
                     runCatching {
                         clearPackagePreferredActivities(iPackageManager, pkg, userId, hasSystemLevelPermission)
                     }.onFailure { Timber.w(it, "Could not clear competing preference for %s", pkg) }
@@ -109,19 +138,11 @@ object DefaultUninstallerLogic {
                 addCategory(Intent.CATEGORY_DEFAULT)
                 addDataScheme(SCHEME)
             }
-            val calculatedMatch = filter.match(
-                action,
-                null,
-                SCHEME,
-                "package:com.example.placeholder".toUri(),
-                setOf(Intent.CATEGORY_DEFAULT),
-                "DefaultUninstallerLogic",
-            )
-            val match = if (calculatedMatch > 0) {
-                calculatedMatch
-            } else {
-                IntentFilter.MATCH_CATEGORY_SCHEME or IntentFilter.MATCH_ADJUSTMENT_MASK
-            }
+
+            // Fixed constant, like the installer path's MATCH_CATEGORY_TYPE: this is the match
+            // PackageManagerService computes for an intent with a package: scheme and no type,
+            // and it is what the preferred-activity check is matched against.
+            val match = IntentFilter.MATCH_CATEGORY_SCHEME or IntentFilter.MATCH_ADJUSTMENT_MASK
 
             android.util.Log.i("DefaultUninstallerLogic", "addPreferredActivity match=$match names=${names.size}")
             addPreferredActivity(iPackageManager, filter, match, names.toTypedArray(), component, userId)
@@ -202,13 +223,9 @@ object DefaultUninstallerLogic {
         component: ComponentName,
         userId: Int,
     ) {
-        // Replace just this filter, not every default owned by the package. Clearing
-        // package-wide here would erase the installer when restoring the uninstaller.
-        val method = iPackageManager.javaClass.getMethod(
-            "replacePreferredActivity", IntentFilter::class.java, Int::class.javaPrimitiveType,
-            Array<ComponentName>::class.java, ComponentName::class.java, Int::class.javaPrimitiveType,
+        MimePreferredActivity.register(
+            iPackageManager, Build.VERSION.SDK_INT, filter, match, names, component, userId,
         )
-        method.invoke(iPackageManager, filter, match, names, component, userId)
     }
 
     private fun addPersistentPreferredActivity(
