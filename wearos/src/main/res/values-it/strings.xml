@@ -26,7 +26,7 @@
     <string name="manage_hide_system">Nascondi app di sistema</string>
     <string name="manage_empty">Non hai ancora installato alcuna app.</string>
     <string name="uninstall">Disinstalla</string>
-    <string name="unknown_sources_hidden">Questo orologio nasconde l\'impostazione. Concedila tramite debug wireless:\nadb shell appops set app.pwhs.universalinstaller REQUEST_INSTALL_PACKAGES allow</string>
+    <string name="unknown_sources_hidden">Questo orologio nasconde l\'impostazione. Concedila tramite debug wireless:\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="more_title">Altro</string>
     <string name="settings_title">Impostazioni</string>
     <string name="settings_storage">Spazio</string>

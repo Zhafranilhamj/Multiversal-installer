@@ -16,8 +16,8 @@ object DefaultAppSeeder {
 
     private val SEEDED_KEY = booleanPreferencesKey("default_apps_seeded")
 
-    private const val DEFAULT_SOURCE_URL = "https://github.com/pass-with-high-score/universal-installer"
-    private const val DEFAULT_PACKAGE_NAME = "app.pwhs.universalinstaller"
+    private const val DEFAULT_SOURCE_URL = "https://github.com/Zhafranilhamj/Multiversal-installer"
+    private const val DEFAULT_PACKAGE_NAME = "com.github.zhafranilhamj.multiversalinstaller"
     private const val DEFAULT_APP_NAME = "Universal Installer"
 
     /**

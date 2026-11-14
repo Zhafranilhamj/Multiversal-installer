@@ -26,7 +26,7 @@
     <string name="manage_hide_system">Приховати системні</string>
     <string name="manage_empty">Ви ще не встановили жодного застосунку.</string>
     <string name="uninstall">Видалити</string>
-    <string name="unknown_sources_hidden">Цей годинник приховує це налаштування. Надайте дозвіл через бездротове налагодження:\nadb shell appops set app.pwhs.universalinstaller REQUEST_INSTALL_PACKAGES allow</string>
+    <string name="unknown_sources_hidden">Цей годинник приховує це налаштування. Надайте дозвіл через бездротове налагодження:\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="more_title">Ще</string>
     <string name="settings_title">Налаштування</string>
     <string name="settings_storage">Пам\'ять</string>

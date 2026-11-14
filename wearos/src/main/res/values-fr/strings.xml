@@ -26,7 +26,7 @@
     <string name="manage_hide_system">Masquer les applications système</string>
     <string name="manage_empty">Vous n\'avez encore installé aucune application.</string>
     <string name="uninstall">Désinstaller</string>
-    <string name="unknown_sources_hidden">Cette montre masque ce paramètre. Accordez-le via le débogage sans fil :\nadb shell appops set app.pwhs.universalinstaller REQUEST_INSTALL_PACKAGES allow</string>
+    <string name="unknown_sources_hidden">Cette montre masque ce paramètre. Accordez-le via le débogage sans fil :\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="more_title">Plus</string>
     <string name="settings_title">Paramètres</string>
     <string name="settings_storage">Stockage</string>

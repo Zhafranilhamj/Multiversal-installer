@@ -151,11 +151,11 @@ jobs:
 
           : > release-artifacts/signature.txt
           copy_and_verify "app/build/outputs/apk/opensource/release/*.apk" \
-                          "universal-installer-phone-$APP_VERSION.apk"
+                          "multiversal-installer-phone-$APP_VERSION.apk"
           copy_and_verify "tv/build/outputs/apk/opensource/release/*.apk" \
-                          "universal-installer-tv-$TV_VERSION.apk"
+                          "multiversal-installer-tv-$TV_VERSION.apk"
           copy_and_verify "wearos/build/outputs/apk/release/*.apk" \
-                          "universal-installer-wearos-$WEAR_VERSION.apk"
+                          "multiversal-installer-wearos-$WEAR_VERSION.apk"
 
           (cd release-artifacts && sha256sum *.apk > SHA256SUMS)
 
@@ -204,9 +204,9 @@ jobs:
             echo
             echo "| Form factor | Version | versionCode | File |"
             echo "|---|---|---|---|"
-            echo "| 📱 Phone | $APP_VERSION | $APP_CODE | \`universal-installer-phone-$APP_VERSION.apk\` |"
-            echo "| 📺 Android TV | $TV_VERSION | $TV_CODE | \`universal-installer-tv-$TV_VERSION.apk\` |"
-            echo "| ⌚ Wear OS | $WEAR_VERSION | $WEAR_CODE | \`universal-installer-wearos-$WEAR_VERSION.apk\` |"
+            echo "| 📱 Phone | $APP_VERSION | $APP_CODE | \`multiversal-installer-phone-$APP_VERSION.apk\` |"
+            echo "| 📺 Android TV | $TV_VERSION | $TV_CODE | \`multiversal-installer-tv-$TV_VERSION.apk\` |"
+            echo "| ⌚ Wear OS | $WEAR_VERSION | $WEAR_CODE | \`multiversal-installer-wearos-$WEAR_VERSION.apk\` |"
             echo
             echo "These are the \`opensource\` flavor builds: no Firebase Analytics or Crashlytics."
             echo "Signed with the repository release key, R8-optimized, resource-shrunk, and"

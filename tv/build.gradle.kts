@@ -46,11 +46,11 @@ android {
         // One Play listing, three form factors. Play tells the artifacts apart by their
         // uses-feature requirements — leanback here, watch in :wearos, neither in :app — so each
         // needs its own versionCode band: phone 1-999, watch 1000+, TV 2000+.
-        applicationId = "app.pwhs.universalinstaller"
+        applicationId = "com.github.zhafranilhamj.multiversalinstaller"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 2036
-        versionName = "1.23.1"
+        versionCode = 2037
+        versionName = "1.23.2"
 
     }
 

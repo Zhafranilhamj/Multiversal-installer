@@ -14,7 +14,7 @@
     <string name="install_anyway">তবুও ইনস্টল করুন</string>
     <string name="unknown_sources_msg">ঘড়ির সেটিংসে Universal Installer-এর জন্য \"অজানা অ্যাপ ইনস্টল করুন\" চালু করুন।</string>
     <string name="unknown_sources_open_settings">সেটিংস খুলুন</string>
-    <string name="unknown_sources_hidden">এই ঘড়িটি সেটিংটি লুকিয়ে রাখে। ওয়্যারলেস ডিবাগিংয়ের মাধ্যমে এটি মঞ্জুর করুন:\nadb shell appops set app.pwhs.universalinstaller REQUEST_INSTALL_PACKAGES allow</string>
+    <string name="unknown_sources_hidden">এই ঘড়িটি সেটিংটি লুকিয়ে রাখে। ওয়্যারলেস ডিবাগিংয়ের মাধ্যমে এটি মঞ্জুর করুন:\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="incompatible_min_sdk">Android API %1$d প্রয়োজন, এই ঘড়িটি API %2$d।</string>
     <string name="incompatible_not_a_watch_app">এটি একটি ফোন অ্যাপ, কোনো Wear OS অ্যাপ নয়।</string>
 

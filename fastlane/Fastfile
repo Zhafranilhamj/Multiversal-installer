@@ -147,7 +147,7 @@ platform :android do
       gradle(task: ":app:bundlePlayRelease")
       upload_to_play_store(
         track:                   options[:track],
-        package_name:            "app.pwhs.universalinstaller",
+        package_name:            "com.github.zhafranilhamj.multiversalinstaller",
         aab:                     PHONE_AAB,
         json_key:                "fastlane/play-store-key.json",
         skip_upload_metadata:    true,
@@ -168,7 +168,7 @@ platform :android do
       gradle(task: ":wearos:bundleRelease")
       upload_to_play_store(
         track:                   options[:track],
-        package_name:            "app.pwhs.universalinstaller",
+        package_name:            "com.github.zhafranilhamj.multiversalinstaller",
         aab:                     WEAR_AAB,
         json_key:                "fastlane/play-store-key.json",
         skip_upload_metadata:    true,
@@ -189,7 +189,7 @@ platform :android do
       gradle(task: ":tv:bundlePlayRelease")
       upload_to_play_store(
         track:                   options[:track],
-        package_name:            "app.pwhs.universalinstaller",
+        package_name:            "com.github.zhafranilhamj.multiversalinstaller",
         aab:                     TV_AAB,
         json_key:                "fastlane/play-store-key.json",
         skip_upload_metadata:    true,
@@ -206,7 +206,7 @@ platform :android do
       gradle(task: ":app:bundlePlayRelease")
       upload_to_play_store(
         track:                   options[:track],
-        package_name:            "app.pwhs.universalinstaller",
+        package_name:            "com.github.zhafranilhamj.multiversalinstaller",
         aab:                     PHONE_AAB,
         json_key:                "fastlane/play-store-key.json",
         skip_upload_metadata:    true,

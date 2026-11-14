@@ -26,7 +26,7 @@
     <string name="manage_hide_system">시스템 앱 숨기기</string>
     <string name="manage_empty">직접 설치한 앱이 없습니다.</string>
     <string name="uninstall">제거</string>
-    <string name="unknown_sources_hidden">이 워치는 해당 설정을 숨깁니다. 무선 디버깅으로 권한을 부여하세요:\nadb shell appops set app.pwhs.universalinstaller REQUEST_INSTALL_PACKAGES allow</string>
+    <string name="unknown_sources_hidden">이 워치는 해당 설정을 숨깁니다. 무선 디버깅으로 권한을 부여하세요:\nadb shell appops set com.github.zhafranilhamj.multiversalinstaller REQUEST_INSTALL_PACKAGES allow</string>
     <string name="more_title">더보기</string>
     <string name="settings_title">설정</string>
     <string name="settings_storage">저장공간</string>
