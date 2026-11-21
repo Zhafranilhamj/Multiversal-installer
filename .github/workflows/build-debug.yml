@@ -111,6 +111,14 @@ jobs:
             echo "### 🧪 Test / lint report"
             echo '```'
             grep -hE "FAILED|tests completed|Lint found|\berror\b" test-output.log lint-output.log 2>/dev/null | head -200 || true
+            if [ -f app/build/reports/lint-results-opensourceDebug.txt ]; then
+              echo
+              echo "--- lint errors ---"
+              grep -E "Error:" app/build/reports/lint-results-opensourceDebug.txt | head -80 || true
+              echo
+              echo "--- lint errors mentioning Aero ---"
+              grep -E "Error:" app/build/reports/lint-results-opensourceDebug.txt | grep -i "aero" | head -40 || true
+            fi
             echo '```'
           } > checks.md
           if [ -n "$PR_NUMBER" ]; then

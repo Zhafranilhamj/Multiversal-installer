@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
@@ -20,6 +20,7 @@ import app.pwhs.universalinstaller.domain.model.InstalledApp
 import app.pwhs.universalinstaller.presentation.manage.AppCard
 import app.pwhs.universalinstaller.presentation.manage.GroupBy
 import app.pwhs.universalinstaller.presentation.manage.GroupHeader
+import app.pwhs.universalinstaller.ui.theme.aero.aeroEntrance
 import app.pwhs.universalinstaller.presentation.manage.resolveInstallerInfo
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -67,10 +68,10 @@ internal fun AppListLayout(
                             count = apps.size,
                         )
                     }
-                    items(
+                    itemsIndexed(
                         items = apps,
-                        key = { it.packageName },
-                    ) { app ->
+                        key = { _, app -> app.packageName },
+                    ) { index, app ->
                         AppCard(
                             app = app,
                             isSelectionMode = isSelectionMode,
@@ -79,15 +80,17 @@ internal fun AppListLayout(
                             onShowActions = { onShowActions(app) },
                             onLongClick = { onToggleSelection(app.packageName) },
                             onToggleSelect = { onToggleSelection(app.packageName) },
-                            modifier = Modifier.animateItem(),
+                            modifier = Modifier
+                                .animateItem()
+                                .aeroEntrance(index),
                         )
                     }
                 }
             } else {
-                items(
+                itemsIndexed(
                     items = filteredApps,
-                    key = { it.packageName }
-                ) { app ->
+                    key = { _, app -> app.packageName }
+                ) { index, app ->
                     AppCard(
                         app = app,
                         isSelectionMode = isSelectionMode,
@@ -96,7 +99,9 @@ internal fun AppListLayout(
                         onShowActions = { onShowActions(app) },
                         onLongClick = { onToggleSelection(app.packageName) },
                         onToggleSelect = { onToggleSelection(app.packageName) },
-                        modifier = Modifier.animateItem(),
+                        modifier = Modifier
+                            .animateItem()
+                            .aeroEntrance(index),
                     )
                 }
             }

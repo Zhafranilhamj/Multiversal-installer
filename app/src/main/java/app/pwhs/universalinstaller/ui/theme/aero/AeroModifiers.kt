@@ -1,13 +1,19 @@
 package app.pwhs.universalinstaller.ui.theme.aero
 
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
@@ -239,5 +245,30 @@ fun Modifier.aeroPressScale(
     return this.graphicsLayer {
         scaleX = scale
         scaleY = scale
+    }
+}
+
+/**
+ * Staggered list entrance: each row fades up 24dp, delayed by its position so a freshly loaded
+ * list ripples in instead of snapping. Returns [Modifier] untouched for the Material style.
+ */
+@Composable
+fun Modifier.aeroEntrance(index: Int = 0): Modifier {
+    if (LocalAeroTokens.current == null) return this
+    val motion = LocalAeroMotion.current
+    var entered by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) { entered = true }
+    val progress by animateFloatAsState(
+        targetValue = if (entered) 1f else 0f,
+        animationSpec = tween(
+            durationMillis = if (motion) 380 else 0,
+            delayMillis = if (motion) index.coerceIn(0, 8) * 45 else 0,
+            easing = FastOutSlowInEasing,
+        ),
+        label = "aero-entrance",
+    )
+    return this.graphicsLayer {
+        alpha = progress
+        translationY = (1f - progress) * 24.dp.toPx()
     }
 }
