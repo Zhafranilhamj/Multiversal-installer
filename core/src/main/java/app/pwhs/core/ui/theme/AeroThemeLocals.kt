@@ -33,5 +33,5 @@ val AeroTypography: Typography = app.pwhs.core.ui.theme.Typography.let { base ->
 }
 
 /** True when the user selected the optional Aero style. */
-val isFrutigerAero: Boolean
-    get() = LocalUiStyle.current == UiStyle.FRUTIGER_AERO
+@Composable
+fun isFrutigerAero(): Boolean = LocalUiStyle.current == UiStyle.FRUTIGER_AERO
