@@ -64,5 +64,5 @@ fun AeroThemeBridge(content: @Composable () -> Unit) {
 fun rememberAeroTokens(): AeroTokens? = LocalAeroTokens.current
 
 /** True when the full Aero styling should be drawn. */
-val isAeroStyle: Boolean
-    @Composable get() = LocalAeroTokens.current != null
+@Composable
+fun isAeroStyle(): Boolean = LocalAeroTokens.current != null

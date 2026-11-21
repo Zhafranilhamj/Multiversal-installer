@@ -1,6 +1,7 @@
 package app.pwhs.core.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
 import app.pwhs.core.domain.AeroUiConfig
 import app.pwhs.core.domain.UiStyle
