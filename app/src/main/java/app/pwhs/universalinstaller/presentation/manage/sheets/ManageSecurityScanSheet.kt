@@ -51,6 +51,9 @@ import androidx.core.content.getSystemService
 import app.pwhs.core.domain.model.VtResult
 import app.pwhs.core.domain.model.VtStatus
 import app.pwhs.universalinstaller.R
+import app.pwhs.universalinstaller.ui.theme.aero.AeroSonarRings
+import app.pwhs.universalinstaller.ui.theme.aero.AeroStatusOrb
+import app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens
 import app.pwhs.universalinstaller.domain.model.InstalledApp
 import app.pwhs.universalinstaller.presentation.install.components.AppShieldDailyQuotaBadge
 import app.pwhs.universalinstaller.presentation.install.components.SecurityFindingsSection
@@ -76,7 +79,7 @@ fun ManageSecurityScanSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     val status = vtResult?.status ?: VtStatus.SCANNING
-    val aeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
+    val aeroTokens = LocalAeroTokens.current
     val isScanning = status == VtStatus.SCANNING ||
         status == VtStatus.UPLOADING ||
         status == VtStatus.QUEUED ||
@@ -182,7 +185,7 @@ fun ManageSecurityScanSheet(
                     ) {
                         androidx.compose.foundation.layout.Box(contentAlignment = Alignment.Center) {
                             if (aeroTokens != null) {
-                                app.pwhs.universalinstaller.ui.theme.aero.AeroSonarRings(
+                                AeroSonarRings(
                                     size = 132.dp,
                                     color = aeroTokens.activeCyan,
                                 )
@@ -420,7 +423,7 @@ private fun ScanResultBanner(
     desc: String,
 ) {
     val extendedColors = LocalExtendedColors.current
-    val aeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
+    val aeroTokens = LocalAeroTokens.current
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = aeroTokens?.denseFrost ?: if (isClean) {
@@ -443,7 +446,7 @@ private fun ScanResultBanner(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (aeroTokens != null) {
-                app.pwhs.universalinstaller.ui.theme.aero.AeroStatusOrb(
+                AeroStatusOrb(
                     color = if (isClean) aeroTokens.safeEmerald else aeroTokens.dangerRuby,
                     orbSize = 16.dp,
                     pulsing = true,

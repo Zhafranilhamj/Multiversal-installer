@@ -82,3 +82,50 @@ jobs:
             tv/build/outputs/apk/debug/*.apk
             wearos/build/outputs/apk/debug/*.apk
           retention-days: 14
+
+      # Verification pass: unit tests and the lint report run after the APKs are safe, so a
+      # pre-existing test or lint failure is reported without throwing away the build.
+      - name: Run unit tests
+        id: tests
+        if: steps.gradle.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          ./gradlew :core:testDebugUnitTest :app:testOpensourceDebugUnitTest 2>&1 | tee test-output.log
+
+      - name: Run lint
+        id: lint
+        if: steps.gradle.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          ./gradlew :app:lintOpensourceDebug 2>&1 | tee lint-output.log
+
+      - name: Report test and lint failures
+        if: steps.tests.outcome == 'failure' || steps.lint.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --head "${GITHUB_REF_NAME}" --json number --jq '.[0].number' || true)
+          {
+            echo "### 🧪 Test / lint report"
+            echo '```'
+            grep -hE "FAILED|tests completed|Lint found|\berror\b" test-output.log lint-output.log 2>/dev/null | head -200 || true
+            echo '```'
+          } > checks.md
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr comment "$PR_NUMBER" --body-file checks.md
+          else
+            cat checks.md
+          fi
+
+      - name: Upload test and lint logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checks
+          path: |
+            test-output.log
+            lint-output.log
+          if-no-files-found: ignore
+          retention-days: 7
