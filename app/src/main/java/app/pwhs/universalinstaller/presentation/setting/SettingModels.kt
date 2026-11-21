@@ -2,6 +2,9 @@ package app.pwhs.universalinstaller.presentation.setting
 
 import app.pwhs.core.domain.AppThemePreset
 import app.pwhs.core.domain.ThemeMode
+import app.pwhs.core.domain.UiStyle
+import app.pwhs.core.domain.AeroPreset
+import app.pwhs.core.domain.AeroDecorationLevel
 import app.pwhs.universalinstaller.domain.model.InstallerProfile
 import app.pwhs.universalinstaller.presentation.install.controller.RootState
 
@@ -12,6 +15,11 @@ data class SettingThemeState(
     val dynamicColor: Boolean = false,
     val amoledMode: Boolean = false,
     val themePreset: AppThemePreset = AppThemePreset.Orange,
+    val uiStyle: UiStyle = UiStyle.MATERIAL_EXPRESSIVE,
+    val aeroPreset: AeroPreset = AeroPreset.CRYSTAL_SKY,
+    val aeroDecorationLevel: AeroDecorationLevel = AeroDecorationLevel.BALANCED,
+    val aeroGlassBlur: Boolean = true,
+    val aeroReducedMotion: Boolean = false,
 )
 
 data class SyncOptions(
@@ -184,6 +192,11 @@ data class SettingUiState(
     val dynamicColor: Boolean = false,
     val amoledMode: Boolean = false,
     val themePreset: AppThemePreset = AppThemePreset.Orange,
+    val uiStyle: UiStyle = UiStyle.MATERIAL_EXPRESSIVE,
+    val aeroPreset: AeroPreset = AeroPreset.CRYSTAL_SKY,
+    val aeroDecorationLevel: AeroDecorationLevel = AeroDecorationLevel.BALANCED,
+    val aeroGlassBlur: Boolean = true,
+    val aeroReducedMotion: Boolean = false,
     val useShizuku: Boolean = false,
     val useRoot: Boolean = false,
     val virusTotalApiKey: String = "",

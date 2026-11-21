@@ -50,6 +50,7 @@ fun SyncServerHeroCard(
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
     val isRunning = state == SyncState.RUNNING
+    val aeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
 
     val statusDotColor by animateColorAsState(
         targetValue = when (state) {
@@ -74,7 +75,10 @@ fun SyncServerHeroCard(
 
     Surface(
         shape = RoundedCornerShape(24.dp),
-        color = MaterialTheme.colorScheme.surfaceContainer,
+        color = aeroTokens?.denseFrost ?: MaterialTheme.colorScheme.surfaceContainer,
+        border = aeroTokens?.let {
+            androidx.compose.foundation.BorderStroke(1.dp, it.rimMid)
+        },
         modifier = modifier.fillMaxWidth(),
     ) {
         Column(
@@ -110,10 +114,17 @@ fun SyncServerHeroCard(
                     )
                 }
 
-                Switch(
-                    checked = isRunning || state == SyncState.STARTING,
-                    onCheckedChange = onToggle,
-                )
+                if (aeroTokens != null) {
+                    app.pwhs.universalinstaller.ui.theme.aero.AeroToggleSwitch(
+                        checked = isRunning || state == SyncState.STARTING,
+                        onCheckedChange = onToggle,
+                    )
+                } else {
+                    Switch(
+                        checked = isRunning || state == SyncState.STARTING,
+                        onCheckedChange = onToggle,
+                    )
+                }
             }
 
             // Subtitle

@@ -5,8 +5,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pwhs.core.data.local.dataStore
+import app.pwhs.core.domain.AeroDecorationLevel
+import app.pwhs.core.domain.AeroPreset
 import app.pwhs.core.domain.AppThemePreset
 import app.pwhs.core.domain.ThemeMode
+import app.pwhs.core.domain.UiStyle
 import app.pwhs.universalinstaller.domain.model.ExternalOpenMode
 import app.pwhs.universalinstaller.domain.model.InstallUiStyle
 import app.pwhs.universalinstaller.domain.model.InstallerProfile
@@ -157,7 +160,21 @@ class SettingViewModel(
             val amoledMode = prefs[PreferencesKeys.AMOLED_MODE] ?: false
             val presetName = prefs[PreferencesKeys.THEME_PRESET] ?: AppThemePreset.Orange.name
             val preset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
-            SettingThemeState(mode, dynamicColor, amoledMode, preset)
+            val aeroPreset = AeroPreset.from(prefs[PreferencesKeys.AERO_PRESET])
+            val aeroDecoration = AeroDecorationLevel.from(prefs[PreferencesKeys.AERO_DECORATION_LEVEL])
+            val aeroBlur = prefs[PreferencesKeys.AERO_GLASS_BLUR] ?: true
+            val aeroReducedMotion = prefs[PreferencesKeys.AERO_REDUCED_MOTION] ?: false
+            SettingThemeState(
+                mode = mode,
+                dynamicColor = dynamicColor,
+                amoledMode = amoledMode,
+                themePreset = preset,
+                uiStyle = UiStyle.from(prefs[PreferencesKeys.UI_STYLE]),
+                aeroPreset = aeroPreset,
+                aeroDecorationLevel = aeroDecoration,
+                aeroGlassBlur = aeroBlur,
+                aeroReducedMotion = aeroReducedMotion,
+            )
         },
         dataStore.data.map { it[PreferencesKeys.USE_SHIZUKU] ?: false },
         dataStore.data.map { it[PreferencesKeys.VIRUSTOTAL_API_KEY] ?: "" },
@@ -264,6 +281,11 @@ class SettingViewModel(
     fun setDynamicColor(enabled: Boolean) = preferencesDelegate.setDynamicColor(enabled)
     fun setAmoledMode(enabled: Boolean) = preferencesDelegate.setAmoledMode(enabled)
     fun setThemePreset(preset: AppThemePreset) = preferencesDelegate.setThemePreset(preset)
+    fun setUiStyle(style: UiStyle) = preferencesDelegate.setUiStyle(style)
+    fun setAeroPreset(preset: AeroPreset) = preferencesDelegate.setAeroPreset(preset)
+    fun setAeroDecorationLevel(level: AeroDecorationLevel) = preferencesDelegate.setAeroDecorationLevel(level)
+    fun setAeroGlassBlur(enabled: Boolean) = preferencesDelegate.setAeroGlassBlur(enabled)
+    fun setAeroReducedMotion(enabled: Boolean) = preferencesDelegate.setAeroReducedMotion(enabled)
 
     // ── Privilege Delegates ─────────────────────────────────────────────────
 

@@ -24,14 +24,17 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import app.pwhs.core.domain.AppThemePreset
 import app.pwhs.core.domain.ThemeMode
 import app.pwhs.core.presentation.onboarding.OnboardingScreen
 import app.pwhs.universalinstaller.telemetry.Telemetry
 import app.pwhs.core.util.DeviceCompat
 import app.pwhs.core.data.local.dataStore
 import app.pwhs.universalinstaller.presentation.splash.SplashActivity
+import app.pwhs.core.ui.theme.ThemeSnapshot
+import app.pwhs.core.ui.theme.themeSnapshot
 import app.pwhs.universalinstaller.ui.theme.UniversalInstallerTheme
+import app.pwhs.universalinstaller.ui.theme.aero.AeroAppShell
+import app.pwhs.universalinstaller.ui.theme.aero.AeroThemeBridge
 import app.pwhs.universalinstaller.util.LocaleHelper
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -48,13 +51,6 @@ import app.pwhs.universalinstaller.presentation.manage.ManageActivity
 import app.pwhs.universalinstaller.util.extension.disableSceneTransition
 
 private enum class AppRoute { Onboarding, Main }
-
-private data class ThemeConfig(
-    val themeMode: ThemeMode = ThemeMode.System,
-    val dynamicColor: Boolean = false,
-    val amoledMode: Boolean = false,
-    val themePreset: AppThemePreset = AppThemePreset.Orange,
-)
 
 class MainActivity : ComponentActivity() {
 
@@ -80,19 +76,11 @@ class MainActivity : ComponentActivity() {
             intent?.getBooleanExtra(SplashActivity.EXTRA_SHOW_ONBOARDING, false) == true
         setContent {
             val themeStateFlow = remember {
-                dataStore.data.map { prefs ->
-                    val name = prefs[stringPreferencesKey("theme_mode")] ?: ThemeMode.System.name
-                    val themeMode = ThemeMode.entries.find { it.name == name } ?: ThemeMode.System
-                    val dynamicColor = prefs[booleanPreferencesKey("dynamic_color")] ?: false
-                    val amoledMode = prefs[booleanPreferencesKey("amoled_mode")] ?: false
-                    val presetName = prefs[stringPreferencesKey("theme_preset")] ?: AppThemePreset.Orange.name
-                    val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
-                    ThemeConfig(themeMode, dynamicColor, amoledMode, themePreset)
-                }
+                dataStore.data.map { prefs -> prefs.themeSnapshot() }
             }
-            val themeState by themeStateFlow.collectAsState(initial = ThemeConfig())
+            val themeState by themeStateFlow.collectAsState(initial = ThemeSnapshot())
 
-            val darkTheme = when (themeState.themeMode) {
+            val darkTheme = when (themeState.mode) {
                 ThemeMode.System -> isSystemInDarkTheme()
                 ThemeMode.Light -> false
                 ThemeMode.Dark -> true
@@ -131,7 +119,11 @@ class MainActivity : ComponentActivity() {
                 dynamicColor = themeState.dynamicColor,
                 amoledMode = themeState.amoledMode,
                 themePreset = themeState.themePreset,
+                uiStyle = themeState.uiStyle,
+                aeroConfig = themeState.aeroConfig,
             ) {
+                AeroThemeBridge {
+                AeroAppShell {
                 when (currentRoute) {
                     AppRoute.Onboarding -> {
                         val backupViewModel: app.pwhs.universalinstaller.presentation.setting.backup.BackupViewModel = org.koin.androidx.compose.koinViewModel()
@@ -201,6 +193,8 @@ class MainActivity : ComponentActivity() {
                             this@MainActivity.disableSceneTransition()
                         }
                     }
+                }
+                }
                 }
             }
         }

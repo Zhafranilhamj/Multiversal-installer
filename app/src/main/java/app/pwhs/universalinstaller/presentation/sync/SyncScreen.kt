@@ -30,6 +30,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import app.pwhs.universalinstaller.R
 import app.pwhs.universalinstaller.presentation.composable.QrCode
+import app.pwhs.universalinstaller.ui.theme.aero.aeroCornerBrackets
 import app.pwhs.universalinstaller.presentation.setting.components.SyncOptionsBottomSheet
 import org.koin.androidx.compose.koinViewModel
 
@@ -134,12 +135,16 @@ fun SyncScreen(
 
     // QR Code Dialog
     val currentServerUrl = uiState.serverUrl
+    val qrAeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
     if (showQrDialog && currentServerUrl != null) {
         Dialog(onDismissRequest = { showQrDialog = false }) {
             Surface(
                 shape = MaterialTheme.shapes.extraLarge,
-                color = MaterialTheme.colorScheme.surface,
-                tonalElevation = 6.dp,
+                color = qrAeroTokens?.glassFrost ?: MaterialTheme.colorScheme.surface,
+                border = qrAeroTokens?.let {
+                    androidx.compose.foundation.BorderStroke(1.dp, it.rimMid)
+                },
+                tonalElevation = if (qrAeroTokens != null) 0.dp else 6.dp,
             ) {
                 Column(
                     modifier = Modifier.padding(24.dp),
@@ -158,15 +163,26 @@ fun SyncScreen(
                         textAlign = TextAlign.Center,
                     )
                     Spacer(Modifier.height(24.dp))
-                    Surface(
-                        shape = MaterialTheme.shapes.large,
-                        color = Color.White,
-                        modifier = Modifier.size(240.dp),
+                    Box(
+                        modifier = if (qrAeroTokens != null) {
+                            Modifier.aeroCornerBrackets(
+                                color = qrAeroTokens.activeCyan,
+                                cornerLength = 18.dp,
+                            )
+                        } else {
+                            Modifier
+                        },
                     ) {
-                        QrCode(
-                            data = currentServerUrl,
-                            modifier = Modifier.padding(16.dp).fillMaxSize(),
-                        )
+                        Surface(
+                            shape = MaterialTheme.shapes.large,
+                            color = Color.White,
+                            modifier = Modifier.padding(6.dp).size(240.dp),
+                        ) {
+                            QrCode(
+                                data = currentServerUrl,
+                                modifier = Modifier.padding(16.dp).fillMaxSize(),
+                            )
+                        }
                     }
                     Spacer(Modifier.height(16.dp))
                     Text(

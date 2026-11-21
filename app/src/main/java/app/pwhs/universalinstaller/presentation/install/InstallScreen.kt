@@ -405,6 +405,7 @@ private fun InstallUi(
     val context = LocalContext.current
     val resource = LocalResources.current
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val aeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
 
     // "strict" means validate extension strictly against known package types; "permissive" accepts anything.
     var strictPickerMode by remember { mutableStateOf(true) }
@@ -803,8 +804,13 @@ private fun InstallUi(
                 },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                    containerColor = if (aeroTokens != null) {
+                        android.graphics.Color.TRANSPARENT.let { androidx.compose.ui.graphics.Color(it) }
+                    } else {
+                        MaterialTheme.colorScheme.background
+                    },
+                    scrolledContainerColor = aeroTokens?.navGlass
+                        ?: MaterialTheme.colorScheme.surfaceContainer,
                 ),
             )
         },

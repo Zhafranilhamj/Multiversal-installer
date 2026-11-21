@@ -2,7 +2,9 @@ package app.pwhs.universalinstaller.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import app.pwhs.core.domain.AeroUiConfig
 import app.pwhs.core.domain.AppThemePreset
+import app.pwhs.core.domain.UiStyle
 import app.pwhs.core.ui.theme.ExtendedColors
 import app.pwhs.core.ui.theme.LocalExtendedColors
 import app.pwhs.core.ui.theme.ExpressiveShapes
@@ -19,6 +21,8 @@ fun UniversalInstallerTheme(
     dynamicColor: Boolean = false,
     amoledMode: Boolean = false,
     themePreset: AppThemePreset = AppThemePreset.Orange,
+    uiStyle: UiStyle = UiStyle.MATERIAL_EXPRESSIVE,
+    aeroConfig: AeroUiConfig = AeroUiConfig(),
     content: @Composable () -> Unit
 ) {
     app.pwhs.core.ui.theme.UniversalInstallerTheme(
@@ -26,6 +30,8 @@ fun UniversalInstallerTheme(
         dynamicColor = dynamicColor,
         amoledMode = amoledMode,
         themePreset = themePreset,
+        uiStyle = uiStyle,
+        aeroConfig = aeroConfig,
         content = content
     )
 }

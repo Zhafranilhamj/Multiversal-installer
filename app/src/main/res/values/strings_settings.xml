@@ -406,4 +406,32 @@
     <string name="quota_unlock_get_free_key">Get Free Key</string>
     <string name="quota_unlock_pro_badge_btn">Upgrade Pro</string>
     <string name="quota_unlock_advanced_settings">Advanced Settings</string>
+
+    <!-- Optional Frutiger Aero UI style (Settings -> Appearance) -->
+    <string name="ui_style_title">UI Style</string>
+    <string name="ui_style_subtitle">Pick how the whole app looks. Switching is instant — no restart needed.</string>
+    <string name="ui_style_material">Material Expressive</string>
+    <string name="ui_style_material_sub">The clean default look, with your current colors.</string>
+    <string name="ui_style_aero">Frutiger Aero</string>
+    <string name="ui_style_aero_sub">Glossy glass, gel buttons and a living sky.</string>
+    <string name="ui_style_selected_cd">Selected</string>
+    <string name="aero_customization_title">Aero Customization</string>
+    <string name="aero_customization_subtitle">Tune the atmosphere without leaving this screen.</string>
+    <string name="aero_preset_title">Aero Atmosphere</string>
+    <string name="aero_preset_crystal_sky">Crystal Sky</string>
+    <string name="aero_preset_tropical_lagoon">Tropical Lagoon</string>
+    <string name="aero_preset_aurora_forest">Aurora Forest</string>
+    <string name="aero_preset_deep_bioluminescence">Deep Bioluminescence</string>
+    <string name="aero_decoration_title">Decoration Density</string>
+    <string name="aero_decoration_full">Full</string>
+    <string name="aero_decoration_balanced">Balanced</string>
+    <string name="aero_decoration_minimal">Minimal</string>
+    <string name="aero_decoration_hint">Full adds drifting ribbons and rising bubbles. Minimal keeps everything still.</string>
+    <string name="aero_glass_blur_title">Glass Blur &amp; Specular Reflections</string>
+    <string name="aero_glass_blur_subtitle">Frosted blur behind floating glass on Android 12+. Older devices use gradient frost instead.</string>
+    <string name="aero_reduced_motion_title">Reduce Motion</string>
+    <string name="aero_reduced_motion_subtitle">Stops ambient drift and shimmer. Also enabled automatically when system animations are off.</string>
+    <string name="aero_live_preview_title">Live Preview</string>
+    <string name="aero_mini_install">Install</string>
+    <string name="aero_mini_size">48.2 MB</string>
 </resources>

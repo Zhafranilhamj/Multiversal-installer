@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Universal Installer</string>
+    <string name="app_name" translatable="false">Multiversal Installer</string>
 
     <!-- Home screen -->
     <string name="home_title">APK Queue</string>

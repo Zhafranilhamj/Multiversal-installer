@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -37,6 +38,12 @@ import androidx.compose.ui.unit.dp
 import app.pwhs.core.util.StorageUtil
 import app.pwhs.universalinstaller.R
 import app.pwhs.universalinstaller.presentation.install.util.AppCacheManager
+import app.pwhs.universalinstaller.ui.theme.aero.AeroGelButton
+import app.pwhs.universalinstaller.ui.theme.aero.AeroGlassCard
+import app.pwhs.universalinstaller.ui.theme.aero.AeroLiquidProgressBar
+import app.pwhs.universalinstaller.ui.theme.aero.AeroStatusOrb
+import app.pwhs.universalinstaller.ui.theme.aero.AeroStorageTank
+import app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens
 import kotlinx.coroutines.launch
 
 /**
@@ -73,6 +80,20 @@ internal fun StorageCard(modifier: Modifier = Modifier) {
     }
 
     val progress = stats.progress
+
+    val aeroTokens = LocalAeroTokens.current
+    if (aeroTokens != null) {
+        AeroStorageCardContent(
+            modifier = modifier,
+            progress = progress,
+            freeBytes = stats.freeBytes,
+            totalBytes = stats.totalBytes,
+            cacheBytes = cacheBytes,
+            isClearing = isClearing,
+            onClearCache = onClearCache,
+        )
+        return
+    }
 
     ElevatedCard(
         modifier = modifier.fillMaxWidth(),
@@ -165,6 +186,122 @@ internal fun StorageCard(modifier: Modifier = Modifier) {
                 strokeCap = StrokeCap.Round,
                 gapSize = 0.dp,
                 drawStopIndicator = {},
+            )
+        }
+    }
+}
+
+/**
+ * Aero flavour of the storage card: a Vista-style frosted glass tank whose liquid turns from
+ * aqua/emerald to amber and then ruby as the device fills up.
+ */
+@Composable
+private fun AeroStorageCardContent(
+    modifier: Modifier,
+    progress: Float,
+    freeBytes: Long,
+    totalBytes: Long,
+    cacheBytes: Long,
+    isClearing: Boolean,
+    onClearCache: () -> Unit,
+) {
+    val context = LocalContext.current
+    val tokens = LocalAeroTokens.current ?: return
+    val statusColor = when {
+        progress >= 0.9f -> tokens.dangerRuby
+        progress >= 0.75f -> tokens.warningAmber
+        else -> tokens.safeEmerald
+    }
+
+    AeroGlassCard(modifier = modifier.fillMaxWidth()) {
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Row(
+                    modifier = Modifier.weight(1f, fill = false),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Storage,
+                        contentDescription = null,
+                        tint = tokens.activeCyan,
+                        modifier = Modifier.size(20.dp),
+                    )
+                    Spacer(Modifier.size(8.dp))
+                    Text(
+                        text = stringResource(R.string.install_storage_title),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+                AeroGelButton(
+                    onClick = onClearCache,
+                    enabled = !isClearing,
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp),
+                ) {
+                    if (isClearing) {
+                        CircularProgressIndicator(
+                            strokeWidth = 2.dp,
+                            modifier = Modifier.size(14.dp),
+                            color = tokens.inkOnVivid,
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Rounded.DeleteSweep,
+                            contentDescription = null,
+                            tint = tokens.inkOnVivid,
+                            modifier = Modifier.size(15.dp),
+                        )
+                    }
+                    Spacer(Modifier.size(5.dp))
+                    Text(
+                        text = if (cacheBytes > 0) {
+                            stringResource(
+                                R.string.install_storage_clear_cache_with_size,
+                                Formatter.formatShortFileSize(context, cacheBytes),
+                            )
+                        } else {
+                            stringResource(R.string.install_storage_clear_cache)
+                        },
+                        style = MaterialTheme.typography.labelSmall,
+                        color = tokens.inkOnVivid,
+                    )
+                }
+            }
+
+            AeroStorageTank(fraction = progress, height = 58.dp) {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(
+                        text = stringResource(
+                            R.string.install_storage_value,
+                            Formatter.formatShortFileSize(context, freeBytes),
+                            Formatter.formatShortFileSize(context, totalBytes),
+                        ),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        AeroStatusOrb(color = statusColor, orbSize = 8.dp, pulsing = progress >= 0.75f)
+                        Spacer(Modifier.size(6.dp))
+                        Text(
+                            text = "${(progress * 100).toInt()}%",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+            }
+            AeroLiquidProgressBar(
+                progress = progress,
+                height = 12.dp,
+                colors = when {
+                    progress >= 0.9f -> listOf(tokens.dangerRuby, tokens.dangerRuby, Color(0xFFC41340))
+                    progress >= 0.75f -> listOf(tokens.warningAmber, Color(0xFFFFB020), Color(0xFFE08A00))
+                    else -> null
+                },
             )
         }
     }

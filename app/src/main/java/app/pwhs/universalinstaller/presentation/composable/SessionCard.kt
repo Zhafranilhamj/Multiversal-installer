@@ -256,15 +256,22 @@ fun SessionCard(
             // Progress bar
             if (!isComplete && !hasError && progress > 0f) {
                 Spacer(Modifier.height(12.dp))
-                LinearProgressIndicator(
-                    progress = { animatedProgress },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(6.dp)
-                        .clip(MaterialTheme.shapes.extraSmall),
-                    color = MaterialTheme.colorScheme.primary,
-                    trackColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                )
+                if (app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current != null) {
+                    app.pwhs.universalinstaller.ui.theme.aero.AeroLiquidProgressBar(
+                        progress = animatedProgress,
+                        height = 12.dp,
+                    )
+                } else {
+                    LinearProgressIndicator(
+                        progress = { animatedProgress },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(6.dp)
+                            .clip(MaterialTheme.shapes.extraSmall),
+                        color = MaterialTheme.colorScheme.primary,
+                        trackColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    )
+                }
             } else if (!isComplete && !hasError) {
                 Spacer(Modifier.height(12.dp))
                 LinearProgressIndicator(

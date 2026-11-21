@@ -6,8 +6,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import app.pwhs.core.data.local.SharedPrefsKeys
 import app.pwhs.core.data.local.dataStore
+import app.pwhs.core.domain.AeroDecorationLevel
+import app.pwhs.core.domain.AeroPreset
 import app.pwhs.core.domain.AppThemePreset
 import app.pwhs.core.domain.ThemeMode
+import app.pwhs.core.domain.UiStyle
 import app.pwhs.universalinstaller.R
 import app.pwhs.universalinstaller.domain.manager.AutoApproveApps
 import app.pwhs.universalinstaller.domain.manager.InstallBlacklist
@@ -94,6 +97,36 @@ class SettingPreferencesDelegate(
     fun setThemePreset(preset: AppThemePreset) {
         scope.launch {
             dataStore.edit { prefs -> prefs[PreferencesKeys.THEME_PRESET] = preset.name }
+        }
+    }
+
+    fun setUiStyle(style: UiStyle) {
+        scope.launch {
+            dataStore.edit { prefs -> prefs[PreferencesKeys.UI_STYLE] = style.name }
+        }
+    }
+
+    fun setAeroPreset(preset: AeroPreset) {
+        scope.launch {
+            dataStore.edit { prefs -> prefs[PreferencesKeys.AERO_PRESET] = preset.name }
+        }
+    }
+
+    fun setAeroDecorationLevel(level: AeroDecorationLevel) {
+        scope.launch {
+            dataStore.edit { prefs -> prefs[PreferencesKeys.AERO_DECORATION_LEVEL] = level.name }
+        }
+    }
+
+    fun setAeroGlassBlur(enabled: Boolean) {
+        scope.launch {
+            dataStore.edit { prefs -> prefs[PreferencesKeys.AERO_GLASS_BLUR] = enabled }
+        }
+    }
+
+    fun setAeroReducedMotion(enabled: Boolean) {
+        scope.launch {
+            dataStore.edit { prefs -> prefs[PreferencesKeys.AERO_REDUCED_MOTION] = enabled }
         }
     }
 

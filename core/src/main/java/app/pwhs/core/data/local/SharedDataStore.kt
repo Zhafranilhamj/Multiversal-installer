@@ -118,6 +118,23 @@ object SharedPrefsKeys {
     val DYNAMIC_COLOR = booleanPreferencesKey("dynamic_color")
     val AMOLED_MODE = booleanPreferencesKey("amoled_mode")
 
+    // --- Optional Frutiger Aero UI style ---
+
+    /** [app.pwhs.core.domain.UiStyle] name. Absent means MATERIAL_EXPRESSIVE. */
+    val UI_STYLE = stringPreferencesKey("ui_style")
+
+    /** [app.pwhs.core.domain.AeroPreset] name. Absent means CRYSTAL_SKY. */
+    val AERO_PRESET = stringPreferencesKey("aero_preset")
+
+    /** [app.pwhs.core.domain.AeroDecorationLevel] name. Absent means BALANCED. */
+    val AERO_DECORATION_LEVEL = stringPreferencesKey("aero_decoration_level")
+
+    /** Frosted glass blur on API 31+; ignored on older versions which use gradient frost. */
+    val AERO_GLASS_BLUR = booleanPreferencesKey("aero_glass_blur")
+
+    /** Low-motion mode: no ambient drift, no bubbles, no shimmer sweeps. */
+    val AERO_REDUCED_MOTION = booleanPreferencesKey("aero_reduced_motion")
+
     /** Count of newly unlocked milestones not yet viewed in the Stats tab. */
     val UNSEEN_MILESTONE_COUNT = intPreferencesKey("stats_unseen_milestone_count")
 

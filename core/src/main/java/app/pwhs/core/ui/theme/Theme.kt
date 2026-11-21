@@ -20,7 +20,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
+import app.pwhs.core.domain.AeroUiConfig
 import app.pwhs.core.domain.AppThemePreset
+import app.pwhs.core.domain.UiStyle
 
 val LightColorScheme = lightColorScheme(
     primary = PrimaryLight,
@@ -211,9 +213,16 @@ fun UniversalInstallerTheme(
     dynamicColor: Boolean = false,
     amoledMode: Boolean = false,
     themePreset: AppThemePreset = AppThemePreset.Orange,
+    uiStyle: UiStyle = UiStyle.MATERIAL_EXPRESSIVE,
+    aeroConfig: AeroUiConfig = AeroUiConfig(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
+    val isAero = uiStyle == UiStyle.FRUTIGER_AERO
+    val colorScheme = if (isAero) {
+        // Aero keeps its own jewel palette; AMOLED and dynamic color are Material concepts
+        // and stay out of the way so the sky canvas is never painted over with black.
+        aeroColorScheme(dark = darkTheme, preset = aeroConfig.preset)
+    } else when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
@@ -222,7 +231,7 @@ fun UniversalInstallerTheme(
             getPresetColorScheme(darkTheme, themePreset)
         }
     }.let { baseScheme ->
-        if (darkTheme && amoledMode) {
+        if (!isAero && darkTheme && amoledMode) {
             baseScheme.copy(
                 background = Color.Black,
                 surface = Color.Black,
@@ -248,12 +257,14 @@ fun UniversalInstallerTheme(
 
     CompositionLocalProvider(
         LocalExtendedColors provides extendedColors,
-        LocalDensity provides customDensity
+        LocalDensity provides customDensity,
+        LocalUiStyle provides uiStyle,
+        LocalAeroConfig provides (if (isAero) aeroConfig.copy(darkMode = darkTheme) else aeroConfig),
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = Typography,
-            shapes = ExpressiveShapes,
+            typography = if (isAero) AeroTypography else Typography,
+            shapes = if (isAero) AeroShapes else ExpressiveShapes,
             content = content
         )
     }

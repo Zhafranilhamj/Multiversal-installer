@@ -127,10 +127,18 @@ fun DialogInstallingContent(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                LinearProgressIndicator(
-                    progress = { animatedProgress },
-                    modifier = Modifier.weight(1f),
-                )
+                if (app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current != null) {
+                    app.pwhs.universalinstaller.ui.theme.aero.AeroLiquidProgressBar(
+                        progress = animatedProgress,
+                        modifier = Modifier.weight(1f),
+                        height = 12.dp,
+                    )
+                } else {
+                    LinearProgressIndicator(
+                        progress = { animatedProgress },
+                        modifier = Modifier.weight(1f),
+                    )
+                }
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "${(animatedProgress * 100).toInt()}%",

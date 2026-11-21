@@ -27,7 +27,9 @@ fun PositionDialog(
     centerButton: @Composable (() -> Unit)? = null,
     titleContentColor: Color = MaterialTheme.colorScheme.onSurface,
     textContentColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    celebrate: Boolean = false,
 ) {
+    val aeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -42,7 +44,21 @@ fun PositionDialog(
                     .padding(horizontal = 16.dp, vertical = 8.dp)
                     .align(Alignment.CenterHorizontally)
             ) {
-                icon()
+                if (aeroTokens != null) {
+                    Box(contentAlignment = Alignment.Center) {
+                        if (celebrate) {
+                            app.pwhs.universalinstaller.ui.theme.aero.AeroSuccessRipple(size = 190.dp)
+                        }
+                        app.pwhs.universalinstaller.ui.theme.aero.AeroIconPedestal(
+                            haloColor = if (celebrate) aeroTokens.safeEmerald else aeroTokens.activeCyan,
+                            size = 96.dp,
+                        ) {
+                            icon()
+                        }
+                    }
+                } else {
+                    icon()
+                }
             }
         }
 

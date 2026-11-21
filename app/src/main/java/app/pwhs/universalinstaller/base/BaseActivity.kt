@@ -12,26 +12,18 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
 import app.pwhs.core.domain.ThemeMode
 import app.pwhs.core.data.local.dataStore
-import app.pwhs.core.data.local.SharedPrefsKeys
-import app.pwhs.core.domain.AppThemePreset
+import app.pwhs.core.ui.theme.themeSnapshot
 import app.pwhs.universalinstaller.ui.theme.UniversalInstallerTheme
+import app.pwhs.universalinstaller.ui.theme.aero.AeroAppShell
+import app.pwhs.universalinstaller.ui.theme.aero.AeroThemeBridge
 import app.pwhs.universalinstaller.util.LocaleHelper
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import app.pwhs.universalinstaller.util.extension.disableSceneTransition
 
 abstract class BaseActivity : FragmentActivity() {
-
-    protected data class AppThemeState(
-        val mode: ThemeMode,
-        val dynamicColor: Boolean,
-        val amoledMode: Boolean,
-        val themePreset: AppThemePreset
-    )
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(LocaleHelper.wrap(newBase))
@@ -60,27 +52,12 @@ abstract class BaseActivity : FragmentActivity() {
         setContent {
             val initialState = remember {
                 kotlinx.coroutines.runBlocking {
-                    val prefs = dataStore.data.first()
-                    val name = prefs[stringPreferencesKey("theme_mode")] ?: ThemeMode.System.name
-                    val mode = ThemeMode.entries.find { it.name == name } ?: ThemeMode.System
-                    val dynamicColor = prefs[booleanPreferencesKey("dynamic_color")] ?: false
-                    val amoledMode = prefs[booleanPreferencesKey("amoled_mode")] ?: false
-                    val presetName = prefs[stringPreferencesKey("theme_preset")] ?: AppThemePreset.Orange.name
-                    val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
-                    AppThemeState(mode, dynamicColor, amoledMode, themePreset)
+                    dataStore.data.first().themeSnapshot()
                 }
             }
-            
+
             val themeStateFlow = remember {
-                dataStore.data.map { prefs ->
-                    val name = prefs[stringPreferencesKey("theme_mode")] ?: ThemeMode.System.name
-                    val mode = ThemeMode.entries.find { it.name == name } ?: ThemeMode.System
-                    val dynamicColor = prefs[booleanPreferencesKey("dynamic_color")] ?: false
-                    val amoledMode = prefs[booleanPreferencesKey("amoled_mode")] ?: false
-                    val presetName = prefs[stringPreferencesKey("theme_preset")] ?: AppThemePreset.Orange.name
-                    val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
-                    AppThemeState(mode, dynamicColor, amoledMode, themePreset)
-                }
+                dataStore.data.map { prefs -> prefs.themeSnapshot() }
             }
             val themeState by themeStateFlow.collectAsState(initial = initialState)
 
@@ -116,12 +93,18 @@ abstract class BaseActivity : FragmentActivity() {
                 darkTheme = darkTheme,
                 dynamicColor = themeState.dynamicColor,
                 amoledMode = themeState.amoledMode,
-                themePreset = themeState.themePreset
+                themePreset = themeState.themePreset,
+                uiStyle = themeState.uiStyle,
+                aeroConfig = themeState.aeroConfig,
             ) {
-                if (this@BaseActivity !is app.pwhs.universalinstaller.presentation.splash.SplashActivity) {
-                    app.pwhs.universalinstaller.presentation.setting.security.components.AppLockGate()
+                AeroThemeBridge {
+                    AeroAppShell {
+                        if (this@BaseActivity !is app.pwhs.universalinstaller.presentation.splash.SplashActivity) {
+                            app.pwhs.universalinstaller.presentation.setting.security.components.AppLockGate()
+                        }
+                        content()
+                    }
                 }
-                content()
             }
         }
     }
