@@ -61,6 +61,7 @@ import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.DirectionsCar
 import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material.icons.rounded.Stop
+import app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens
 import app.pwhs.universalinstaller.util.AndroidAutoCompat
 import androidx.compose.material.icons.rounded.CloudUpload
 import androidx.compose.material.icons.rounded.Share
@@ -157,7 +158,7 @@ internal fun AppCard(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    val aeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
+    val aeroTokens = LocalAeroTokens.current
 
     Card(
         modifier = modifier

@@ -29,6 +29,7 @@ import app.pwhs.core.domain.AppThemePreset
 import app.pwhs.core.domain.UiStyle
 import app.pwhs.universalinstaller.ui.theme.aero.UiStyleAppearanceSection
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.lazy.LazyRow

@@ -46,7 +46,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER=$(gh pr list --head "${GITHUB_REF_NAME}" --json number --jq '.[0].number' || true)
-          grep -E "^e: |error:|What went wrong|FAILURE:|Execution failed" build-output.log | head -120 > errors.txt || true
+          grep -E "^e: |error:|What went wrong|FAILURE:|Execution failed" build-output.log | head -400 > errors.txt || true
           if [ ! -s errors.txt ]; then tail -n 120 build-output.log > errors.txt; fi
           {
             echo "### 🛠️ Build diagnostics"

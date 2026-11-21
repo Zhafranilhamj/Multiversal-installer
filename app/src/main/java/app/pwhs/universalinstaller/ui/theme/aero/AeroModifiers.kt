@@ -18,11 +18,22 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+
+/** Corner radius of [shape] in pixels, clamped so a pill stays a pill. */
+private fun DrawScope.cornerPx(shape: Shape): Float {
+    val raw = if (shape is RoundedCornerShape) {
+        shape.topStart.toPx(size, this)
+    } else {
+        size.minDimension / 2f
+    }
+    return raw.coerceIn(0f, size.minDimension / 2f)
+}
 
 /**
  * Three-layer frosted glass: translucent vertical body, a wet meniscus along the top edge and
@@ -44,21 +55,22 @@ fun Modifier.aeroGlass(
     )
     .clip(shape)
     .drawBehind {
-        val outline = shape.createOutline(size, layoutDirection, this)
+        val radius = cornerPx(shape)
+        val corners = CornerRadius(radius, radius)
         if (frost != Color.Unspecified) {
-            drawOutline(outline, brush = SolidFill(frost))
+            drawRoundRect(color = frost, cornerRadius = corners)
         }
-        drawOutline(
-            outline,
+        drawRoundRect(
             brush = Brush.verticalGradient(
                 listOf(tokens.glassTop, tokens.glassBottom),
                 startY = 0f,
                 endY = size.height,
             ),
+            cornerRadius = corners,
         )
         // Thick wet meniscus along the upper curve.
-        drawOutline(
-            outline,
+        val meniscusWidth = 2.dp.toPx()
+        drawRoundRect(
             brush = Brush.verticalGradient(
                 0f to tokens.meniscus,
                 0.22f to tokens.meniscus.copy(alpha = tokens.meniscus.alpha * 0.35f),
@@ -66,21 +78,37 @@ fun Modifier.aeroGlass(
                 startY = 0f,
                 endY = size.height,
             ),
-            style = Stroke(width = 2.dp.toPx()),
+            topLeft = Offset(meniscusWidth / 2f, meniscusWidth / 2f),
+            size = Size(
+                (size.width - meniscusWidth).coerceAtLeast(1f),
+                (size.height - meniscusWidth).coerceAtLeast(1f),
+            ),
+            cornerRadius = CornerRadius(
+                (radius - meniscusWidth / 2f).coerceAtLeast(0f),
+                (radius - meniscusWidth / 2f).coerceAtLeast(0f),
+            ),
+            style = Stroke(width = meniscusWidth),
         )
         // Outer hairline: bright top-left catchlight fading to aqua bottom-right.
-        drawOutline(
-            outline,
+        val hairline = rimWidth.toPx()
+        drawRoundRect(
             brush = Brush.linearGradient(
                 colors = listOf(tokens.rimTop, tokens.rimMid, tokens.rimBottom),
                 start = Offset(0f, 0f),
                 end = Offset(size.width, size.height),
             ),
-            style = Stroke(width = rimWidth.toPx()),
+            topLeft = Offset(hairline / 2f, hairline / 2f),
+            size = Size(
+                (size.width - hairline).coerceAtLeast(1f),
+                (size.height - hairline).coerceAtLeast(1f),
+            ),
+            cornerRadius = CornerRadius(
+                (radius - hairline / 2f).coerceAtLeast(0f),
+                (radius - hairline / 2f).coerceAtLeast(0f),
+            ),
+            style = Stroke(width = hairline),
         )
     }
-
-private fun SolidFill(color: Color): Brush = Brush.linearGradient(listOf(color, color))
 
 /**
  * Skeuomorphic gel fill: saturated jewel gradient, the signature glossy reflection band across
@@ -95,12 +123,12 @@ fun Modifier.aeroGel(
 ): Modifier = this
     .clip(shape)
     .drawBehind {
-        val outline = shape.createOutline(size, layoutDirection, this)
-        drawOutline(outline, brush = Brush.verticalGradient(colors))
+        val radius = cornerPx(shape)
+        val corners = CornerRadius(radius, radius)
+        drawRoundRect(brush = Brush.verticalGradient(colors), cornerRadius = corners)
         if (enabled) {
             val inset = 2.dp.toPx()
             val bandHeight = (size.height * 0.48f).coerceAtLeast(1f)
-            val radius = CornerRadius(size.height / 2f, size.height / 2f)
             drawRoundRect(
                 brush = Brush.verticalGradient(
                     listOf(
@@ -115,7 +143,7 @@ fun Modifier.aeroGel(
                     width = (size.width - inset * 2f).coerceAtLeast(1f),
                     height = bandHeight,
                 ),
-                cornerRadius = radius,
+                cornerRadius = corners,
             )
             // Bounce light along the lower inner edge.
             drawRoundRect(
@@ -130,18 +158,24 @@ fun Modifier.aeroGel(
                     width = (size.width - inset * 2f).coerceAtLeast(1f),
                     height = (size.height - inset * 2f).coerceAtLeast(1f),
                 ),
-                cornerRadius = radius,
+                cornerRadius = corners,
                 style = Stroke(width = 1.5.dp.toPx()),
             )
         }
-        drawOutline(
-            outline,
+        val rim = 1.dp.toPx()
+        drawRoundRect(
             brush = Brush.linearGradient(
                 listOf(tokens.rimTop, tokens.rimMid, tokens.rimBottom),
                 start = Offset(0f, 0f),
                 end = Offset(size.width, size.height),
             ),
-            style = Stroke(width = 1.dp.toPx()),
+            topLeft = Offset(rim / 2f, rim / 2f),
+            size = Size(
+                (size.width - rim).coerceAtLeast(1f),
+                (size.height - rim).coerceAtLeast(1f),
+            ),
+            cornerRadius = corners,
+            style = Stroke(width = rim),
         )
     }
 
@@ -152,17 +186,19 @@ fun Modifier.aeroRecessedTrough(
 ): Modifier = this
     .clip(shape)
     .drawBehind {
-        val outline = shape.createOutline(size, layoutDirection, this)
-        drawOutline(outline, brush = SolidFill(tokens.trackInner))
+        val radius = cornerPx(shape)
+        val corners = CornerRadius(radius, radius)
+        drawRoundRect(brush = Brush.verticalGradient(listOf(tokens.trackOuter.copy(alpha = 0.55f), Color.Transparent)), cornerRadius = corners)
+        drawRoundRect(color = tokens.trackInner, cornerRadius = corners)
         // Top inner shadow …
-        drawOutline(
-            outline,
+        drawRoundRect(
             brush = Brush.verticalGradient(
                 0f to Color.Black.copy(alpha = 0.22f),
                 0.30f to Color.Transparent,
                 startY = 0f,
                 endY = size.height,
             ),
+            cornerRadius = corners,
             style = Stroke(width = 2.dp.toPx()),
         )
         // … and a lower catchlight so it reads as glass, not paint.
@@ -173,12 +209,12 @@ fun Modifier.aeroRecessedTrough(
                 startY = 0f,
                 endY = size.height,
             ),
-            cornerRadius = CornerRadius(size.height / 2f, size.height / 2f),
+            cornerRadius = corners,
             style = Fill,
         )
-        drawOutline(
-            outline,
-            brush = SolidFill(tokens.hairline),
+        drawRoundRect(
+            color = tokens.hairline,
+            cornerRadius = corners,
             style = Stroke(width = 1.dp.toPx()),
         )
     }
