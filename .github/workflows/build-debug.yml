@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "**" ]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,16 +26,54 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          cache-enabled: true
           cache-read-only: ${{ github.event_name == 'pull_request' }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Run Gradle Build
-        run: ./gradlew :app:assembleOpensourceDebug :tv:assembleDebug :wearos:assembleDebug
+        id: gradle
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleOpensourceDebug :tv:assembleDebug :wearos:assembleDebug 2>&1 | tee build-output.log
+
+      # Kotlin errors are only visible in the (authenticated) Actions log, so surface the useful
+      # part of a failed build as a PR comment — that is readable by tooling and by the author.
+      - name: Report build errors
+        if: steps.gradle.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --head "${GITHUB_REF_NAME}" --json number --jq '.[0].number' || true)
+          grep -E "^e: |error:|What went wrong|FAILURE:|Execution failed" build-output.log | head -400 > errors.txt || true
+          if [ ! -s errors.txt ]; then tail -n 120 build-output.log > errors.txt; fi
+          {
+            echo "### 🛠️ Build diagnostics"
+            echo '```'
+            cat errors.txt
+            echo '```'
+          } > comment.md
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr comment "$PR_NUMBER" --body-file comment.md
+          else
+            echo "No pull request for ${GITHUB_REF_NAME}; see the uploaded build-output artifact."
+          fi
+
+      - name: Fail if the build failed
+        if: steps.gradle.outcome != 'success'
+        run: exit 1
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build-output.log
+          retention-days: 7
 
       - name: Upload debug APKs
+        if: steps.gradle.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: debug-apks
@@ -40,3 +82,58 @@ jobs:
             tv/build/outputs/apk/debug/*.apk
             wearos/build/outputs/apk/debug/*.apk
           retention-days: 14
+
+      # Verification pass: unit tests and the lint report run after the APKs are safe, so a
+      # pre-existing test or lint failure is reported without throwing away the build.
+      - name: Run unit tests
+        id: tests
+        if: steps.gradle.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          ./gradlew :core:testDebugUnitTest :app:testOpensourceDebugUnitTest 2>&1 | tee test-output.log
+
+      - name: Run lint
+        id: lint
+        if: steps.gradle.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          ./gradlew :app:lintOpensourceDebug 2>&1 | tee lint-output.log
+
+      - name: Report test and lint failures
+        if: steps.tests.outcome == 'failure' || steps.lint.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --head "${GITHUB_REF_NAME}" --json number --jq '.[0].number' || true)
+          {
+            echo "### 🧪 Test / lint report"
+            echo '```'
+            grep -hE "FAILED|tests completed|Lint found|\berror\b" test-output.log lint-output.log 2>/dev/null | head -200 || true
+            if [ -f app/build/reports/lint-results-opensourceDebug.txt ]; then
+              echo
+              echo "--- lint errors ---"
+              grep -E "Error:" app/build/reports/lint-results-opensourceDebug.txt | head -80 || true
+              echo
+              echo "--- lint errors mentioning Aero ---"
+              grep -E "Error:" app/build/reports/lint-results-opensourceDebug.txt | grep -i "aero" | head -40 || true
+            fi
+            echo '```'
+          } > checks.md
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr comment "$PR_NUMBER" --body-file checks.md
+          else
+            cat checks.md
+          fi
+
+      - name: Upload test and lint logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checks
+          path: |
+            test-output.log
+            lint-output.log
+          if-no-files-found: ignore
+          retention-days: 7

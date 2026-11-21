@@ -25,6 +25,22 @@ jobs:
       - name: Set Version Name
         run: echo "VERSION_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
 
+      # The Play half of this workflow needs both a service-account key and a Firebase config.
+      # A fork (or a secrets-less repo) has neither, so the job must still be able to publish
+      # a signed open-source APK to the GitHub release instead of failing halfway through.
+      - name: Check for Play publishing credentials
+        id: play_credentials
+        env:
+          PLAY_STORE_CONFIG_JSON: ${{ secrets.PLAY_STORE_CONFIG_JSON }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$PLAY_STORE_CONFIG_JSON" ] && [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            echo "available=true" >> $GITHUB_OUTPUT
+          else
+            echo "available=false" >> $GITHUB_OUTPUT
+            echo "Play credentials are not configured — this run will only build and publish the signed open-source APK."
+          fi
+
       # Determine which form factors were bumped compared to the previous git tag.
       # This mirrors fastlane/Fastfile's smart_deploy logic so we only build and
       # attach release artifacts for modules that actually changed in this release.
@@ -119,11 +135,13 @@ jobs:
           EOF
 
       - name: Decode Play Store key
+        if: steps.play_credentials.outputs.available == 'true'
         run: echo "${{ secrets.PLAY_STORE_CONFIG_JSON }}" | base64 --decode > fastlane/play-store-key.json
 
       # Enables the `play` flavor, TV and Wear OS Firebase integration. Without this file :app has no play variants at all and every
       # bundlePlayRelease below fails with "task not found" — see docs/FIREBASE.md.
       - name: Decode Firebase config
+        if: steps.play_credentials.outputs.available == 'true'
         run: |
           mkdir -p app/src/play tv/src/play wearos
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > app/src/play/google-services.json
@@ -137,6 +155,7 @@ jobs:
       # Ships the phone, watch and TV AABs in one release — they share a package name, so Play
       # treats them as three form factors of the same listing.
       - name: Deploy to production track
+        if: steps.play_credentials.outputs.available == 'true'
         id: play_store_production
         continue-on-error: true
         run: bundle exec fastlane production
@@ -146,6 +165,7 @@ jobs:
       # directory to survive a reconfigure. The lane above is continue-on-error, so a missing
       # bundle must not fail the job either — the release still ships its APKs without it.
       - name: Keep the store bundle for the release
+        if: steps.play_credentials.outputs.available == 'true'
         run: |
           mkdir -p dist
           if [ "$APP_CHANGED" = "true" ] && [ -f app/build/outputs/bundle/playRelease/app-play-release.aab ]; then
@@ -232,12 +252,37 @@ jobs:
           path: release_artifacts/*
           retention-days: 30
 
+      # Friendly, user-facing notes taken from the fastlane changelog for this versionCode.
+      - name: Compose release notes
+        run: |
+          VERSION_CODE=$(grep -E "versionCode\s*=" app/build.gradle.kts | head -n 1 | awk -F"=" '{gsub(/[^0-9]/, "", $2); print $2}')
+          CHANGELOG="fastlane/metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
+          {
+            echo "## What's new in ${VERSION_NAME}"
+            echo
+            if [ -f "$CHANGELOG" ]; then
+              cat "$CHANGELOG"
+            else
+              echo "Maintenance release with stability improvements."
+            fi
+            echo
+            if [ -f release_artifacts/app-release.apk ]; then
+              echo "### Download"
+              echo "- **app-release.apk** — signed release build for Android 7.0+ (sideload). Install it directly, or use it with Shizuku, Root or the built-in installer."
+            fi
+            echo
+            echo "_Installed apps and data are never touched by an update._"
+          } > release_notes.md
+          cat release_notes.md
+
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ env.VERSION_NAME }}
+          body_path: release_notes.md
           draft: false
           prerelease: false
+          generate_release_notes: false
           files: release_artifacts/*
           token: ${{ secrets.GITHUB_TOKEN }}

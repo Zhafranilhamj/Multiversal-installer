@@ -109,10 +109,17 @@ internal fun ObbCopyCard(
             if (state is ObbCopyState.Running) {
                 Spacer(Modifier.height(10.dp))
                 if (state.totalBytes > 0) {
-                    LinearProgressIndicator(
-                        progress = { state.progressPercent / 100f },
-                        modifier = Modifier.fillMaxWidth(),
-                    )
+                    if (app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current != null) {
+                        app.pwhs.universalinstaller.ui.theme.aero.AeroLiquidProgressBar(
+                            progress = state.progressPercent / 100f,
+                            height = 12.dp,
+                        )
+                    } else {
+                        LinearProgressIndicator(
+                            progress = { state.progressPercent / 100f },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
                 } else {
                     LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
                 }

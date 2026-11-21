@@ -10,6 +10,13 @@ object PreferencesKeys {
     val DYNAMIC_COLOR = booleanPreferencesKey("dynamic_color")
     val AMOLED_MODE = booleanPreferencesKey("amoled_mode")
     val THEME_PRESET = stringPreferencesKey("theme_preset")
+
+    // Optional Frutiger Aero UI style (shared key names live in SharedPrefsKeys).
+    val UI_STYLE = stringPreferencesKey("ui_style")
+    val AERO_PRESET = stringPreferencesKey("aero_preset")
+    val AERO_DECORATION_LEVEL = stringPreferencesKey("aero_decoration_level")
+    val AERO_GLASS_BLUR = booleanPreferencesKey("aero_glass_blur")
+    val AERO_REDUCED_MOTION = booleanPreferencesKey("aero_reduced_motion")
     val USE_SHIZUKU = booleanPreferencesKey("use_shizuku")
     val USE_ROOT = booleanPreferencesKey("use_root")
     val INSTALL_USER_ID = intPreferencesKey("install_user_id")

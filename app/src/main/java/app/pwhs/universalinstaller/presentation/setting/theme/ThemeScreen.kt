@@ -21,9 +21,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.pwhs.universalinstaller.R
 import app.pwhs.universalinstaller.presentation.setting.SettingViewModel
+import app.pwhs.core.domain.AeroDecorationLevel
+import app.pwhs.core.domain.AeroPreset
+import app.pwhs.core.domain.AeroUiConfig
 import app.pwhs.core.domain.ThemeMode
 import app.pwhs.core.domain.AppThemePreset
+import app.pwhs.core.domain.UiStyle
+import app.pwhs.universalinstaller.ui.theme.aero.UiStyleAppearanceSection
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.lazy.LazyRow
@@ -46,10 +52,20 @@ fun ThemeScreen(
         dynamicColor = uiState.dynamicColor,
         amoledMode = uiState.amoledMode,
         themePreset = uiState.themePreset,
+        uiStyle = uiState.uiStyle,
+        aeroPreset = uiState.aeroPreset,
+        aeroDecorationLevel = uiState.aeroDecorationLevel,
+        aeroGlassBlur = uiState.aeroGlassBlur,
+        aeroReducedMotion = uiState.aeroReducedMotion,
         onThemeChanged = viewModel::setThemeMode,
         onDynamicColorChanged = viewModel::setDynamicColor,
         onAmoledModeChanged = viewModel::setAmoledMode,
         onThemePresetChanged = viewModel::setThemePreset,
+        onUiStyleChanged = viewModel::setUiStyle,
+        onAeroPresetChanged = viewModel::setAeroPreset,
+        onAeroDecorationChanged = viewModel::setAeroDecorationLevel,
+        onAeroGlassBlurChanged = viewModel::setAeroGlassBlur,
+        onAeroReducedMotionChanged = viewModel::setAeroReducedMotion,
         onBack = {
             val a = context as? android.app.Activity
             a?.finish()
@@ -65,13 +81,28 @@ private fun ThemeUi(
     dynamicColor: Boolean = false,
     amoledMode: Boolean = false,
     themePreset: AppThemePreset = AppThemePreset.Orange,
+    uiStyle: UiStyle = UiStyle.MATERIAL_EXPRESSIVE,
+    aeroPreset: AeroPreset = AeroPreset.CRYSTAL_SKY,
+    aeroDecorationLevel: AeroDecorationLevel = AeroDecorationLevel.BALANCED,
+    aeroGlassBlur: Boolean = true,
+    aeroReducedMotion: Boolean = false,
     onThemeChanged: (ThemeMode) -> Unit = {},
     onDynamicColorChanged: (Boolean) -> Unit = {},
     onAmoledModeChanged: (Boolean) -> Unit = {},
     onThemePresetChanged: (AppThemePreset) -> Unit = {},
+    onUiStyleChanged: (UiStyle) -> Unit = {},
+    onAeroPresetChanged: (AeroPreset) -> Unit = {},
+    onAeroDecorationChanged: (AeroDecorationLevel) -> Unit = {},
+    onAeroGlassBlurChanged: (Boolean) -> Unit = {},
+    onAeroReducedMotionChanged: (Boolean) -> Unit = {},
     onBack: () -> Unit = {}
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val resolvedDark = when (themeMode) {
+        ThemeMode.System -> isSystemInDarkTheme()
+        ThemeMode.Light -> false
+        ThemeMode.Dark -> true
+    }
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -106,6 +137,26 @@ private fun ThemeUi(
                 .fillMaxSize(),
             contentPadding = PaddingValues(bottom = 24.dp)
         ) {
+            item(key = "ui_style") {
+                UiStyleAppearanceSection(
+                    uiStyle = uiStyle,
+                    aeroConfig = AeroUiConfig(
+                        preset = aeroPreset,
+                        decorationLevel = aeroDecorationLevel,
+                        glassBlur = aeroGlassBlur,
+                        reducedMotion = aeroReducedMotion,
+                    ),
+                    darkMode = resolvedDark,
+                    onStyleSelected = onUiStyleChanged,
+                    onPresetSelected = onAeroPresetChanged,
+                    onDecorationSelected = onAeroDecorationChanged,
+                    onGlassBlurChanged = onAeroGlassBlurChanged,
+                    onReducedMotionChanged = onAeroReducedMotionChanged,
+                )
+            }
+            item(key = "ui_style_divider") {
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp))
+            }
             item {
                 Text(
                     text = stringResource(R.string.theme_mode_title),

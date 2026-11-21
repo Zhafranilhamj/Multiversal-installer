@@ -51,6 +51,9 @@ import androidx.core.content.getSystemService
 import app.pwhs.core.domain.model.VtResult
 import app.pwhs.core.domain.model.VtStatus
 import app.pwhs.universalinstaller.R
+import app.pwhs.universalinstaller.ui.theme.aero.AeroSonarRings
+import app.pwhs.universalinstaller.ui.theme.aero.AeroStatusOrb
+import app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens
 import app.pwhs.universalinstaller.domain.model.InstalledApp
 import app.pwhs.universalinstaller.presentation.install.components.AppShieldDailyQuotaBadge
 import app.pwhs.universalinstaller.presentation.install.components.SecurityFindingsSection
@@ -76,6 +79,7 @@ fun ManageSecurityScanSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     val status = vtResult?.status ?: VtStatus.SCANNING
+    val aeroTokens = LocalAeroTokens.current
     val isScanning = status == VtStatus.SCANNING ||
         status == VtStatus.UPLOADING ||
         status == VtStatus.QUEUED ||
@@ -166,7 +170,10 @@ fun ManageSecurityScanSheet(
             if (isScanning) {
                 Surface(
                     shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surfaceContainer,
+                    color = aeroTokens?.denseFrost ?: MaterialTheme.colorScheme.surfaceContainer,
+                    border = aeroTokens?.let {
+                        androidx.compose.foundation.BorderStroke(1.dp, it.rimMid)
+                    },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Column(
@@ -176,11 +183,19 @@ fun ManageSecurityScanSheet(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                     ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(48.dp),
-                            color = MaterialTheme.colorScheme.primary,
-                            strokeWidth = 4.dp,
-                        )
+                        androidx.compose.foundation.layout.Box(contentAlignment = Alignment.Center) {
+                            if (aeroTokens != null) {
+                                AeroSonarRings(
+                                    size = 132.dp,
+                                    color = aeroTokens.activeCyan,
+                                )
+                            }
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(48.dp),
+                                color = MaterialTheme.colorScheme.primary,
+                                strokeWidth = 4.dp,
+                            )
+                        }
 
                         val stepText = when (status) {
                             VtStatus.UPLOADING -> stringResource(R.string.apk_info_vt_desc_uploading, vtResult?.uploadProgress ?: 0)
@@ -408,9 +423,10 @@ private fun ScanResultBanner(
     desc: String,
 ) {
     val extendedColors = LocalExtendedColors.current
+    val aeroTokens = LocalAeroTokens.current
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = if (isClean) {
+        color = aeroTokens?.denseFrost ?: if (isClean) {
             extendedColors.success.copy(alpha = 0.12f)
         } else {
             MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f)
@@ -429,12 +445,20 @@ private fun ScanResultBanner(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
-                imageVector = if (isClean) Icons.Rounded.GppGood else Icons.Rounded.Warning,
-                contentDescription = null,
-                tint = if (isClean) extendedColors.success else MaterialTheme.colorScheme.error,
-                modifier = Modifier.size(36.dp),
-            )
+            if (aeroTokens != null) {
+                AeroStatusOrb(
+                    color = if (isClean) aeroTokens.safeEmerald else aeroTokens.dangerRuby,
+                    orbSize = 16.dp,
+                    pulsing = true,
+                )
+            } else {
+                Icon(
+                    imageVector = if (isClean) Icons.Rounded.GppGood else Icons.Rounded.Warning,
+                    contentDescription = null,
+                    tint = if (isClean) extendedColors.success else MaterialTheme.colorScheme.error,
+                    modifier = Modifier.size(36.dp),
+                )
+            }
 
             Spacer(modifier = Modifier.width(14.dp))
 

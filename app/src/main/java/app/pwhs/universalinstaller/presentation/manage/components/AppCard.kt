@@ -61,6 +61,7 @@ import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.DirectionsCar
 import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material.icons.rounded.Stop
+import app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens
 import app.pwhs.universalinstaller.util.AndroidAutoCompat
 import androidx.compose.material.icons.rounded.CloudUpload
 import androidx.compose.material.icons.rounded.Share
@@ -157,6 +158,7 @@ internal fun AppCard(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
+    val aeroTokens = LocalAeroTokens.current
 
     Card(
         modifier = modifier
@@ -175,16 +177,24 @@ internal fun AppCard(
             ),
         shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(
-            containerColor = if (isSelected) MaterialTheme.colorScheme.primaryContainer
-                else MaterialTheme.colorScheme.surfaceContainerLow,
+            containerColor = when {
+                aeroTokens != null && isSelected -> aeroTokens.activeCyan.copy(alpha = 0.30f)
+                aeroTokens != null -> aeroTokens.denseFrost
+                isSelected -> MaterialTheme.colorScheme.primaryContainer
+                else -> MaterialTheme.colorScheme.surfaceContainerLow
+            },
         ),
-        // Flat card — no shadow. A thin outline separates each row; a primary border marks
-        // the current selection so it reads even without the leading check icon.
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        // Flat card in Material; a soft tinted shadow and a wet glass rim in Aero. A thin
+        // outline separates each row, and a bright cyan border marks the current selection.
+        elevation = CardDefaults.cardElevation(defaultElevation = if (aeroTokens != null) 6.dp else 0.dp),
         border = BorderStroke(
             1.dp,
-            if (isSelected) MaterialTheme.colorScheme.primary
-                else MaterialTheme.colorScheme.outlineVariant,
+            when {
+                aeroTokens != null && isSelected -> aeroTokens.activeCyan
+                aeroTokens != null -> aeroTokens.hairline
+                isSelected -> MaterialTheme.colorScheme.primary
+                else -> MaterialTheme.colorScheme.outlineVariant
+            },
         ),
     ) {
         Row(

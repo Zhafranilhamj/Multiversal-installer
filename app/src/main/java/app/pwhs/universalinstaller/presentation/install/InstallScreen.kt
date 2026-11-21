@@ -63,6 +63,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
@@ -405,6 +406,7 @@ private fun InstallUi(
     val context = LocalContext.current
     val resource = LocalResources.current
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val aeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
 
     // "strict" means validate extension strictly against known package types; "permissive" accepts anything.
     var strictPickerMode by remember { mutableStateOf(true) }
@@ -770,7 +772,17 @@ private fun InstallUi(
                         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                             Text(
                                 text = stringResource(R.string.fab_install),
-                                style = MaterialTheme.typography.headlineMedium,
+                                style = if (aeroTokens != null) {
+                                    MaterialTheme.typography.headlineMedium.copy(
+                                        shadow = androidx.compose.ui.graphics.Shadow(
+                                            color = aeroTokens.headerShadow,
+                                            offset = Offset(0f, 1.5f),
+                                            blurRadius = 6f,
+                                        ),
+                                    )
+                                } else {
+                                    MaterialTheme.typography.headlineMedium
+                                },
                             )
                             InstallerModeBadge()
                             Spacer(modifier = Modifier.height(12.dp))
@@ -803,8 +815,13 @@ private fun InstallUi(
                 },
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                    containerColor = if (aeroTokens != null) {
+                        android.graphics.Color.TRANSPARENT.let { androidx.compose.ui.graphics.Color(it) }
+                    } else {
+                        MaterialTheme.colorScheme.background
+                    },
+                    scrolledContainerColor = aeroTokens?.navGlass
+                        ?: MaterialTheme.colorScheme.surfaceContainer,
                 ),
             )
         },

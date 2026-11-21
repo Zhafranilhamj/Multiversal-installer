@@ -107,6 +107,15 @@ class DialogUninstallActivity : ComponentActivity() {
             val amoledMode = prefs?.get(PreferencesKeys.AMOLED_MODE) ?: false
             val presetName = prefs?.get(PreferencesKeys.THEME_PRESET) ?: AppThemePreset.Orange.name
             val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
+            val uiStyle = app.pwhs.core.domain.UiStyle.from(prefs?.get(PreferencesKeys.UI_STYLE))
+            val aeroConfig = app.pwhs.core.domain.AeroUiConfig(
+                preset = app.pwhs.core.domain.AeroPreset.from(prefs?.get(PreferencesKeys.AERO_PRESET)),
+                decorationLevel = app.pwhs.core.domain.AeroDecorationLevel.from(
+                    prefs?.get(PreferencesKeys.AERO_DECORATION_LEVEL),
+                ),
+                glassBlur = prefs?.get(PreferencesKeys.AERO_GLASS_BLUR) ?: true,
+                reducedMotion = prefs?.get(PreferencesKeys.AERO_REDUCED_MOTION) ?: false,
+            )
 
             val defaultKeepData = prefs?.get(PreferencesKeys.SHIZUKU_UNINSTALL_KEEP_DATA) ?: false
             val defaultAllUsers = prefs?.get(PreferencesKeys.SHIZUKU_UNINSTALL_ALL_USERS) ?: allUsersInitial
@@ -129,7 +138,11 @@ class DialogUninstallActivity : ComponentActivity() {
                 dynamicColor = dynamicColor,
                 amoledMode = amoledMode,
                 themePreset = themePreset,
+                uiStyle = uiStyle,
+                aeroConfig = aeroConfig,
             ) {
+                app.pwhs.universalinstaller.ui.theme.aero.AeroThemeBridge {
+                app.pwhs.universalinstaller.ui.theme.aero.AeroAppShell(dialog = true) {
                 DialogUninstallSheet(
                     appName = appName,
                     packageName = targetPackage,
@@ -157,6 +170,8 @@ class DialogUninstallActivity : ComponentActivity() {
                         )
                     },
                 )
+                }
+                }
             }
         }
     }

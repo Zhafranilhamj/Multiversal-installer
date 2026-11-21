@@ -43,8 +43,10 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import app.pwhs.core.domain.AeroUiConfig
 import app.pwhs.core.domain.AppThemePreset
 import app.pwhs.core.domain.ThemeMode
+import app.pwhs.core.domain.UiStyle
 import app.pwhs.universalinstaller.R
 import app.pwhs.universalinstaller.domain.model.InstallUiStyle
 import app.pwhs.universalinstaller.presentation.install.DialogStage
@@ -52,6 +54,8 @@ import app.pwhs.universalinstaller.presentation.install.DialogTarget
 import app.pwhs.universalinstaller.presentation.install.InstallUiState
 import app.pwhs.universalinstaller.presentation.install.InstallViewModel
 import app.pwhs.universalinstaller.ui.theme.UniversalInstallerTheme
+import app.pwhs.universalinstaller.ui.theme.aero.AeroAppShell
+import app.pwhs.universalinstaller.ui.theme.aero.AeroThemeBridge
 import app.pwhs.universalinstaller.util.SystemIntentInstaller
 import app.pwhs.universalinstaller.util.WindowBlurEffect
 import app.pwhs.universalinstaller.bridge.AntiSplitBridge
@@ -106,6 +110,8 @@ fun DialogInstallContent(
     dynamicColor: Boolean,
     amoledMode: Boolean,
     themePreset: AppThemePreset,
+    visualStyle: UiStyle = UiStyle.MATERIAL_EXPRESSIVE,
+    aeroConfig: AeroUiConfig = AeroUiConfig(),
     autoOpenAfterInstall: Boolean,
     showKeepApkOption: Boolean = false,
     keepApk: Boolean = false,
@@ -232,6 +238,8 @@ fun DialogInstallContent(
         dynamicColor = dynamicColor,
         amoledMode = amoledMode,
         themePreset = themePreset,
+        uiStyle = visualStyle,
+        aeroConfig = aeroConfig,
     ) {
         val configuration = LocalConfiguration.current
         val screenHeight = configuration.screenHeightDp.dp
@@ -270,8 +278,11 @@ fun DialogInstallContent(
             )
         }
 
-        if (uiState.dialogStage == DialogStage.None) return@UniversalInstallerTheme
+        AeroThemeBridge {
+        AeroAppShell(dialog = true) {
+        if (uiState.dialogStage != DialogStage.None) {
 
+        val aeroDialogTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
         val isSheet = uiStyle == InstallUiStyle.Sheet
         Box(
             modifier = Modifier
@@ -303,10 +314,18 @@ fun DialogInstallContent(
                             detectTapGestures(onTap = { /* consume clicks */ })
                         },
                     shape = if (isSheet) FLOATING_SHEET_SHAPE else AlertDialogDefaults.shape,
-                    color = if (darkTheme && amoledMode) Color.Black else AlertDialogDefaults.containerColor,
-                    tonalElevation = if (darkTheme && amoledMode) 0.dp else if (isSheet) BottomSheetDefaults.Elevation else AlertDialogDefaults.TonalElevation,
-                    shadowElevation = if (isSheet) 8.dp else 12.dp,
-                    border = if (darkTheme && amoledMode) BorderStroke(1.dp, Color(0xFF262626)) else null,
+                    color = when {
+                        aeroDialogTokens != null -> aeroDialogTokens.glassFrost
+                        darkTheme && amoledMode -> Color.Black
+                        else -> AlertDialogDefaults.containerColor
+                    },
+                    tonalElevation = if (aeroDialogTokens != null || (darkTheme && amoledMode)) 0.dp else if (isSheet) BottomSheetDefaults.Elevation else AlertDialogDefaults.TonalElevation,
+                    shadowElevation = if (aeroDialogTokens != null) 18.dp else if (isSheet) 8.dp else 12.dp,
+                    border = when {
+                        aeroDialogTokens != null -> BorderStroke(1.dp, aeroDialogTokens.rimMid)
+                        darkTheme && amoledMode -> BorderStroke(1.dp, Color(0xFF262626))
+                        else -> null
+                    },
                 ) {
                     SheetChrome(enabled = isSheet) {
                         val params = generateDialogParams(
@@ -388,17 +407,21 @@ fun DialogInstallContent(
                             centerText = dialogInnerWidget(params.text),
                             centerContent = dialogInnerWidget(params.content),
                             centerButton = dialogInnerWidget(params.buttons),
+                            celebrate = uiState.dialogStage is DialogStage.Success,
                         )
                     }
                 }
             }
         }
 
+        }
         if (showAntiSplitPrompt) {
             AntiSplitPromptDialog(
                 onDismiss = { showAntiSplitPrompt = false },
                 onDownload = { AntiSplitBridge.openDownloadPage(context) },
             )
+        }
+        }
         }
     }
 }

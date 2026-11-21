@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -27,7 +28,9 @@ fun PositionDialog(
     centerButton: @Composable (() -> Unit)? = null,
     titleContentColor: Color = MaterialTheme.colorScheme.onSurface,
     textContentColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    celebrate: Boolean = false,
 ) {
+    val aeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -42,7 +45,24 @@ fun PositionDialog(
                     .padding(horizontal = 16.dp, vertical = 8.dp)
                     .align(Alignment.CenterHorizontally)
             ) {
-                icon()
+                if (aeroTokens != null) {
+                    Box(contentAlignment = Alignment.Center) {
+                        if (celebrate) {
+                            app.pwhs.universalinstaller.ui.theme.aero.AeroSuccessRipple(size = 190.dp)
+                            app.pwhs.universalinstaller.ui.theme.aero.AeroCelebration(
+                                modifier = Modifier.size(190.dp),
+                            )
+                        }
+                        app.pwhs.universalinstaller.ui.theme.aero.AeroIconPedestal(
+                            haloColor = if (celebrate) aeroTokens.safeEmerald else aeroTokens.activeCyan,
+                            size = 96.dp,
+                        ) {
+                            icon()
+                        }
+                    }
+                } else {
+                    icon()
+                }
             }
         }
 

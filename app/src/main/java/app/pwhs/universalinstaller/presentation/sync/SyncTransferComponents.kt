@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.LinearProgressIndicator
+import app.pwhs.universalinstaller.ui.theme.aero.AeroLiquidProgressBar
+import app.pwhs.universalinstaller.ui.theme.aero.AeroTransferBridge
+import app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,10 +36,12 @@ fun SyncTransferProgressCard(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
+    val aeroTokens = LocalAeroTokens.current
 
     Surface(
         shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+        color = aeroTokens?.denseFrost ?: MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+        border = aeroTokens?.let { androidx.compose.foundation.BorderStroke(1.dp, it.rimMid) },
         modifier = modifier.fillMaxWidth()
     ) {
         Column(
@@ -63,13 +68,25 @@ fun SyncTransferProgressCard(
                 )
             }
 
-            LinearProgressIndicator(
-                progress = { progress.percentage / 100f },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(6.dp),
-                trackColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            )
+            if (aeroTokens != null) {
+                AeroTransferBridge(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(26.dp),
+                )
+                AeroLiquidProgressBar(
+                    progress = progress.percentage / 100f,
+                    height = 12.dp,
+                )
+            } else {
+                LinearProgressIndicator(
+                    progress = { progress.percentage / 100f },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(6.dp),
+                    trackColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                )
+            }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),

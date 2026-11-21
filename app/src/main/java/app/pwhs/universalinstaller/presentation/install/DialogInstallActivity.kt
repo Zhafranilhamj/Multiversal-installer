@@ -32,6 +32,8 @@ import app.pwhs.universalinstaller.presentation.install.util.InstallSessionManag
 import app.pwhs.core.data.local.dataStore
 import app.pwhs.core.domain.AppThemePreset
 import app.pwhs.core.domain.ThemeMode
+import app.pwhs.core.ui.theme.ThemeSnapshot
+import app.pwhs.core.ui.theme.themeSnapshot
 import app.pwhs.core.util.PermissionMonitor
 import app.pwhs.universalinstaller.IntentHandoff
 import app.pwhs.universalinstaller.domain.model.ExternalOpenMode
@@ -413,12 +415,11 @@ class DialogInstallActivity : FragmentActivity() {
                 dismissAndFinish()
             }
 
-            val themeModeName = prefs?.get(stringPreferencesKey("theme_mode")) ?: ThemeMode.System.name
-            val themeMode = ThemeMode.entries.find { it.name == themeModeName } ?: ThemeMode.System
-            val dynamicColor = prefs?.get(booleanPreferencesKey("dynamic_color")) ?: false
-            val amoledMode = prefs?.get(booleanPreferencesKey("amoled_mode")) ?: false
-            val presetName = prefs?.get(stringPreferencesKey("theme_preset")) ?: AppThemePreset.Orange.name
-            val themePreset = AppThemePreset.entries.find { it.name == presetName } ?: AppThemePreset.Orange
+            val themeSnapshot = prefs?.themeSnapshot() ?: ThemeSnapshot()
+            val themeMode = themeSnapshot.mode
+            val dynamicColor = themeSnapshot.dynamicColor
+            val amoledMode = themeSnapshot.amoledMode
+            val themePreset = themeSnapshot.themePreset
 
             DialogInstallContent(
                 uiState = uiState,
@@ -429,6 +430,8 @@ class DialogInstallActivity : FragmentActivity() {
                 dynamicColor = dynamicColor,
                 amoledMode = amoledMode,
                 themePreset = themePreset,
+                visualStyle = themeSnapshot.uiStyle,
+                aeroConfig = themeSnapshot.aeroConfig,
                 autoOpenAfterInstall = autoOpenAfterInstall,
                 showKeepApkOption = deleteApkAfterInstall,
                 keepApk = keepApk,

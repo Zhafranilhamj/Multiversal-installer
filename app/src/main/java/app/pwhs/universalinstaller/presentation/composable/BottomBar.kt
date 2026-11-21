@@ -8,6 +8,16 @@ import androidx.compose.material.icons.rounded.InstallMobile
 import androidx.compose.material.icons.rounded.QueryStats
 import androidx.compose.material.icons.rounded.RocketLaunch
 import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
@@ -24,7 +34,11 @@ import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import app.pwhs.core.R as CoreR
 import app.pwhs.core.data.local.SharedPrefsKeys
@@ -33,6 +47,8 @@ import app.pwhs.universalinstaller.presentation.install.InstallActivity
 import app.pwhs.universalinstaller.presentation.manage.ManageActivity
 import app.pwhs.universalinstaller.presentation.setting.SettingActivity
 import app.pwhs.universalinstaller.presentation.stats.StatsActivity
+import app.pwhs.universalinstaller.ui.theme.aero.aeroGel
+import app.pwhs.universalinstaller.ui.theme.aero.aeroGlass
 import app.pwhs.universalinstaller.util.extension.disableSceneTransition
 
 enum class BottomBarItem(
@@ -106,6 +122,35 @@ fun BottomBar(
 
     val isAmoled = colors.background == Color.Black && colors.surface == Color.Black
 
+    val onSelect: (BottomBarItem) -> Unit = { destination ->
+        if (currentTab != destination && destination.activityClass != null) {
+            val intent = Intent(context, destination.activityClass).apply {
+                flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_NO_ANIMATION
+            }
+            context.startActivity(intent)
+            (context as? Activity)?.disableSceneTransition()
+        }
+    }
+    val badgeFor: (BottomBarItem) -> Int = { destination ->
+        when (destination) {
+            BottomBarItem.Updates -> updateCount
+            BottomBarItem.Stats -> unseenMilestoneCount
+            else -> 0
+        }
+    }
+
+    val aeroTokens = app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current
+    if (aeroTokens != null) {
+        AeroBottomNavigation(
+            destinations = destinations,
+            currentTab = currentTab,
+            badgeFor = badgeFor,
+            onSelect = onSelect,
+            tokens = aeroTokens,
+        )
+        return
+    }
+
     NavigationBar(
         containerColor = if (isAmoled) Color.Black else NavigationBarDefaults.containerColor,
     ) {
@@ -114,21 +159,9 @@ fun BottomBar(
             NavigationBarItem(
                 selected = isSelected,
                 colors = itemColors,
-                onClick = {
-                    if (!isSelected && destination.activityClass != null) {
-                        val intent = Intent(context, destination.activityClass).apply {
-                            flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_NO_ANIMATION
-                        }
-                        context.startActivity(intent)
-                        (context as? Activity)?.disableSceneTransition()
-                    }
-                },
+                onClick = { onSelect(destination) },
                 icon = {
-                    val badgeCount = when (destination) {
-                        BottomBarItem.Updates -> updateCount
-                        BottomBarItem.Stats -> unseenMilestoneCount
-                        else -> 0
-                    }
+                    val badgeCount = badgeFor(destination)
                     if (badgeCount > 0) {
                         BadgedBox(
                             badge = {
@@ -157,6 +190,100 @@ fun BottomBar(
                     )
                 },
             )
+        }
+    }
+}
+
+/**
+ * Frosted Aero navigation bar: translucent glass with a hairline specular rim, and the active
+ * tab marked by a glowing aqua glass pill that slides between items.
+ */
+@Composable
+private fun AeroBottomNavigation(
+    destinations: List<BottomBarItem>,
+    currentTab: BottomBarItem,
+    badgeFor: (BottomBarItem) -> Int,
+    onSelect: (BottomBarItem) -> Unit,
+    tokens: app.pwhs.universalinstaller.ui.theme.aero.AeroTokens,
+) {
+    androidx.compose.foundation.layout.Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .navigationBarsPadding()
+            .padding(horizontal = 10.dp, vertical = 8.dp),
+    ) {
+        androidx.compose.foundation.layout.Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(66.dp)
+                .aeroGlass(
+                    tokens = tokens,
+                    shape = RoundedCornerShape(26.dp),
+                    frost = tokens.navGlass,
+                    elevation = 14.dp,
+                )
+                .padding(horizontal = 6.dp, vertical = 6.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            destinations.forEach { destination ->
+                val isSelected = currentTab == destination
+                androidx.compose.foundation.layout.Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .clip(RoundedCornerShape(20.dp))
+                        .then(
+                            if (isSelected) {
+                                Modifier
+                                    .aeroGel(
+                                        tokens = tokens,
+                                        colors = listOf(
+                                            tokens.activeCyan.copy(alpha = 0.42f),
+                                            tokens.activeCyan.copy(alpha = 0.16f),
+                                        ),
+                                        enabled = false,
+                                        shape = RoundedCornerShape(20.dp),
+                                    )
+                            } else {
+                                Modifier
+                            },
+                        )
+                        .clickable { onSelect(destination) },
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    val badgeCount = badgeFor(destination)
+                    if (badgeCount > 0) {
+                        BadgedBox(
+                            badge = {
+                                Badge {
+                                    Text(if (badgeCount > 99) "99+" else badgeCount.toString())
+                                }
+                            },
+                        ) {
+                            Icon(
+                                imageVector = destination.icon,
+                                contentDescription = stringResource(destination.label),
+                                tint = if (isSelected) tokens.activeCyan else tokens.inkSecondary,
+                            )
+                        }
+                    } else {
+                        Icon(
+                            imageVector = destination.icon,
+                            contentDescription = stringResource(destination.label),
+                            tint = if (isSelected) tokens.activeCyan else tokens.inkSecondary,
+                        )
+                    }
+                    Text(
+                        text = stringResource(destination.label),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = if (isSelected) tokens.inkPrimary else tokens.inkSecondary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
         }
     }
 }
