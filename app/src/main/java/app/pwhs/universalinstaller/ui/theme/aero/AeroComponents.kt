@@ -15,6 +15,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -447,4 +449,31 @@ fun AeroCausticBand(modifier: Modifier = Modifier, height: Dp = 3.dp) {
             }
         }
     }
+}
+
+/**
+ * Rounded, frosted container for bottom sheets and dialogs: glass body, heavy top rim and a
+ * soft inner shadow where the sheet meets the sky behind it.
+ */
+@Composable
+fun AeroSheetContainer(
+    modifier: Modifier = Modifier,
+    shape: Shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+    contentPadding: PaddingValues = PaddingValues(horizontal = 20.dp, vertical = 18.dp),
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    val tokens = LocalAeroTokens.current ?: return
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .aeroGlass(
+                tokens = tokens,
+                shape = shape,
+                frost = tokens.floatingFrost,
+                elevation = 18.dp,
+                rimWidth = 1.5.dp,
+            )
+            .padding(contentPadding),
+        content = content,
+    )
 }
