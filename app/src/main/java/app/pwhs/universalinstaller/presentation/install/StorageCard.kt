@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import app.pwhs.core.util.StorageUtil
 import app.pwhs.universalinstaller.R
 import app.pwhs.universalinstaller.presentation.install.util.AppCacheManager
+import app.pwhs.universalinstaller.ui.theme.aero.AeroDewdrop
 import app.pwhs.universalinstaller.ui.theme.aero.AeroGelButton
 import app.pwhs.universalinstaller.ui.theme.aero.AeroGlassCard
 import app.pwhs.universalinstaller.ui.theme.aero.AeroLiquidProgressBar
@@ -236,6 +237,10 @@ private fun AeroStorageCardContent(
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
+                    Spacer(Modifier.size(8.dp))
+                    AeroDewdrop(size = 10.dp)
+                    Spacer(Modifier.size(3.dp))
+                    AeroDewdrop(size = 6.dp)
                 }
                 AeroGelButton(
                     onClick = onClearCache,

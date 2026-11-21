@@ -410,13 +410,20 @@ private fun DownloadSourceContent(
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
                 if (percent != null) {
-                    LinearProgressIndicator(
-                        progress = { percent / 100f },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(8.dp)
-                            .clip(RoundedCornerShape(4.dp)),
-                    )
+                    if (app.pwhs.universalinstaller.ui.theme.aero.LocalAeroTokens.current != null) {
+                        app.pwhs.universalinstaller.ui.theme.aero.AeroLiquidProgressBar(
+                            progress = percent / 100f,
+                            height = 12.dp,
+                        )
+                    } else {
+                        LinearProgressIndicator(
+                            progress = { percent / 100f },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(8.dp)
+                                .clip(RoundedCornerShape(4.dp)),
+                        )
+                    }
                 } else {
                     LinearProgressIndicator(
                         modifier = Modifier

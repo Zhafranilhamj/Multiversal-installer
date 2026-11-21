@@ -4,6 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -48,6 +49,9 @@ fun PositionDialog(
                     Box(contentAlignment = Alignment.Center) {
                         if (celebrate) {
                             app.pwhs.universalinstaller.ui.theme.aero.AeroSuccessRipple(size = 190.dp)
+                            app.pwhs.universalinstaller.ui.theme.aero.AeroCelebration(
+                                modifier = Modifier.size(190.dp),
+                            )
                         }
                         app.pwhs.universalinstaller.ui.theme.aero.AeroIconPedestal(
                             haloColor = if (celebrate) aeroTokens.safeEmerald else aeroTokens.activeCyan,

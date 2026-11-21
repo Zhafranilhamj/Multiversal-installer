@@ -415,3 +415,45 @@ fun AeroDewdropRow(modifier: Modifier = Modifier) {
         AeroDewdrop(Modifier, 12.dp)
     }
 }
+
+/**
+ * Sparkle burst that drifts outward while the success ripples expand — the final flourish of a
+ * successful install. One Canvas draw, no per-sparkle composables.
+ */
+@Composable
+fun AeroCelebration(
+    modifier: Modifier = Modifier,
+    active: Boolean = true,
+    sparks: Int = 10,
+) {
+    if (!active) return
+    val tokens = LocalAeroTokens.current ?: return
+    val transition = rememberInfiniteTransition(label = "aero-celebration")
+    val phase by transition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(tween(1800, easing = LinearEasing), RepeatMode.Restart),
+        label = "aero-celebration-phase",
+    )
+    Canvas(modifier = modifier) {
+        val center = Offset(this.size.width / 2f, this.size.height / 2f)
+        val maxR = this.size.minDimension / 2f
+        for (i in 0 until sparks) {
+            val p = (phase + i * (1f / sparks)) % 1f
+            val angle = (i * 36f + p * 24f) * (PI / 180.0).toFloat()
+            val radius = maxR * (0.45f + 0.55f * p)
+            val alpha = sin(PI * p).toFloat().coerceIn(0f, 1f) * 0.9f
+            val sparkCenter = Offset(
+                center.x + cos(angle) * radius,
+                center.y + sin(angle) * radius,
+            )
+            val r = (2.2f + 3.4f * p) * density
+            drawCircle(color = Color.White.copy(alpha = alpha), radius = r, center = sparkCenter)
+            drawCircle(
+                color = tokens.activeCyan.copy(alpha = alpha * 0.8f),
+                radius = r * 0.45f,
+                center = sparkCenter,
+            )
+        }
+    }
+}
