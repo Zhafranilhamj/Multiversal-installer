@@ -34,7 +34,9 @@ jobs:
       - name: Run Gradle Build
         id: gradle
         continue-on-error: true
-        run: ./gradlew :app:assembleOpensourceDebug :tv:assembleDebug :wearos:assembleDebug 2>&1 | tee build-output.log
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleOpensourceDebug :tv:assembleDebug :wearos:assembleDebug 2>&1 | tee build-output.log
 
       # Kotlin errors are only visible in the (authenticated) Actions log, so surface the useful
       # part of a failed build as a PR comment — that is readable by tooling and by the author.
